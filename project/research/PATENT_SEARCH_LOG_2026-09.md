@@ -1,0 +1,65 @@
+# Focused patent and literature search log — September 2026
+
+Search/access date: **9 September 2026**; time checkpoint **18:23:44 UTC**. Companion assessment: [PATENT_REVIEW_2026-09.md](PATENT_REVIEW_2026-09.md). This log records a bounded search, not a complete novelty or freedom-to-operate search. The old query logs and prior-art review were not changed.
+
+## Scope and method
+
+The target was the actual eleven discussion claims: positive scalar quadratic-effort heating, one-sided noise-before-clipping observation, finite state interval, exact accepted FIFO, current/every-prefix checks, a greatest admissible grid action, an invariant indefinite zero-input tail, persistent invalid state, and update from a caller-asserted applied action.
+
+Queries used established technical terminology. Search-index results were leads; conclusions rely on original research papers and patent text, including original documents hosted on author sites or mirrors. Relative “published X months ago” search labels were not accepted as publication dates. Patent grant/publication dates were distinguished from claimed priority dates; current enforceability was not assessed. No search included account credentials, private input documents, or a submission to a patent office. No filing or communication to a person occurred.
+
+## Exact search queries
+
+The grouped rows preserve the query strings used; results were screened for mechanism relevance, not merely matching titles.
+
+| Group | Queries | Disposition |
+| --- | --- | --- |
+| A — initial intersection | `"thermal" "command governor" "saturation" temperature queue`; `"interval estimation" "command governor" delay thermal`; `motor thermal control pending commands interval temperature clipping patent`; `"thermal" "FIFO" "patent" motor command` | Located the established interval governor, motor derating patents, and many irrelevant FIFO/printing results. |
+| B — closest original papers | `"Constrained Control for Cloud Robotic" pdf`; `"Set-membership filtering for systems with sensor saturation" pdf`; `"reference governor" "thermal" "queue"` | Reopened L1/L2 and differentiated source equations from broad summaries. |
+| C — scalar cap and queued workload | `"motor" "thermal" "square root" patent "current"`; `"temperature" "pending commands" patent`; `"reference governor" "quantized" "invariant"` | Led to P1, P2, P4 and L7. These became substantive additions to the earlier review. |
+| D — citation-chain expansion | `"Predictive control of teleoperated constrained systems" Bemporad pdf`; `"US5539601" temperature`; `"Robust Soft-Landing Control with Quantized Input" pdf`; `"State estimation in networked control systems with delayed and lossy acknowledgments" 2017 pdf` | Reached author-hosted L6/L7 and the earlier L3 conference version. P1's older cited motor patent was logged but not fully mapped. |
+| E — recent/adjacent screen | `"motor" "thermal" "interval observer" protection`; `"temperature" "sensor saturation" "predictive control" 2024 2025 2026`; `patent "thermal" "queue" "admission" control temperature`; `"US5539601A"` | No fully verified exact claim-set match identified. Two very recent secondary-only patent leads were quarantined below. This is not a statement that the field has no recent relevant work. |
+| F — identity/access checks | `"7248009" "B1" OR "B2" patent`; `"US5539601" "motor"`; `"US12657639B1" patent`; `"CN122672902A"` | Corrected the attempted P1 kind code to B1; sought primary confirmation of newer leads without accepting AI summaries as patent evidence. |
+| G — older estimation/prediction chain and final terminology check | `site:cse.lab.imtlucca.it "Predictive control via set-membership state estimation" pdf`; `"motor thermal" "interval" "governor" 2025 2026`; `"temperature" "clipped" "command queue" control patent` | Located L5's explicit intersection/prediction recursion and finite-versus-infinite constraint theorem. Screened motor/disk results where “clipping” referred to actuation rather than a censored temperature sensor. |
+
+## Primary documents inspected
+
+Locations below identify the portions used, not a claim that every bibliography entry or patent-family member was audited. The review contains the technical summaries; this table records access.
+
+| Review ID | Source URL and inspected scope | Date/version and access outcome |
+| --- | --- | --- |
+| L1 | [Brunel original PDF](https://people.brunel.ac.uk/~csstyyl/papers/auto2009.pdf): title page, §2 eqs. (1)–(9), §3 Theorem 1, Remarks 1–2 and reference list. | Seven-page PDF text accessible. Title page says online 27 May 2009. Noise-after-saturation equation checked directly. |
+| L2 | [Original paper mirrored on ResearchGate](https://www.researchgate.net/publication/333504107_Constrained_Control_for_Cloud_Robotic_Under_Time_Delay_Based_on_Command_Governor_With_Interval_Estimation): §§III–IV, command history and interval constraints, eqs. (19)–(21), (31)–(32). [Publisher DOI attempt](https://doi.org/10.1109/ACCESS.2019.2920017). | DOI opening failed. The indexed typeset excerpt lists publication 30 May 2019 and pages 70999–71006. A direct mirror extraction also exposed an accepted-manuscript version with placeholder front matter. Technical locations were inspected in the original-paper text; the exact publication day was not independently confirmed at IEEE in this pass. |
+| L3 | [2017 author PDF](https://isas.iar.kit.edu/pdf/MFI17_Rosenthal.pdf), §§II–III; [extended chapter PDF](https://isas.iar.kit.edu/pdf/LNEE18_Rosenthal.pdf), §2 Remarks 1–2, §3.1, references 5 and 12. | Seven- and seventeen-page PDF texts accessible. The chapter explicitly identifies its 2017 predecessor and DOI. The earlier review identifies the extension as 2018; this pass relies on the 2017 conference identity and does not establish the chapter's exact online publication day. |
+| L4 | [arXiv metadata](https://arxiv.org/abs/1812.05506) and [PDF](https://arxiv.org/pdf/1812.05506): §4.1–4.2, eqs. (5)–(6), Algorithms 1–2. | Seventeen-page v4 accessible; metadata confirms first submission 13 December 2018 and v4 revision 17 May 2021. Details read in v4 are not automatically attributed to v1. |
+| L5 | [1997 author PDF](https://cse.lab.imtlucca.it/~bemporad/publications/papers/ecc97-sm-mpc.pdf): §2 recursion, eqs. (7), (9)–(12), §3 Theorem 1 eqs. (13)–(14). [Author bibliography](https://cse.lab.imtlucca.it/~bemporad/publications/papers/). | Six-page original text accessible; bibliography identifies ECC, Brussels, July 1997. A [2000 journal successor](https://cse.lab.imtlucca.it/~bemporad/publications/papers/ijc_sm-mpc.pdf) opened as eleven-page PDF but returned no extracted text; it was not used for a claim-level mapping. |
+| L6 | [1998 author PDF](https://cse.lab.imtlucca.it/~bemporad/publications/papers/cdc98-www.pdf): §§1–2, Fig. 1, eqs. (1)–(4), references. | Six-page original text accessible; 1998 CDC identity and DOI also appear in L3's reference 5 and author bibliography. |
+| L7 | [MERL record](https://merl.com/publications/TR2016-108) and [original PDF](https://www.merl.com/publications/docs/TR2016-108.pdf): §§3.1–3.3, eqs. (7), (11). | Eight-page PDF including institutional cover accessible. MERL supplies August 2016, volume/pages, and DOI. |
+| P1 | [US7248009B1 original text](https://patents.google.com/patent/US7248009B1/en), [issued PDF](https://patentimages.storage.googleapis.com/54/5c/b1/43d9edc66709c9/US7248009.pdf), [Justia mirror](https://patents.justia.com/patent/7248009): claims 1, 3–4, 6–11; Figs. 4–5; eq. (3); cited documents. | B1 and ten-page issued PDF verified. An initial guessed B2 URL failed and is not a valid citation. Record lists grant publication 24 July 2007 and A1 publication 5 July 2007; no family-wide support/priority audit. The review avoids relying on claim 5's anomalous comparative wording in the text extraction. |
+| P2 | [US7114029B1 record](https://patents.google.com/patent/US7114029B1/en) and [issued PDF](https://patentimages.storage.googleapis.com/3c/86/41/4233b114e16aeb/US7114029.pdf): claims 1/4, 6/9; Figs. 5A–5B; backward/forward citation listings. | Twelve-page issued PDF accessible. Publication 26 September 2006 confirmed in record; claimed priority/filing date 31 October 2002 recorded as metadata only. |
+| P3 | [US8773058B2 original text](https://patents.google.com/patent/US8773058B2/en): claims 1–6, Fig. 5 and publication metadata. | Full text accessible, publication 8 July 2014. Rechecked from the earlier review; no prosecution/legal-status conclusion. |
+| P4 | [US11994926B2 original text mirrored by Justia](https://patents.justia.com/patent/11994926): claims 1, 5–7 and description of Figs. 5/10. | Full text accessible; grant publication 28 May 2024 shown. Google Patents opening failed. Issued PDF and earliest family publication were not independently retrieved; the mapping explicitly separates dependent claims from descriptive thermal embodiments. |
+
+## Citation-chain work actually performed
+
+- L3's extended chapter reference 12 led to its original 2017 paper, which was then retrieved from the authors' institution. Reference 5 led to L6's 1998 original paper. L6's author bibliography led to L5's earlier set-membership/predictive-control work; L5's original equations and theorem were inspected, rather than assuming a title-level overlap.
+- P1's cited-document list includes [US5539601](https://patents.justia.com/patent/5539601), *Apparatus and method for thermal protection of electric motors*, 23 July 1996, and [US20040195989](https://patents.justia.com/patent/20040195989), 7 October 2004. The first mirror initially opened, but later targeted text requests returned errors; neither predecessor received a complete limitation-level comparison in this pass. They remain expansion leads, not silently treated as reviewed claims.
+- P2's citation listings were inspected for adjacent scheduling work. Many concern storage/cache ordering rather than censored thermal estimation. This was screening, not a complete backward/forward citation closure.
+- L7 was reached through the quantization/invariance query. Its actual rounding rule was inspected; it was not equated with TQG's downward scalar floor.
+
+## Other screened leads and access limits
+
+| Lead | Actual disposition |
+| --- | --- |
+| [US20200228049A1, motor/inverter temperature control](https://patents.google.com/patent/US20200228049A1/en) | Patent page accessible and screened for thermal derating. Not developed into a complete claim comparison; P1/P3 were more directly useful for the present matrix. |
+| [US20240105221A1, magnetic disk device](https://patents.justia.com/patent/20240105221) | Search excerpt describes acceleration clipping/current limiting and temperature-dependent thresholds. This was not treated as clipped **temperature measurement** evidence. No full claim mapping performed. |
+| [US12657639B1 secondary lead](https://eureka.patsnap.com/patent/US12657639B1) | Secondary page/search result describes compute admission and permits and labels some content AI-generated. [Primary-document lookup attempt](https://patents.google.com/patent/US12657639B1/en) failed. The claimed recent publication date, exact original title/text, and claims were not primary-verified. **Excluded from substantive overlap conclusions.** |
+| [CN122672902A secondary lead](https://eureka.patsnap.com/patent/CN122672902A) | Secondary translated/AI summary concerns thermal task admission. [Primary-document lookup attempt](https://patents.google.com/patent/CN122672902A/en) failed. Original Chinese claims and reported September 2026 date were not primary-verified. **Excluded from substantive overlap conclusions.** |
+| [US20250077280A1, thermal-aware thread scheduling](https://patents.google.com/patent/US20250077280A1/en) | Search-level lead only, outside the motor-specific mechanism. No full-text novelty conclusion. |
+| TU Wien thermal-protection thesis from the prior review | Not reopened in this focused pass. The old abstract-only/full-text limitation remains; this review does not upgrade it to algorithm-level evidence. |
+
+## Coverage statement
+
+This pass did not complete USPTO/EPO/WIPO classification searching, prosecution analysis, family-by-family claim comparison, non-English original-text review, or forward/backward citation closure. Classification labels observed at P1 included `H02P29/60`, `H02P29/64`, `H02H6/00`, and `G05B2219/42281`; observing those labels is not equivalent to searching each class exhaustively. Recent search queries supplement older citation chains but cannot prove that no newer document exists.
+
+No result establishes a patent filing's earliest entitlement, current enforceability, or the project's human inventive contributions. Searches and document access were read-only; the only new repository artifacts from this review are the companion assessment and this log. Any subsequent virtual-motor experiments, new protocol features, or authorship edits are separate project work and are not evidence that this search established novelty.

@@ -4,6 +4,16 @@ A reproducible research and patent discussion package for scalar motor thermal c
 
 This is a synthetic simulation prototype. It is not a validated hardware controller or a granted patent. Patentability, human inventorship, ownership, and filing readiness remain unresolved.
 
+## September 2026 patent review and motor-validation preparation
+
+The [expanded patent review](project/research/PATENT_REVIEW_2026-09.md) maps all 11 discussion claims against earlier research and patents, with an [auditable search log](project/research/PATENT_SEARCH_LOG_2026-09.md). It finds substantial overlap in the broad ingredients. The exact narrow combination remains unresolved; **uniqueness has not been established**. The new [review and validation-preparation packet](PATENT_REVIEW_AND_VIRTUAL_VALIDATION.pdf) supplements the historical dossier.
+
+An independent [virtual-motor test harness](project/virtual_motor/) adds current response, winding and housing temperatures, sensor lag, and energy checks. Its defaults are explicitly illustrative. The owner selected a specific motor and is providing its specifications, so **motor-specific calibration and held-out validation are pending**. No physical motor has been tested. Running software in a VM does not change that distinction.
+
+Follow the [dated process log](project/research/VALIDATION_PROCESS_LOG.md), [motor specification worksheet](project/research/MOTOR_SPECIFICATION_INTAKE.md), and [draft validation protocol](project/virtual_motor/PROTOCOL.md). Synthetic code checks are reported separately from motor-validation episodes and the original study.
+
+The [Python workflow](https://github.com/SrinivasNampalli/thermal-queue-governor/actions/workflows/tests.yml) runs both the original controller checks and the new synthetic plant checks on GitHub-hosted Linux and Windows VMs. Each run records its commit and pass/fail logs. It performs software verification; it does not run the pending motor-specific study.
+
 ## Explore the landing page and interactive prototype
 
 **[Open the live webpage](https://srinivasnampalli.github.io/thermal-queue-governor/)** · **[Jump to the interactive prototype](https://srinivasnampalli.github.io/thermal-queue-governor/#prototype)** · **[Watch the recorded walkthrough](https://srinivasnampalli.github.io/thermal-queue-governor/watch.html)**
@@ -65,7 +75,7 @@ This repository publication is separate from any patent filing. No patent applic
 
 ## Rights, citation, and provenance
 
-Original materials remain [rights reserved pending review](LICENSE); this is not an open-source grant. Third-party dependencies retain their own licenses. [CITATION.cff](CITATION.cff) attributes SrinivasNampalli as project maintainer without determining patent inventorship. No DOI is claimed unless a verified Zenodo record is linked here.
+Original materials remain [rights reserved pending review](LICENSE); this is not an open-source grant. Third-party dependencies retain their own licenses. [CITATION.cff](CITATION.cff) names **Srinivas Nampalli and Saathvik Gampa** as the user-designated document authors and records the user's equal-contribution statement. [AUTHORS.md](AUTHORS.md) separates that statement from the unresolved specific contributions and patent inventorship. SrinivasNampalli remains the project maintainer. No DOI is claimed unless a verified Zenodo record is linked here.
 
 Checksums verify file identity. The short Git history records source changes; it does not independently prove conception, priority, earliest public availability, or patentability. The [disclosure ledger](project/research/DISCLOSURE_LEDGER.md) records the public repository follow-up and unresolved timing facts.
 

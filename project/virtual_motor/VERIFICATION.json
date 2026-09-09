@@ -1,0 +1,31 @@
+{
+  "scope": "Synthetic software verification only; no calibration or held-out motor study executed",
+  "utc": "2026-09-09T20:16:39.108811+00:00",
+  "python": "3.12.8 (tags/v3.12.8:2dc476b, Dec  3 2024, 19:30:04) [MSC v.1942 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "command": "python -m unittest discover -s project/virtual_motor/tests -v",
+  "tests": 24,
+  "failures": 0,
+  "errors": 0,
+  "passed": true,
+  "duration_seconds": 0.44646930000089924,
+  "fast_current_regression": {
+    "analytic_joule_energy_J": 0.00784,
+    "resolved_joule_energy_J": 0.007840010613933059,
+    "absolute_error_J": 1.061393305884506e-08,
+    "actual_dt_s": 1.25e-05,
+    "substeps": 2000
+  },
+  "source_sha256": {
+    "project/virtual_motor/plant.py": "91beeaab2ecc19bd1516580829e9a8ee3bbbc098d0d971306f6a6e3d71d8eb5f",
+    "project/virtual_motor/run_virtual_motor.py": "5208100094dccf598704500c73474e6b906a57c7b7f191ce8a86450bf588a0ca",
+    "project/virtual_motor/tests/test_virtual_motor.py": "e434a29bcdccfdc1c0e2c70bc572cf0ef14c0d939997fffb353cc70e53c434d6",
+    "project/virtual_motor/protocol.json": "d8aa240951d9825d495e79c4ec1e3ebf6ce79c881cf24df9b8718aeac9043196",
+    "project/virtual_motor/PROTOCOL.md": "40880a01313a31d1402ba3f39e7e4c0fc0e8a1368a2d66c537fd63d6804d4320",
+    "project/virtual_motor/README.md": "5c5af1fb416d46fae1c53cc9dca177fa78c46dff5109b893f96a9b26b51f765e",
+    "project/src/governor.py": "9cccc5f82ad0aaa759e379471874bd7fa163d0580c920f4d033ae14a07b6975f"
+  },
+  "calibration_executions": 0,
+  "held_out_executions": 0,
+  "virtual_machine_execution_established": false
+}

@@ -1,5 +1,7 @@
 # Thermal Limits Under Clipped Sensing and Delayed Actuation
 
+**Document authors: Srinivas Nampalli and Saathvik Gampa.** The owner reports equal general technical contributions. AI-assisted research draft; specific contribution statements and patent inventorship remain under review.
+
 ## Abstract
 A clipped temperature reading does not identify the remaining thermal headroom, and a newly requested derating action may execute after previously accepted commands. This study implements a scalar interval thermal governor that intersects censored measurements with a predicted state interval, evaluates the complete accepted-command queue, and selects a bounded effort whose trajectory admits a zero-input continuation. A conditional sampled-state argument and reproducible synthetic experiments examine the roles of uncertainty and queue accounting. In the primary evaluation, the governor produced no limit breaches or state-containment failures in 120 valid-model episodes, while delivering 90.4% of requested normalized effort on average. A robust constant cap also produced no breaches and delivered 67.1%. A separate clipped-value ablation breached in 28 of 40 episodes. Deliberately incorrect model or applied-action information invalidated containment. These are simulation findings for selected parameters, not motor measurements. Closely related estimation, governor and thermal-control literature prevents a broad novelty claim.
 
@@ -97,6 +99,8 @@ The next meaningful technical step is calibration plus held-out bench validation
 The source, tests, configurations, raw gzip CSVs, figures, amendments, snapshots and run metadata accompany this manuscript. The original review ran 15 boundary tests; subsequent software verification comprises 47 Python tests, 23 JavaScript tests and browser checks. The reported studies contain 1,120 episodes and 1,008,000 transitions. The separate 900-episode pilot brings retained completed episodes to 2,020. One interrupted partial run is excluded.
 
 Technical feasibility is demonstrated for this software model; physical validation is untested; broad patent framing has high prior-art overlap; narrow patentability is unresolved. Human conception, inventorship, ownership, jurisdiction and filing administration remain unresolved. No filing, publication submission or patent grant is represented by this manuscript.
+
+September 2026 addendum: the [expanded eleven-claim review](https://github.com/SrinivasNampalli/thermal-queue-governor/blob/main/project/research/PATENT_REVIEW_2026-09.md) strengthens the prior-art challenges without establishing uniqueness. A separate current/winding/housing/sensor test harness is being prepared for motor-specific evaluation. The owner selected a specific motor and will supply its specifications; calibration and held-out motor validation have not run. Synthetic software checks do not change this manuscript's study counts.
 
 ## References
 [1] Nampalli et al. Control-Aware Predictive Maintenance of Industrial Robot Motors Using Multi-Sensor Fusion and FDIR Integration. Supplied seven-page PDF; exact publication date unknown. Relevant pp. 4, 6; source audit records discrepancies.

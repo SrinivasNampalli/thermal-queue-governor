@@ -129,18 +129,20 @@ def ablation_chart():
     label(d,265,13,"Time (one-second samples)",9);label(d,47,210,"Temperature (C)",8,anchor="start")
     return d
 FIGURES={"architecture":architecture(),"flow":flow(),"primary_results":results_chart(),"ablation":ablation_chart()}
-for name,d in FIGURES.items():renderSVG.drawToFile(d,str(FIG/(name+".svg")))
-with (FIG/"primary_chart_data.csv").open("w",newline="") as f:
-    wr=csv.DictWriter(f,fieldnames=list(primary[0]));wr.writeheader();wr.writerows(primary)
-for docname in ("TECHNICAL_DISCLOSURE.md","CLAIMS_DISCUSSION_DRAFT.md"):
-    pp=BASE/"docs"/docname;s=pp.read_text(encoding="utf8")
-    s=s.replace("planned block diagram","block diagram").replace("planned decision flow","decision flow")
-    s=s.replace("identifies a planned figure and its disclosure paragraph, not an already rendered drawing","identifies an authored vector figure in figures/architecture.svg or figures/flow.svg and its disclosure paragraph")
-    pp.write_text(s,encoding="utf8")
+def write_figures():
+    """Export the original study figures only during an explicit full build."""
+    for name,d in FIGURES.items():renderSVG.drawToFile(d,str(FIG/(name+".svg")))
+    with (FIG/"primary_chart_data.csv").open("w",newline="") as f:
+        wr=csv.DictWriter(f,fieldnames=list(primary[0]));wr.writeheader();wr.writerows(primary)
+    for docname in ("TECHNICAL_DISCLOSURE.md","CLAIMS_DISCUSSION_DRAFT.md"):
+        pp=BASE/"docs"/docname;s=pp.read_text(encoding="utf8")
+        s=s.replace("planned block diagram","block diagram").replace("planned decision flow","decision flow")
+        s=s.replace("identifies a planned figure and its disclosure paragraph, not an already rendered drawing","identifies an authored vector figure in figures/architecture.svg or figures/flow.svg and its disclosure paragraph")
+        pp.write_text(s,encoding="utf8")
 class Doc(BaseDocTemplate):
-    def __init__(self,p):
+    def __init__(self,p,author="Unassigned; AI-assisted preparation"):
         super().__init__(str(p),pagesize=(612,792),leftMargin=51,rightMargin=51,topMargin=49,bottomMargin=49,
-          title=p.stem.replace("_"," "),author="Unassigned; AI-assisted preparation")
+          title=p.stem.replace("_"," "),author=author)
         self.addPageTemplates(PageTemplate(id="normal",frames=[Frame(51,49,510,694,leftPadding=0,rightPadding=0,topPadding=0,bottomPadding=0)],onPage=self.footer))
     def footer(self,c,doc):c.setFont("Arial",8);c.drawRightString(561,28,str(doc.page))
     def afterFlowable(self,f):
@@ -158,6 +160,7 @@ def tab(rows):
     if n==4:widths=[180,96,108,126]
     if n==3:widths=[242,132,136]
     if n==3 and rows[0][0]=="ID":widths=[42,220,248]
+    if n==3 and rows[0][0]=="Item":widths=[160,95,255]
     t=Table([[Paragraph(inline(str(v)),styles["cell"]) for v in row] for row in rows],colWidths=widths,repeatRows=1,hAlign="LEFT")
     t.setStyle(TableStyle([("VALIGN",(0,0),(-1,-1),"TOP"),("BACKGROUND",(0,0),(-1,0),colors.HexColor("#eeeeee")),
     ("LINEBELOW",(0,0),(-1,0),.8,colors.black),("LINEBELOW",(0,1),(-1,-1),.3,colors.HexColor("#cccccc")),
@@ -215,16 +218,17 @@ def markdown(text,include_first_title=True):
         paragraph=Paragraph(inline(" ".join(parts)),styles["small"] if re.match(r"^\[\d{1,2}\] ",parts[0]) else styles["body"])
         story.append(KeepTogether([paragraph]) if re.match(r"^\*\*\d+\.\*\*",parts[0]) else paragraph)
     return story
-def writepdf(name,text,drawings=False):
+def writepdf(name,text,drawings=False,author="Unassigned; AI-assisted preparation"):
     # Keep the expanded manuscript's references together without shrinking type.
     body=styles["body"];spacing=(body.leading,body.spaceAfter)
-    if name=="RESEARCH_MANUSCRIPT.pdf":body.leading=15.0;body.spaceAfter=7
+    if name=="RESEARCH_MANUSCRIPT.pdf":body.leading=14.7;body.spaceAfter=6
     try:
         story=markdown(text)
         if drawings:story.extend([PageBreak(),h("Drawings"),copy.deepcopy(FIGURES["architecture"]),PageBreak(),copy.deepcopy(FIGURES["flow"])])
-        Doc(OUT/name).multiBuild(story)
+        Doc(OUT/name,author=author).multiBuild(story)
     finally:body.leading,body.spaceAfter=spacing
 def build():
+    write_figures()
     writepdf("START_HERE.pdf",(BASE/"docs/START_HERE.md").read_text(encoding="utf8"))
     writepdf("RESEARCH_MANUSCRIPT.pdf",(BASE/"docs/RESEARCH_MANUSCRIPT.md").read_text(encoding="utf8"))
     writepdf("TECHNICAL_DISCLOSURE.pdf",(BASE/"docs/TECHNICAL_DISCLOSURE.md").read_text(encoding="utf8").replace("## Field, purpose, and status","[[PAGEBREAK]]\n\n## Field, purpose, and status"),True)

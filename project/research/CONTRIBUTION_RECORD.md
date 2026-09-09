@@ -77,3 +77,32 @@ For every proposed measurement or experiment, provide a lab notebook, original d
 - Signature or certification: **NOT EXECUTED**
 
 Update this record when the technical claims change. Any legal inventorship conclusion should use the final claimed subject matter and the actual contribution evidence, with a registered patent practitioner where needed.
+
+## Authorship update — September 9, 2026 UTC
+
+Recorded at 18:21 UTC, after the public v0.2.0 review release. The user explicitly directed that the document authors be **Srinivas Nampalli** and **Saathivk Gampa**, in that order and with that spelling. The current document and citation attribution follows that instruction. This is a new authorship record; the earlier factual tables and claim worksheets above are retained as written. It does not backdate either person's contribution or assign either person a patent role.
+
+| Role or fact | Current record | Evidence still needed |
+|---|---|---|
+| Document author | Srinivas Nampalli, named by the user | Specific technical contributions and dated supporting records remain UNKNOWN |
+| Document author | Saathivk Gampa, named by the user | Specific technical contributions and dated supporting records remain UNKNOWN |
+| Repository maintainer | GitHub account `SrinivasNampalli` | Account maintenance does not establish legal inventorship, applicant status, or ownership |
+| Claimed-feature conception and joint inventorship | UNRESOLVED for each person and each relevant claim limitation | The user's account of what each person contributed, when, and supporting technical records |
+| Physical motor under consideration | Model, manufacturer, specifications, calibration, and measured data UNKNOWN | A motor identification and actual measurements, if a motor-specific evaluation is intended |
+| Applicant, owner, or assignee | UNRESOLVED | Applicable agreements, ownership basis, and authorized factual confirmation |
+
+The user has been asked to identify each person's contribution and the motor of interest; no response to those factual questions is recorded at this update. Naming document authors does not fill the claim-level conception worksheet, verify legal identity, or supply a signature or assignment.
+
+AI assistance covers the literature and official-guidance research, candidate architecture and mathematical synthesis, source implementation, test design and execution, result analysis, technical and patent-discussion drafting, interactive graphics, recording, repository preparation, and these documentation updates. Tool-executed software runs remain AI-assisted synthetic evidence. They are not laboratory work attributed to either named author. Any new virtual motor cases use generic selected parameters until motor-specific facts and measurements are supplied; they are not physical tests or a validated model of a particular product.
+
+The current U.S. guidance was rechecked for this update: natural-person conception remains the relevant inquiry, and ordinary joint-inventorship principles apply when more than one human is involved. Authorship instructions and AI assistance alone do not resolve that inquiry. [USPTO revised inventorship guidance, November 28, 2025](https://www.federalregister.gov/documents/2025/11/28/2025-21457/revised-inventorship-guidance-for-ai-assisted-inventions)
+
+The working citation version is **0.3.0** for the next review and virtual-validation artifact. This entry does not certify that the new version has been released. No patent application, inventor declaration, assignment, form signature, or payment is made by this update.
+
+## User clarification — September 9, 2026, 18:36 UTC
+
+The user now supplies the spelling **Saathvik Gampa**, correcting the earlier **Saathivk Gampa** entry, and reports that **Srinivas Nampalli and Saathvik Gampa each contributed 50/50 across general technical details**. The current document-author and citation spelling is Saathvik. The 18:21 entry is retained as the earlier record; its pending-response status is superseded by this clarification.
+
+The equal contribution statement is recorded as **user-reported**, without an independently verified allocation of particular features, algorithms, experiments, or claim limitations. Although the user invited the details to be split, no factual division was supplied. Specific contributions, conception dates, contemporaneous supporting records, and claim-specific inventorship therefore remain unresolved. Equal document/technical contribution is not recorded as equal legal ownership or a patent inventorship determination.
+
+The user has selected a specific-motor evaluation and will provide the motor specifications. Those specifications have not yet been received. Motor-specific virtual validation is **pending specifications**, and no held-out motor-data run has been performed. Generic synthetic tests are code-verification evidence only. They do not supply a calibrated motor model or physical measurements. The earlier AI-assistance account remains applicable, and no laboratory activity is attributed to either author.

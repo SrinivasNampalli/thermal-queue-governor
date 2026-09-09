@@ -1,21 +1,33 @@
 cff-version: 1.2.0
 message: >-
   Please cite this software/research artifact when referring to its implementation
-  or synthetic results. SrinivasNampalli is listed as project maintainer;
-  this attribution does not determine patent inventorship or ownership.
+  or synthetic results. Srinivas Nampalli and Saathvik Gampa are the document
+  authors designated by the user. SrinivasNampalli is the project maintainer.
+  The user reports equal 50/50 general technical contributions by the two authors.
+  These attributions do not determine patent inventorship, applicant status,
+  or ownership; dated and claim-specific contributions remain to be documented.
 type: software
 title: "Thermal Queue Governor: clipped sensing and delayed motor commands"
 authors:
+  - family-names: Nampalli
+    given-names: Srinivas
+  - family-names: Gampa
+    given-names: Saathvik
+contact:
   - name: SrinivasNampalli
+    website: "https://github.com/SrinivasNampalli"
 repository-code: "https://github.com/SrinivasNampalli/thermal-queue-governor"
 url: "https://srinivasnampalli.github.io/thermal-queue-governor/"
-version: 0.2.0
+version: 0.3.0
 abstract: >-
   AI-assisted synthetic research and interactive software for a scalar interval
   motor thermal governor with clipped observations and an accepted-command FIFO.
   Results are conditional on the stated model and actuator assumptions.
-  No hardware validation or patent filing is claimed. Original materials remain
-  rights reserved pending review; third-party dependencies retain their licenses.
+  Motor-specific virtual validation is pending the user's selected motor
+  specifications. Generic software tests verify code, not a named motor;
+  no held-out motor data run, hardware validation, or patent filing is claimed.
+  Original materials remain rights reserved pending review; third-party
+  dependencies retain their licenses.
 keywords:
   - thermal control
   - interval estimation

@@ -1,0 +1,22 @@
+{
+  "reviewed_utc": "2026-09-09T20:08:52.735926+00:00",
+  "scope": "PDF layout and text verification; not patentability or motor validation",
+  "outputs": [
+    {
+      "file": "RESEARCH_MANUSCRIPT.pdf",
+      "pages": 8,
+      "sha256": "69bcba6d0ba8542f03a820e5c7db524cb6a0a6ba599633fc5708b66ac9c66909",
+      "author": "Srinivas Nampalli; Saathvik Gampa (document authors; AI-assisted)",
+      "all_pages_rendered_and_visually_inspected": true,
+      "blank_or_orphan_pages": false
+    },
+    {
+      "file": "PATENT_REVIEW_AND_VIRTUAL_VALIDATION.pdf",
+      "pages": 11,
+      "sha256": "d6ff62128596398d69d2a43e2409d449a39e873c8e9c545131b00cccd503ff15",
+      "author": "Srinivas Nampalli; Saathvik Gampa (document authors; AI-assisted)",
+      "all_pages_rendered_and_visually_inspected": true,
+      "blank_or_orphan_pages": false
+    }
+  ]
+}

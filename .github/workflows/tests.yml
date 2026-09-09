@@ -27,5 +27,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Unit, property, and CLI integration tests
         run: python -m unittest discover -s tests -v
+      - name: Synthetic virtual-motor software verification (no motor-specific validation)
+        run: python -m unittest discover -s virtual_motor/tests -v
       - name: Documented worked example
         run: python demo.py

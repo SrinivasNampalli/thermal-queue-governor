@@ -115,3 +115,39 @@ An initial open of `https://www.uspto.gov/patents/basics/international-protectio
 The original preparation notes above predate the user-authorized public GitHub repository and interactive website. Those materials are now publicly available. The [disclosure ledger](DISCLOSURE_LEDGER.md) records the observed access date and remaining factual gaps. It should be reviewed promptly with a patent practitioner before any filing strategy is selected. A possible U.S. exception is conditional; pre-filing disclosure can affect foreign rights. No first-disclosure date, automatic grace-period deadline, patent filing, or priority claim is certified by this update.
 
 The public GitHub history and a release timestamp are source/version records, not independent evidence of conception or legal priority. Original materials remain rights reserved pending review; third-party dependency licenses continue to apply. SrinivasNampalli's citation attribution is as project maintainer, not a finding of human inventorship.
+
+## Authorship and current readiness review — September 9, 2026 UTC
+
+This appended review was recorded at 18:21 UTC. The initial local-preparation sections and the earlier publication follow-up remain historical records. The user now designates **Srinivas Nampalli** and **Saathivk Gampa** as document authors. The public repository is [SrinivasNampalli/thermal-queue-governor](https://github.com/SrinivasNampalli/thermal-queue-governor); `SrinivasNampalli` remains the repository maintainer account. These roles are recorded separately from patent inventorship and ownership in the [contribution record](CONTRIBUTION_RECORD.md).
+
+The [v0.2.0 GitHub prerelease](https://github.com/SrinivasNampalli/thermal-queue-governor/releases/tag/v0.2.0) was observed publicly, and the GitHub release API reports publication at **2026-09-09T18:04:08Z**, targeting commit `f4d438f10de18979f47e237457942ce143679abf`. It distributes the reviewed synthetic prototype and earlier research archive. This is a known version/publication event, not proof of the earliest disclosure or a patent priority date. Citation version 0.3.0 identifies the next working artifact; its publication is not certified here.
+
+| Preparation item | Filled from current facts | Remaining prerequisite |
+|---|---|---|
+| Document attribution | Srinivas Nampalli; Saathivk Gampa, as instructed by the user | Attribution does not verify claim-specific human conception or filing identities |
+| Technical materials | Scalar controller, synthetic results, editable discussion claims, figures, source snapshots, and interactive prototype are available | Final claim/support review, actual human technical review, and applicability to an intended motor |
+| Contribution evidence | AI assistance and user authorship direction are recorded | What each person conceived or contributed, dates, and supporting records; response is not yet supplied |
+| Proposed motor evaluation | Generic virtual cases can be investigated as simulations | Motor model and specifications are UNKNOWN; no physical measurements or motor-specific calibration supplied |
+| Public-disclosure facts | Public repository/site and observed v0.2.0 release | Earliest relevant disclosure, exact exposed claim content, discloser/source of the subject matter, and prior papers/offers/uses remain for review |
+| Inventors, applicant, and ownership | UNRESOLVED | Claim-specific inventorship assessment and actual employment, collaboration, funding, or assignment obligations |
+| Jurisdiction and route | U.S. utility framing remains a drafting assumption | User's jurisdiction, desired countries, route, prior-filing records, and invention locations |
+| Filing forms and authority | No application or executed filing forms are established | Accurate required filing details, authorized human review/signatures, entity status, and filing authorization |
+
+The November 2025 USPTO guidance was rechecked: AI use does not change the ordinary human-conception standard; traditional joint-inventorship principles apply among multiple humans. The two document-author names therefore cannot be copied into inventor, applicant, or assignee fields without the relevant facts and review. [Revised inventorship guidance](https://www.federalregister.gov/documents/2025/11/28/2025-21457/revised-inventorship-guidance-for-ai-assisted-inventions)
+
+The USPTO's current provisional guidance also confirms that an inventor-originated public disclosure can qualify for a U.S. one-year exception while pre-filing disclosure may prevent foreign patenting. Whether this public material qualifies, and for which claimed subject matter, remains a factual/legal review. No automatic deadline is calculated from the release timestamp. [USPTO provisional application guidance](https://www.uspto.gov/patents/basics/apply/provisional-application)
+
+Status after this review: **document authorship recorded; patent submission readiness unresolved**. Virtual simulations do not establish physical performance, validate motor hardware, settle inventorship, or supply missing filing facts. No application was filed, no form was signed, and no private identity/contact information was added by this update. Fee figures and other dated procedural checks above retain their original verification dates.
+
+## Updated factual inputs — September 9, 2026, 18:36 UTC
+
+The latest user response corrects the document-author spelling to **Saathvik Gampa** and reports **equal 50/50 general technical contributions** by Srinivas Nampalli and Saathvik Gampa. This supersedes the earlier spelling and the statement that no contribution response had been supplied. The [contribution record](CONTRIBUTION_RECORD.md) preserves both dated entries. `SrinivasNampalli` remains the separate repository-maintainer account.
+
+| Item | Latest status | Still unresolved |
+|---|---|---|
+| General technical contribution | User reports 50/50 for the two document authors | Specific allocation of technical details, dated conception evidence, and claim-level contribution mapping |
+| Motor evaluation choice | User selected evaluation of a specific motor and will provide specifications | Specifications, calibration basis, and any independent measured data have not been supplied |
+| Validation evidence | Generic synthetic tests are code verification | Motor-specific virtual validation is pending; no held-out motor-data run or physical testing is reported |
+| Legal filing roles and route | Inventors, applicant, owner, and jurisdiction remain UNRESOLVED | Actual evidence and authorized factual/legal review; the equal contribution report does not fill these fields |
+
+No technical duties, claim features, conception dates, or ownership shares are assigned by this update. The earlier filing and disclosure prerequisites remain open. No form, signature, filing, or deadline certification has been added.
