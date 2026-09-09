@@ -26,7 +26,10 @@ jobs:
       - run: npm test
       - run: python tools/build_demo.py
       - name: Ensure committed export matches its source
-        run: git diff --exit-code -- index.html thermal-queue-governor.fragment.html ../index.html ../docs
+        run: git diff --exit-code -- ../index.html
       - run: npx playwright install --with-deps chromium
       - run: npm run test:browser
       - run: npm run test:landing
+      - name: Verify hosted Pages assets and video captions over HTTP
+        run: npm run test:hosted
+      - run: python ../project/tools/analyze_primary_evidence.py --check

@@ -8,9 +8,11 @@
     "test": "node --test tests/thermal-engine.test.cjs",
     "test:browser": "node tests/browser-smoke.cjs",
     "test:landing": "node tests/landing-smoke.cjs",
+    "test:hosted": "node tests/hosted-smoke.cjs",
     "record": "node tools/record-demo.cjs"
   },
   "devDependencies": {
     "playwright": "1.62.1"
-  }
+  },
+  "license": "UNLICENSED"
 }

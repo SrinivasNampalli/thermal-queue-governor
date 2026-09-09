@@ -5,6 +5,8 @@
   "heroSelection": true,
   "simulationControls": true,
   "reducedMotion": true,
+  "liveRegions": 3,
+  "stackedAt768": true,
   "viewports": [
     1440,
     1024,

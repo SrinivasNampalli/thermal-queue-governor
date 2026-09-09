@@ -98,11 +98,11 @@ def main():
     meta=dict(utc=datetime.now(timezone.utc).isoformat(),python=sys.version,platform=platform.platform(),
         duration_seconds=time.perf_counter()-start,episodes=len(metrics),
         sampled_transitions=len(metrics)*config["steps"],config_sha256=sha(args.config),
-        source_sha256={str(z.relative_to(BASE)):sha(z) for z in [BASE/"run_experiments.py",BASE/"src/governor.py"]},
+        source_sha256={z.relative_to(BASE).as_posix():sha(z) for z in [BASE/"run_experiments.py",BASE/"src/governor.py"]},
         config=config,aggregation=aggregate)
     (out/"run_metadata.json").write_text(json.dumps(meta,indent=2))
     latest=out.relative_to(BASE) if out.is_relative_to(BASE) else out
-    (BASE/"results"/"LATEST.txt").write_text(str(latest))
+    (BASE/"results"/"LATEST.txt").write_text(latest.as_posix())
     print(json.dumps({"out":str(out),"duration_seconds":meta["duration_seconds"],"episodes":len(metrics)},indent=2))
     for r in aggregate:print(json.dumps(r))
 if __name__=="__main__":main()

@@ -26,6 +26,23 @@
   ],
   "simulation": true,
   "waitTimeout": true,
+  "accessibility": {
+    "liveRegions": [
+      "tq-live",
+      "tq-admission-live",
+      "tq-summary-live"
+    ],
+    "defaultCaptions": true,
+    "tq-admission-live": {
+      "updates": 3,
+      "minimumIntervalMs": 4900
+    },
+    "tq-summary-live": {
+      "updates": 1,
+      "minimumIntervalMs": 14900
+    }
+  },
+  "stackedAt768": true,
   "consoleErrors": [],
   "passed": true
 }

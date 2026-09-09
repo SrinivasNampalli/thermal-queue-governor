@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "target": "local docs/ HTTP server",
+  "htmlBytes": 51413,
+  "assets": [
+    {
+      "file": "three-0.160.1.min.js",
+      "bytes": 670986,
+      "deferred": true,
+      "integrityVerified": true
+    },
+    {
+      "file": "d3-7.9.0.min.js",
+      "bytes": 280453,
+      "deferred": true,
+      "integrityVerified": true
+    },
+    {
+      "file": "tqg.js",
+      "bytes": 67119,
+      "deferred": true,
+      "integrityVerified": true
+    }
+  ],
+  "simulationControls": true,
+  "stackedAt768": true,
+  "liveRegions": 3,
+  "watch": {
+    "defaultCaptions": true,
+    "captionCues": 8,
+    "captionPositionVerified": true,
+    "playbackVerified": true,
+    "durationSeconds": 51.583333
+  },
+  "externalRequests": [],
+  "consoleErrors": [],
+  "failedRequests": []
+}

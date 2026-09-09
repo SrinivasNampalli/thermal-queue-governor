@@ -1,0 +1,17 @@
+All rights reserved - pending rights review
+
+No public reuse license is granted for this repository's original software,
+research text, figures, datasets, or patent discussion materials. Publication,
+access to the code, citation metadata, and reproducibility instructions do not
+constitute a general copyright or patent license. Ownership and patent
+inventorship have not been determined by this notice.
+
+This notice does not restrict rights granted by applicable law or by the
+hosting platform's terms. Permission requests may be directed to the project
+maintainer through the repository.
+
+Third-party components retain their own licenses. In particular, the bundled
+Three.js and D3 distributions are governed by the licenses reproduced in
+demo/vendor/ and demo/THIRD_PARTY_NOTICES.md. This notice does not replace or
+reduce those grants. Other dependency and source provenance is documented in
+project/THIRD_PARTY_NOTICES.md.

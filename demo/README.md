@@ -1,6 +1,6 @@
 # Interactive motor and thermal governor
 
-[Open the landing page](https://srinivasnampalli.github.io/Patent/) · [Jump to the prototype](https://srinivasnampalli.github.io/Patent/#prototype) · [Watch the recorded walkthrough](https://srinivasnampalli.github.io/Patent/watch.html)
+[Open the landing page](https://srinivasnampalli.github.io/thermal-queue-governor/) · [Jump to the prototype](https://srinivasnampalli.github.io/thermal-queue-governor/#prototype) · [Watch the recorded walkthrough](https://srinivasnampalli.github.io/thermal-queue-governor/watch.html)
 
 Click a component in the 3D model to highlight it and read its purpose. The component selector provides the same information by keyboard. Drag to rotate the assembly, or switch on exploded view to expose the internals.
 
@@ -21,7 +21,7 @@ The sensor saturates at 95°C. A clipped reading provides a lower constraint and
 
 The repository-root `index.html` is the complete landing page and simulator in one file. Open it directly, including offline: all runtime code and dependencies are embedded. Research and video links point to the public repository/site and require internet access. No build process is needed to use this file.
 
-The older `demo/index.html` is a compact simulator-only export that uses pinned CDN libraries. It is also published as `/prototype.html`. To serve this view from the repository root:
+The generated `demo/index.html` is a compact simulator-only export with the same pinned, locally bundled libraries and no CDN dependencies. It is also published as `/prototype.html`. To serve this view from the repository root:
 
 ```sh
 python -m http.server 8000 --directory demo
@@ -36,7 +36,7 @@ python demo/tools/build_demo.py
 node --test demo/tests/thermal-engine.test.cjs
 ```
 
-The compact simulator's standalone template preserves the original visualization exporter’s styles and sandbox wrapper. The landing-page builder directly embeds the same simulator with pinned local Three.js/D3 distributions from `vendor/`, their licenses, and no network loaders. It checks vendor hashes against publisher-verified provenance before assembly. All public pages are generated from committed files. The build refreshes the repository-root `index.html` and `docs/`, the GitHub Pages export served from `main`.
+The build emits three views from the same simulator: a root `index.html` offline download, a compact `demo/index.html` with embedded libraries, and a smaller public `docs/index.html` with deferred local scripts and SHA-384 integrity checks. Vendor assets are verified against publisher provenance before assembly. The generated `docs/`, compact HTML, and intermediate fragment are ignored by Git. GitHub Actions builds and uploads Pages artifacts; it does not commit duplicate pages or media. Source media is stored once in `demo/media/`.
 
 For browser interaction tests or a new recording:
 

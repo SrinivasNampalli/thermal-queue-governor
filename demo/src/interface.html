@@ -30,7 +30,7 @@
     #thermal-queue-governor-v1 .tq-chart-message[hidden] {display:none;}
     #thermal-queue-governor-v1 .tq-part-controls {margin:12px 0;}
     #thermal-queue-governor-v1 .tq-inspector p {margin:8px 0;}
-    @media(max-width:760px) {#thermal-queue-governor-v1 .tq-main{grid-template-columns:1fr;gap:16px;}#thermal-queue-governor-v1 .tq-motor{height:310px;}}
+    @media(max-width:780px) {#thermal-queue-governor-v1 .tq-main{grid-template-columns:1fr;gap:16px;}#thermal-queue-governor-v1 .tq-motor{height:310px;}}
     @media(prefers-reduced-motion:reduce){#thermal-queue-governor-v1 *{scroll-behavior:auto;}}
   </style>
 
@@ -43,11 +43,12 @@
       <button type="button" class="btn btn-primary" id="tq-play">Play</button>
       <button type="button" class="btn" id="tq-step">Step +1 s</button>
       <label class="form-label">Speed
-        <select class="form-select" id="tq-speed"><option value="1">1×</option><option value="4" selected>4×</option><option value="12">12×</option><option value="30">30×</option></select>
+        <select class="form-select" id="tq-speed" aria-describedby="tq-announcement-help"><option value="1">1×</option><option value="4" selected>4×</option><option value="12">12×</option><option value="30">30×</option></select>
       </label>
       <span class="tabular-nums" id="tq-clock">0 s · paused</span>
     </div>
   </div>
+  <p class="sr-only" id="tq-announcement-help">While running, admission updates are announced at most every 5 seconds and a thermal and results summary every 15 seconds. Pause or step for an immediate summary. Use the component selector to inspect the motor with a keyboard.</p>
 
   <div class="tq-main">
     <section aria-label="Motor and thermal capacity">
@@ -163,7 +164,9 @@
   </div>
   <div class="tq-reading-row text-small text-muted"><span>Actual temperature is simulator truth; a clipped sensor cannot verify it.</span><span id="tq-reduced-count">0 commands reduced</span></div>
   <div class="tq-tooltip tooltip" id="tq-tooltip" role="tooltip"></div>
-  <div class="sr-only" id="tq-live" aria-live="polite"></div>
+  <div class="sr-only" id="tq-live" role="status" aria-live="polite" aria-atomic="true" aria-label="Control and component feedback"></div>
+  <div class="sr-only" id="tq-admission-live" role="status" aria-live="polite" aria-atomic="true" aria-label="Command admission updates"></div>
+  <div class="sr-only" id="tq-summary-live" role="status" aria-live="polite" aria-atomic="true" aria-label="Thermal and results summary"></div>
 </div>
 <!-- THERMAL_ENGINE -->
 <!-- COMPONENT_CATALOG -->
@@ -176,11 +179,24 @@
   const C=window.ThermalQueueCore;
   const components=window.THERMAL_COMPONENTS||[];
   let selectedPart='temp_sensor';
-  let s=C.create(),playing=false,speed=4,clockAccum=0,rotorTime=0,lastWall=0,scene=null,d3lib=null,disposed=false,frame=0,lastAnnounced='',chartDraw=null;
+  let s=C.create(),playing=false,speed=4,clockAccum=0,rotorTime=0,lastWall=0,scene=null,d3lib=null,disposed=false,frame=0,chartDraw=null;
+  let admissionKey='',pendingAdmission='',lastAdmissionWall=-Infinity,lastSummaryWall=-Infinity,lastSummaryTime=-1;
   const visible={actual:true,bounds:true,reading:true,limit:true,clip:true};
   const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
   const one=x=>x.toFixed(1),pct=x=>Math.round(x*100)+'%';
-  const set=(id,text)=>{$(id).textContent=text;};
+  const set=(id,text)=>{const node=$(id),value=String(text);if(node.textContent!==value)node.textContent=value;};
+  function announceState(v,summarize=false){
+    // Wall-clock intervals stay readable even when simulation speed is 30×.
+    const now=performance.now(),key=s.decision.kind+'|'+s.decision.reason;
+    if(key!==admissionKey){admissionKey=key;pendingAdmission=`${s.decision.kind}. ${s.decision.reason}`;}
+    if(pendingAdmission&&(!playing||now-lastAdmissionWall>=5000)){
+      set('tq-admission-live',pendingAdmission);pendingAdmission='';lastAdmissionWall=now;
+    }
+    if(summarize||(playing&&s.time!==lastSummaryTime&&now-lastSummaryWall>=15000)){
+      set('tq-summary-live',`At ${s.time} seconds: motor ${one(v.temperature)}°C; bounds ${one(v.lower)} to ${one(v.upper)}°C, ${v.inside?'inside bounds':'outside bounds'}. Sensor ${one(v.reading)}°C${v.clipped?', clipped':''}. Thermal headroom ${one(Math.max(0,v.remaining))}°C. ${s.stats.breaches} over-limit samples. ${s.stats.complete} completed, ${s.stats.rejected} rejected, ${s.requests.length} waiting. ${s.stats.complete?one(v.effortPercent)+'% effort delivered.':'No completed effort yet.'}`);
+      lastSummaryWall=now;lastSummaryTime=s.time;
+    }
+  }
   function showPart(id,fromScene=false){
     const part=components.find(c=>c.id===id);if(!part)return;
     selectedPart=id;$('tq-part-select').value=id;
@@ -197,7 +213,7 @@
     $('tq-part-select').append(node);
   }
   $('tq-part-select').addEventListener('change',e=>showPart(e.target.value));
-  $('tq-exploded').addEventListener('change',e=>{if(scene)scene.setExploded(e.target.checked?1:0);});
+  $('tq-exploded').addEventListener('change',e=>{if(scene)scene.setExploded(e.target.checked?1:0);set('tq-live',e.target.checked?'Exploded view enabled. Select a component to inspect its role.':'Assembled motor view restored.');});
   function svgNode(tag,attrs={},text){const n=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const [k,v] of Object.entries(attrs))n.setAttribute(k,v);if(text!==undefined)n.textContent=text;return n;}
   function drawQueue(){
     const svg=$('tq-queue'),width=Math.max(280,svg.parentElement.getBoundingClientRect().width);
@@ -215,7 +231,7 @@
       svg.appendChild(g);
     });
   }
-  function render(){
+  function render(summarize=false){
     const v=C.snapshot(s);
     set('tq-clock',`${s.time} s · ${playing?'running':'paused'}`);
     set('tq-temperature',one(v.temperature)+'°C');set('tq-bounds',`${one(v.lower)}–${one(v.upper)}°C`);set('tq-reading',one(v.reading)+'°C');
@@ -246,20 +262,21 @@
     set('tq-effort-detail',s.stats.complete?`${one(s.stats.delivered)} / ${one(s.stats.requestedCompleted)} effort-seconds · completed only`:'Completed commands only');
     set('tq-throughput',v.throughput.toFixed(2)+'/s');set('tq-counts',`${s.stats.complete} completed · ${s.stats.rejected} rejected · ${s.requests.length} waiting`);
     set('tq-reduced-count',`${s.stats.scaled} commands reduced`);
-    if(lastAnnounced!==s.decision.kind){set('tq-live',s.decision.reason);lastAnnounced=s.decision.kind;}
+    announceState(v,summarize);
     $('tq-play').textContent=playing?'Pause':'Play';$('tq-play').setAttribute('aria-pressed',String(playing));
     drawQueue();if(chartDraw)chartDraw();
     if(scene)scene.update({...v,running:playing,time:rotorTime});
   }
-  function pause(){playing=false;clockAccum=0;render();}
-  $('tq-play').addEventListener('click',()=>{playing=!playing;lastWall=performance.now();clockAccum=0;render();});
-  $('tq-step').addEventListener('click',()=>{playing=false;clockAccum=0;C.tick(s);render();});
-  $('tq-speed').addEventListener('change',e=>{speed=Number(e.target.value);clockAccum=0;});
+  function pause(){playing=false;clockAccum=0;render(true);}
+  $('tq-play').addEventListener('click',()=>{playing=!playing;lastWall=performance.now();clockAccum=0;set('tq-live',playing?`Simulation running at ${speed} times speed.`:`Simulation paused at ${s.time} seconds.`);render(!playing);});
+  $('tq-step').addEventListener('click',()=>{playing=false;clockAccum=0;C.tick(s);set('tq-live',`Advanced one second. Simulation paused at ${s.time} seconds.`);render(true);});
+  $('tq-speed').addEventListener('change',e=>{speed=Number(e.target.value);clockAccum=0;set('tq-live',`Simulation speed set to ${speed} times. ${playing?'Running.':'Paused.'}`);});
   $('tq-effort').addEventListener('input',e=>{s.workload=Number(e.target.value)/100;set('tq-effort-value',e.target.value+'%');});
-  $('tq-auto').addEventListener('change',e=>{s.automatic=e.target.checked;render();});
+  $('tq-auto').addEventListener('change',e=>{s.automatic=e.target.checked;set('tq-live',`Continuous demo load ${s.automatic?'enabled':'disabled'}.`);render();});
   $('tq-handling').addEventListener('change',e=>{
     s.handling=e.target.value;
     set('tq-policy-note',s.handling==='wait'?'Demo only: retry full effort; reject after 20 s waiting.':'Reduced commands are admitted at a safe lower effort.');
+    set('tq-live',s.handling==='wait'?'Waiting scheduler selected. Requests wait for full effort, then expire after 20 simulated seconds.':'Original governor selected. Commands can be admitted at reduced effort.');
     render();
   });
   $('tq-add').addEventListener('click',()=>{
@@ -275,7 +292,8 @@
     s=C.create({limit:Number($('tq-limit').value),width:Number($('tq-width').value),cap:Number($('tq-cap').value)/100});
     s.handling=$('tq-handling').value;s.automatic=$('tq-auto').checked;s.workload=Number($('tq-effort').value)/100;
     playing=false;clockAccum=0;rotorTime=0;$('tq-command-error').hidden=true;
-    set('tq-settings-note','New run commissioned. Accepted FIFO and result counters restarted explicitly.');render();
+    set('tq-settings-note','New run commissioned. Accepted FIFO and result counters restarted explicitly.');
+    set('tq-live',`Settings applied. New paused run with a ${s.m.limit}°C ceiling. Queue and result counters restarted.`);render(true);
   });
   function loop(wall){
     if(disposed||!root.isConnected){dispose();return;}
@@ -381,7 +399,7 @@
       const accepted=[];
       for(const label of labels){const box=label.getBoundingClientRect();if(label.hasAttribute('data-axis-label')&&accepted.some(b=>box.left<b.right+4&&box.right>b.left-4&&box.top<b.bottom+4&&box.bottom>b.top-4))label.style.visibility='hidden';else accepted.push(box);}
     };
-    for(const button of root.querySelectorAll('[data-series]'))button.addEventListener('click',()=>{const key=button.dataset.series;visible[key]=!visible[key];button.setAttribute('aria-pressed',String(visible[key]));chartDraw();});
+    for(const button of root.querySelectorAll('[data-series]'))button.addEventListener('click',()=>{const key=button.dataset.series;visible[key]=!visible[key];button.setAttribute('aria-pressed',String(visible[key]));set('tq-live',`${button.textContent.trim()} ${visible[key]?'shown on':'hidden from'} the history plot.`);chartDraw();});
     chartDraw();
   }
   const chartScript=document.createElement('script');chartScript.src='https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js';
@@ -389,6 +407,6 @@
   chartScript.onerror=()=>{set('tq-chart-loading','History plot unavailable. Live values and simulation remain active.');};
   root.appendChild(chartScript);
   root.thermalDemo={getSnapshot:()=>C.snapshot(s),getSelectedPart:()=>selectedPart,getScene:()=>scene};
-  showPart(selectedPart);render();mountScene();frame=requestAnimationFrame(loop);
+  showPart(selectedPart);render(true);mountScene();frame=requestAnimationFrame(loop);
 })();
 </script>

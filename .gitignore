@@ -6,3 +6,8 @@ __pycache__/
 node_modules/
 playwright-report/
 test-results/
+# Generated Pages artifacts; built and uploaded by GitHub Actions.
+/docs/
+/demo/index.html
+/demo/thermal-queue-governor.fragment.html
+/PROJECT.zip

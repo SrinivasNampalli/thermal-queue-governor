@@ -1,0 +1,347 @@
+{
+  "analysis": "Post hoc descriptive reanalysis of retained primary synthetic episodes; no new episodes",
+  "run": "results/20260909T051443_157982Z",
+  "design": {
+    "scenarios": [
+      "no_delay",
+      "delay_8",
+      "delay_20",
+      "dropout_60",
+      "hot_start",
+      "upper_corner"
+    ],
+    "seeds": [
+      2000,
+      2001,
+      2002,
+      2003,
+      2004,
+      2005,
+      2006,
+      2007,
+      2008,
+      2009,
+      2010,
+      2011,
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019
+    ],
+    "policies": [
+      "interval_queue",
+      "fixed_cap"
+    ],
+    "episode_rows_analyzed": 240,
+    "paired_seed_clusters": 20,
+    "scenarios_per_cluster": 6,
+    "episodes_per_policy": 120,
+    "steps_per_episode": 900,
+    "new_simulation_episodes": 0
+  },
+  "method": {
+    "estimand": "Equal-weight arithmetic mean of episode applied/requested effort ratios across the six fixed scenarios and twenty retained seeds",
+    "spread_unit": "Twenty seed means, each averaging six scenarios; sample SD uses denominator 19",
+    "bootstrap": "Paired cluster percentile bootstrap: resample 20 whole seeds with replacement, retaining both policies and all six scenarios",
+    "replicates": 20000,
+    "random_seed": 20260909,
+    "random_generator": "Python random.Random; randrange(20) once per selected cluster",
+    "quantile": "Linear interpolation at zero-based sorted index (replicates - 1) * probability; probabilities 0.025 and 0.975",
+    "ci_scope": "Conditional empirical seed variability for this fixed synthetic design; not hardware, unseen-scenario, safety, or model-uncertainty coverage"
+  },
+  "effort_statistics_ratio_units": {
+    "interval_queue": {
+      "mean": 0.9037211740041912,
+      "sample_sd": 0.053023556786417875,
+      "min": 0.7832809224318672,
+      "max": 0.9444129979035614,
+      "bootstrap_95_percentile_ci": [
+        0.8801902777777767,
+        0.9247807258909831
+      ]
+    },
+    "fixed_cap": {
+      "mean": 0.6711949685534702,
+      "sample_sd": 0.0,
+      "min": 0.6711949685534702,
+      "max": 0.6711949685534702,
+      "bootstrap_95_percentile_ci": [
+        0.6711949685534702,
+        0.6711949685534702
+      ]
+    },
+    "paired_difference": {
+      "mean": 0.23252620545072097,
+      "sample_sd": 0.053023556786417875,
+      "min": 0.11208595387839704,
+      "max": 0.2732180293500912,
+      "bootstrap_95_percentile_ci": [
+        0.2089953092243065,
+        0.25358575733751293
+      ]
+    }
+  },
+  "scenario_results": [
+    {
+      "scenario": "no_delay",
+      "interval_queue": {
+        "episodes": 20,
+        "mean_effort_fraction": 0.9553616352201223,
+        "breach_episodes": 0
+      },
+      "fixed_cap": {
+        "episodes": 20,
+        "mean_effort_fraction": 0.6792452830188792,
+        "breach_episodes": 0
+      },
+      "paired_difference": 0.2761163522012431
+    },
+    {
+      "scenario": "delay_8",
+      "interval_queue": {
+        "episodes": 20,
+        "mean_effort_fraction": 0.9468993710691794,
+        "breach_episodes": 0
+      },
+      "fixed_cap": {
+        "episodes": 20,
+        "mean_effort_fraction": 0.6732075471698223,
+        "breach_episodes": 0
+      },
+      "paired_difference": 0.2736918238993571
+    },
+    {
+      "scenario": "delay_20",
+      "interval_queue": {
+        "episodes": 20,
+        "mean_effort_fraction": 0.9344559748427648,
+        "breach_episodes": 0
+      },
+      "fixed_cap": {
+        "episodes": 20,
+        "mean_effort_fraction": 0.6641509433962371,
+        "breach_episodes": 0
+      },
+      "paired_difference": 0.2703050314465276
+    },
+    {
+      "scenario": "dropout_60",
+      "interval_queue": {
+        "episodes": 20,
+        "mean_effort_fraction": 0.9401415094339592,
+        "breach_episodes": 0
+      },
+      "fixed_cap": {
+        "episodes": 20,
+        "mean_effort_fraction": 0.6732075471698223,
+        "breach_episodes": 0
+      },
+      "paired_difference": 0.2669339622641369
+    },
+    {
+      "scenario": "hot_start",
+      "interval_queue": {
+        "episodes": 20,
+        "mean_effort_fraction": 0.9405125786163493,
+        "breach_episodes": 0
+      },
+      "fixed_cap": {
+        "episodes": 20,
+        "mean_effort_fraction": 0.6732075471698223,
+        "breach_episodes": 0
+      },
+      "paired_difference": 0.26730503144652695
+    },
+    {
+      "scenario": "upper_corner",
+      "interval_queue": {
+        "episodes": 20,
+        "mean_effort_fraction": 0.7049559748427721,
+        "breach_episodes": 0
+      },
+      "fixed_cap": {
+        "episodes": 20,
+        "mean_effort_fraction": 0.6641509433962371,
+        "breach_episodes": 0
+      },
+      "paired_difference": 0.04080503144653491
+    }
+  ],
+  "per_seed_mean_effort_fraction": [
+    {
+      "seed": 2000,
+      "interval_queue": 0.8833228511530385,
+      "fixed_cap": 0.6711949685534702,
+      "paired_difference": 0.21212788259956838
+    },
+    {
+      "seed": 2001,
+      "interval_queue": 0.9263731656184464,
+      "fixed_cap": 0.6711949685534702,
+      "paired_difference": 0.25517819706497624
+    },
+    {
+      "seed": 2002,
+      "interval_queue": 0.8609643605870011,
+      "fixed_cap": 0.6711949685534702,
+      "paired_difference": 0.18976939203353094
+    },
+    {
+      "seed": 2003,
+      "interval_queue": 0.9415513626834356,
+      "fixed_cap": 0.6711949685534702,
+      "paired_difference": 0.2703563941299655
+    },
+    {
+      "seed": 2004,
+      "interval_queue": 0.8837316561844851,
+      "fixed_cap": 0.6711949685534702,
+      "paired_difference": 0.21253668763101496
+    },
+    {
+      "seed": 2005,
+      "interval_queue": 0.9436687631027229,
+      "fixed_cap": 0.6711949685534702,
+      "paired_difference": 0.2724737945492527
+    },
+    {
+      "seed": 2006,
+      "interval_queue": 0.9440041928721149,
+      "fixed_cap": 0.6711949685534702,
+      "paired_difference": 0.27280922431864474
+    },
+    {
+      "seed": 2007,
+      "interval_queue": 0.9431341719077543,
+      "fixed_cap": 0.6711949685534702,
+      "paired_difference": 0.2719392033542841
+    },
+    {
+      "seed": 2008,
+      "interval_queue": 0.7906918238993722,
+      "fixed_cap": 0.6711949685534702,
+      "paired_difference": 0.11949685534590204
+    },
+    {
+      "seed": 2009,
+      "interval_queue": 0.932306079664568,
+      "fixed_cap": 0.6711949685534702,
+      "paired_difference": 0.26111111111109786
+    },
+    {
+      "seed": 2010,
+      "interval_queue": 0.9429454926624712,
+      "fixed_cap": 0.6711949685534702,
+      "paired_difference": 0.271750524109001
+    },
+    {
+      "seed": 2011,
+      "interval_queue": 0.8721593291404601,
+      "fixed_cap": 0.6711949685534702,
+      "paired_difference": 0.20096436058698997
+    },
+    {
+      "seed": 2012,
+      "interval_queue": 0.9435744234800812,
+      "fixed_cap": 0.6711949685534702,
+      "paired_difference": 0.2723794549266111
+    },
+    {
+      "seed": 2013,
+      "interval_queue": 0.9439622641509408,
+      "fixed_cap": 0.6711949685534702,
+      "paired_difference": 0.2727672955974706
+    },
+    {
+      "seed": 2014,
+      "interval_queue": 0.9436582809224293,
+      "fixed_cap": 0.6711949685534702,
+      "paired_difference": 0.27246331236895915
+    },
+    {
+      "seed": 2015,
+      "interval_queue": 0.8405450733752611,
+      "fixed_cap": 0.6711949685534702,
+      "paired_difference": 0.16935010482179091
+    },
+    {
+      "seed": 2016,
+      "interval_queue": 0.8665199161425566,
+      "fixed_cap": 0.6711949685534702,
+      "paired_difference": 0.19532494758908647
+    },
+    {
+      "seed": 2017,
+      "interval_queue": 0.9436163522012553,
+      "fixed_cap": 0.6711949685534702,
+      "paired_difference": 0.2724213836477851
+    },
+    {
+      "seed": 2018,
+      "interval_queue": 0.9444129979035614,
+      "fixed_cap": 0.6711949685534702,
+      "paired_difference": 0.2732180293500912
+    },
+    {
+      "seed": 2019,
+      "interval_queue": 0.7832809224318672,
+      "fixed_cap": 0.6711949685534702,
+      "paired_difference": 0.11208595387839704
+    }
+  ],
+  "sampled_safety": {
+    "interval_queue": {
+      "episodes": 120,
+      "sampled_transitions": 108000,
+      "breach_episodes": 0,
+      "breach_steps": 0,
+      "interval_misses": 0,
+      "invalid_steps": 0,
+      "max_T_C": 104.99997190667195,
+      "distance_below_105_C": 2.8093328054978883e-05,
+      "episodes_with_peak_above_105_C_strict": 0,
+      "maximum_locations": [
+        {
+          "scenario": "upper_corner",
+          "seed": 2007
+        }
+      ]
+    },
+    "fixed_cap": {
+      "episodes": 120,
+      "sampled_transitions": 108000,
+      "breach_episodes": 0,
+      "breach_steps": 0,
+      "interval_misses": 0,
+      "invalid_steps": 0,
+      "max_T_C": 101.1266530307496,
+      "distance_below_105_C": 3.873346969250406,
+      "episodes_with_peak_above_105_C_strict": 0,
+      "maximum_locations": [
+        {
+          "scenario": "upper_corner",
+          "seed": 2019
+        }
+      ]
+    }
+  },
+  "source_sha256": {
+    "results/FINAL_EVALUATION.txt": "caac9658efd8fb8e58cb2313f1bde5b895ff80e14110db3b3e3b079bfb52d6c3",
+    "results/20260909T051443_157982Z/episodes.csv": "46e535239cf0e248de4b27beb1fef11fe88226a1e18f4cadeaf17f425e7a8ab3",
+    "results/20260909T051443_157982Z/run_metadata.json": "33600f7ce3b6eedc114476e168a3505f8fe21a50cf4a5ac1af63113ffe0829e3",
+    "config/evaluation.json": "3bd2a4c81bff63e1dec7a263511cd4da93ef510826958c6a3fe5ca5ba0b2e0c2",
+    "tools/analyze_primary_evidence.py": "5c5e752786cde5508e175e9eb6f4cf479ea6350fcae81af62a7979d22107f05f",
+    "results/20260909T051443_157982Z/source/run_experiments.py": "44820b8117fc54d03bdd8cc2a728e65524adc20afc22c8bb0c66964eaec112d2",
+    "results/20260909T051443_157982Z/source/src/governor.py": "71a1a6dc639a0f8252b01233d3c3765f22bea48a9f3bc36051374d233eae0158"
+  },
+  "validation": {
+    "configuration_hash_matches_retained_metadata": true,
+    "source_snapshot_hashes_match_retained_metadata": true,
+    "unique_complete_pairs": true,
+    "scenario_means_match_retained_metadata": true
+  }
+}

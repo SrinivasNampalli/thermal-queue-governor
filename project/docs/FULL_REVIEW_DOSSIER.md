@@ -78,18 +78,18 @@ Thresholds and the candidate were fixed before evaluation. A retained pilot expo
 The primary metrics are breach episodes, interval containment, maximum temperature and applied/requested effort sum. A ratio is a normalized thermal-work proxy, not production throughput, delivered torque or task completion. Twenty seeds per scenario are simulation repetitions of a synthetic distribution, not devices or field observations. Scenario means are reported without industrial-risk probability claims.
 
 ## 6. Primary results
-Table1 summarizes the 120 valid-model episodes per controller. The complete per-scenario table, episodes, and raw steps are preserved with source/configuration hashes.
+Table 1 summarizes the 120 valid-model episodes per controller. The complete per-scenario table, episodes, and raw steps are preserved with source/configuration hashes.
 
 [[TABLE:primary]]
 
-The full governor passes the selected gate: no breached sample, no interval miss and no invalid state in its 120 valid-model episodes (108,000 transitions). Its lowest scenario-average effort fraction is70.5% at the upper corner, above the prespecified 50% usefulness threshold. Its overall mean is90.4%, compared with 67.1% for the constant cap. This comparison is conditional on the chosen workload and box; it does not establish an optimal or universal gain.
+The full governor passes the selected gate: no breached sample, no interval miss and no invalid state in its 120 valid-model episodes (108,000 transitions). Its lowest scenario-average effort fraction is 70.5% at the upper corner, above the prespecified 50% usefulness threshold. Its overall mean is 90.4%, compared with 67.1% for the constant cap. This comparison is conditional on the chosen workload and box; it does not establish an optimal or universal gain.
 
-The constant cap remains a serious simple alternative: it also avoids all breaches and has minimal interface/computation demands. The threshold controller is adequate in several scenarios but overshoots under the upper corner with a20-step queue. The queue-omitting interval policy can admit work that becomes infeasible before its stop command applies; its invalid latch then reduces later effort.
+The constant cap remains a serious simple alternative: it also avoids all breaches and has minimal interface/computation demands. The threshold controller is adequate in several scenarios but overshoots under the upper corner with a 20-step queue. The queue-omitting interval policy can admit work that becomes infeasible before its stop command applies; its invalid latch then reduces later effort.
 
 [[FIGURE:primary_results]]
 
 ## 7. Mechanism ablation and failed assumptions
-A post-main ablation isolates clipping: retain the same robust box and queue-aware admission rule but incorrectly truncate the upper state to the sensor ceiling plus error. On fresh seeds 4000-4019, using delay20 and upper-corner scenarios, the full governor has 0/40 breach episodes; the ceiling-as-exact policy has 28/40, and the queue-omitting policy has 25/40. The exact-value policy's additional effort is obtained while its bound has already lost containment. This ablation supports the need for both modeled constraints in this chosen suite.
+A post-main ablation isolates clipping: retain the same robust box and queue-aware admission rule but incorrectly truncate the upper state to the sensor ceiling plus error. On fresh seeds 4000-4019, using delay 20 and upper-corner scenarios, the full governor has 0/40 breach episodes; the ceiling-as-exact policy has 28/40, and the queue-omitting policy has 25/40. The exact-value policy's additional effort is obtained while its bound has already lost containment. This ablation supports the need for both modeled constraints in this chosen suite.
 
 [[FIGURE:ablation]]
 
@@ -427,7 +427,7 @@ The most valuable next discovery activity is a controls-engineer interview paire
 
 ## Transparent screening scores
 
-Illustrative decision aid, scored1-5 with uncertainty of roughly one point per entry. Weights: impact20%, specificity20%, ordinary-compute feasibility20%, measurability15%, preliminary differentiation15%, access/cost10%. Impact is a technical judgment, not measured market demand; differentiation is deliberately low because existing protection is extensive. Scores are not patentability probabilities.
+Illustrative decision aid, scored 1-5 with uncertainty of roughly one point per entry. Weights: impact 20%, specificity 20%, ordinary-compute feasibility 20%, measurability 15%, preliminary differentiation 15%, access/cost 10%. Impact is a technical judgment, not measured market demand; differentiation is deliberately low because existing protection is extensive. Scores are not patentability probabilities.
 
 | Candidate | Impact | Specificity | Feasibility | Measurability | Differentiation | Access | Weighted /5 | Disposition |
 |---|---|---|---|---|---|---|---|---|
@@ -580,7 +580,7 @@ The system is a scalar, sampled thermal-control demonstrator. Intended reviewer:
 | REQ-01 | Propagate a containing interval for x>=0 with stated nonnegative model bounds | propagate; corner tests; final containment counts | Analytical conditional bound and simulation |
 | REQ-02 | A clipped measurement cannot create a finite upper bound | intersect_reading; test_clipping_preserves_upper; test_clipped_unknown_start_rejected | Implemented |
 | REQ-03 | Account for every accepted pending FIFO action before candidate applies | admissible; queue ablation; test_queue_changes_admissibility | Exact synchronous FIFO only |
-| REQ-04 | Check all finite-prefix upper bounds <=80 C rise, then zero-input invariant | Model; admissible; tests upper_corner and zero_terminal | Sample instants only; ambient25/limit105 C selected |
+| REQ-04 | Check all finite-prefix upper bounds <=80 C rise, then zero-input invariant | Model; admissible; tests upper_corner and zero_terminal | Sample instants only; ambient 25/limit 105 C selected |
 | REQ-05 | Choose largest admissible 0.05-spaced action no greater than request | closed-form cap; test_requested_grid_quantization | Implemented without optimizer |
 | REQ-06 | Do not rebase an inconsistent state interval onto a convenient reading | latched invalid; test_inconsistent_packet_no_rebase | Commands zero; existing queue still runs |
 | REQ-07 | Missing observations must preserve prediction uncertainty | None handling and dropout_60 | Prediction can become conservative |
@@ -613,12 +613,12 @@ Event dates are actual session records (8 September 2026 Pacific / 9 September U
 
 | ID | Assertion and category | Source / confidence | Limitation / used by |
 | --- | --- | --- | --- |
-| E01 | Paper reports clipping and FDIR blueprint; user-supplied source fact | Uploaded PDF pp4,6; high for contents | Physical conditions not independently verified; design, manuscript |
-| E02 | Source table and Fig6 disagree; direct visual inspection | SOURCE_PAPER_AUDIT; high | Cause unknown; dossier |
+| E01 | Paper reports clipping and FDIR blueprint; user-supplied source fact | Uploaded PDF pp. 4, 6; high for contents | Physical conditions not independently verified; design, manuscript |
+| E02 | Source table and Fig. 6 disagree; direct visual inspection | SOURCE_PAPER_AUDIT; high | Cause unknown; dossier |
 | E03 | Linked source repository is publicly readable now; external observed fact | Public GitHub overview; high for access at review | Earliest disclosure/reuse rights unknown; disclosure ledger |
-| E04 | Saturation-aware bounded estimation already exists; external fact | Yang/Li2009 R1 full author PDF | Scope details in prior-art review; patent challenge |
-| E05 | Robot interval governors with delays already exist; external fact | Shen2019 R2 original text mirror | Publisher access failed; novelty challenge |
-| E06 | Application ACK/control history already researched; external fact | Rosenthal2018 R3 full author PDF | No new protocol established here |
+| E04 | Saturation-aware bounded estimation already exists; external fact | Yang/Li 2009 R1 full author PDF | Scope details in prior-art review; patent challenge |
+| E05 | Robot interval governors with delays already exist; external fact | Shen 2019 R2 original text mirror | Publisher access failed; novelty challenge |
+| E06 | Application ACK/control history already researched; external fact | Rosenthal 2018 R3 full author PDF | No new protocol established here |
 | E07 | Synthetic thermal recurrence is a selected engineering assumption | Config plus requirements | Not calibrated from paper; all new numerical results |
 | E08 | Interval containment follows monotonicity and observation intersection; analytical derivation | Technical disclosure + corner tests | Requires finite initial bound, true coefficients/noise within box |
 | E09 | Queue-prefix plus invariant zero tail suffices at sample instants; analytical derivation | admissible + Model | No intersample, motion or hidden-hotspot guarantee |
@@ -1048,7 +1048,7 @@ An initial open of `https://www.uspto.gov/patents/basics/international-protectio
 # Reproducibility and integrity
 
 ## Verified execution environment
-Python3.12.14 (MSC64-bit, bundled Windows runtime); ReportLab4.4.9 for PDFs; pypdf6.10.0 for PDF text checks; NumPy2.3.5 was available but is not required by the thermal simulator. The simulator, demo and tests use the Python standard library. Full platform strings and timing reside in each run_metadata.json. Arial system fonts are used by the PDF builder; fonts are not redistributed.
+Python 3.12.14 (MSC 64-bit, bundled Windows runtime); ReportLab 4.4.9 for PDFs; pypdf 6.10.0 for PDF text checks; NumPy 2.3.5 was available but is not required by the thermal simulator. The simulator, demo and tests use the Python standard library. Full platform strings and timing reside in each run_metadata.json. Arial system fonts are used by the PDF builder; fonts are not redistributed.
 
 The delivered source does not import the source paper's models, code or raw data. The paper's public repository and manuscript were read as context. No supplied password or account credentials are stored in this package or needed to run it.
 
@@ -1067,7 +1067,7 @@ python build_documents.py
 The unqualified experiment is the retained pilot (seeds 1000-1019). The final primary run uses seeds 2000-2019 and a strengthened nominal clipping baseline. Post-main actuator and clipping studies use seeds 3000-3019 and 4000-4019. A source/configuration amendment before final evaluation and separate follow-up protocols record the exact changes.
 
 ## Completed results and units
-Primary:900 episodes, 810000 one-second sample transitions. ACK follow-up:100 episodes, 90000 transitions. Clipping ablation:120 episodes, 108000 transitions. Completed final/post-main total 1120 episodes, 1008000 transitions. Retained pilot:900 episodes, 810000 transitions. Each controller/scenario/seed run is an episode, not a separate motor or physical experiment.
+Primary: 900 episodes, 810000 one-second sample transitions. ACK follow-up: 100 episodes, 90000 transitions. Clipping ablation: 120 episodes, 108000 transitions. Completed final/post-main total 1120 episodes, 1008000 transitions. Retained pilot: 900 episodes, 810000 transitions. Each controller/scenario/seed run is an episode, not a separate motor or physical experiment.
 
 Temperature is Celsius; state intervals are exported as absolute Celsius although the governor maintains Celsius rise. Applied/requested effort is a dimensionless aggregate proxy. Queue length and k are sample counts; the selected interpretation is one second per sample. Each raw row is a single simulated transition with pre-decision FIFO and posterior state interval.
 

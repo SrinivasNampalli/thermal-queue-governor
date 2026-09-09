@@ -4,6 +4,14 @@
 
 Created September 8, 2026 PDT. Clock reference: 2026-09-09 05:06:20 UTC (September 8, 22:06:20 PDT). This date records preparation only; it is not an invention or filing date.
 
+## Public repository follow-up - September 9, 2026 UTC
+
+The earlier table below is a pre-publication record. The user subsequently authorized public GitHub publication and GitHub Pages hosting. The research files, source, and interactive demo were publicly accessible on September 9, 2026 UTC at the repository originally named `SrinivasNampalli/Patent`, now renamed [thermal-queue-governor](https://github.com/SrinivasNampalli/thermal-queue-governor). The public site is [here](https://srinivasnampalli.github.io/thermal-queue-governor/). Commits before the rename include `1dacb21db26870fd2b41051f29835b388414e0fb`, `fcec16c1d0d17ef4dae504142c64843bec74e2c9`, and `5c0c7d58f8934b42b9a8b5b6b4a4d0bf1ee5ab83`; the preserved release archive and file checksums identify the material.
+
+This observed access date is not a verified earliest relevant disclosure date, proof of inventor-originated disclosure, or a priority date. Earlier presentations, papers, uses, offers, and distributions remain unconfirmed. Git history can be rewritten and checksums prove byte identity, not conception or legal timing. Moving a file to a release or rewriting history does not undo prior public availability.
+
+A qualified U.S. inventor-originated disclosure can fall within a one-year exception, but it is not a blanket extension for every disclosure or every claim. European novelty generally considers pre-filing public availability, with narrowly defined exceptions. A practitioner should promptly review the actual disclosure history, inventorship, claim content, and jurisdictions; no automatic September 2027 deadline is assigned here. Sources: [USPTO provisional guidance](https://www.uspto.gov/patents/basics/apply/provisional-application), [EPC Article 54](https://www.epo.org/en/legal/epc/2020/a54.html), [EPC Article 55](https://www.epo.org/en/legal/epc/2020/a55.html).
+
 ## Current known and unresolved items
 
 | ID | Event or material | Date / timezone | Audience / access | Technical content exposed | Evidence | Present assessment |
@@ -46,4 +54,4 @@ A PCT filing claiming a first application's priority is normally made within 12 
 | Foreign-filing authorization | Invention location / filing history UNKNOWN | NOT DETERMINED | UNASSIGNED | National rules review needed |
 | Next intended public disclosure | No date supplied | NOT RECORDED | UNASSIGNED | User factual input needed |
 
-No reminder or automation has been created. Do not label materials patent pending until an actual applicable filing has been confirmed. No disclosure, submission, payment or publication was performed by this researcher.
+No reminder or automation has been created. Do not label materials patent pending until an actual applicable filing has been confirmed. The original preparation entry predated publication; the later authorized public repository and site are recorded in the follow-up above. No patent filing, payment, or signature is claimed.

@@ -16,6 +16,7 @@ const repo=path.resolve(__dirname,'../..');
     await page.goto(pathToFileURL(path.join(repo,'index.html')).href);
     await page.waitForFunction(()=>window.thermalLanding?.heroScene && document.querySelector('#tq-motor canvas'));
     await page.waitForSelector('#tq-history [data-chart-frame]');
+    assert.equal(await page.locator('#thermal-queue-governor-v1 [aria-live="polite"][aria-atomic="true"]').count(),3,'Landing retains the simulator accessibility channels');
     assert.equal(await page.locator('h1').count(),1);
     assert.equal(await page.evaluate(()=>getComputedStyle(document.documentElement).colorScheme),'dark');
     assert.equal(await page.locator('#motion-toggle').getAttribute('aria-pressed'),'true');
@@ -33,6 +34,7 @@ const repo=path.resolve(__dirname,'../..');
       assert.equal(await page.locator('#tq-part-select').inputValue(),id);
     }
     await page.locator('#tq-step').click();assert.match(await page.locator('#tq-clock').textContent(),/^1 s/);
+    assert.match(await page.locator('#tq-summary-live').textContent(),/^At 1 seconds: motor/);
     await page.locator('#tq-add').click();await page.locator('#tq-play').click();
     await page.waitForFunction(()=>document.getElementById('thermal-queue-governor-v1').thermalDemo.getSnapshot().time>=5);
     await page.locator('#tq-play').click();
@@ -49,6 +51,11 @@ const repo=path.resolve(__dirname,'../..');
     for(const width of [1440,1024,768,390,320]){
       await page.setViewportSize({width,height:1000});
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false,'No horizontal overflow at '+width);
+      if(width===768){
+        const sections=page.locator('.tq-main > section'),motor=await sections.nth(0).boundingBox(),history=await sections.nth(1).boundingBox();
+        assert.ok(history.y>=motor.y+motor.height,'At 768 px both landing and simulator use the stacked layout');
+        assert.ok(Math.abs(history.x-motor.x)<1,'768 px simulator sections share a left edge');
+      }
     }
     if(process.env.DEMO_SCREENSHOT_DIR){
       const dir=process.env.DEMO_SCREENSHOT_DIR;fs.mkdirSync(dir,{recursive:true});
@@ -59,7 +66,7 @@ const repo=path.resolve(__dirname,'../..');
       }
     }
     assert.deepEqual(network,[],'Landing must load without any remote request');assert.deepEqual(errors,[]);
-    const result={passed:true,offline:true,components:catalog.length,heroSelection:true,simulationControls:true,reducedMotion:true,viewports:[1440,1024,768,390,320],consoleErrors:errors,remoteRequests:network};
+    const result={passed:true,offline:true,components:catalog.length,heroSelection:true,simulationControls:true,reducedMotion:true,liveRegions:3,stackedAt768:true,viewports:[1440,1024,768,390,320],consoleErrors:errors,remoteRequests:network};
     if(process.env.LANDING_TEST_REPORT)fs.writeFileSync(process.env.LANDING_TEST_REPORT,JSON.stringify(result,null,2)+'\n');
     console.log(JSON.stringify(result));await context.close();
   }finally{await browser.close()}

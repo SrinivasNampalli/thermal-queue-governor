@@ -108,3 +108,10 @@ Queries executed:
 10. `site.uspto.gov micro entity status requirements gross income 2026`
 
 An initial open of `https://www.uspto.gov/patents/basics/international-protection` returned an internal error; the linked [filing-patents-abroad page](https://www.uspto.gov/patents/basics/international-protection/filing-patents-abroad) was successfully retrieved. Current AI guidance was reached through [USPTO's AI resource index](https://www.uspto.gov/initiatives/artificial-intelligence/artificial-intelligence-resources); its older January 2025 FAQ was not used as controlling guidance. The live fee HTML, not an older cached PDF, supplied the dated amounts. This was a filing-procedure review, not the technical prior-art search.
+
+
+## Publication follow-up - September 9, 2026 UTC
+
+The original preparation notes above predate the user-authorized public GitHub repository and interactive website. Those materials are now publicly available. The [disclosure ledger](DISCLOSURE_LEDGER.md) records the observed access date and remaining factual gaps. It should be reviewed promptly with a patent practitioner before any filing strategy is selected. A possible U.S. exception is conditional; pre-filing disclosure can affect foreign rights. No first-disclosure date, automatic grace-period deadline, patent filing, or priority claim is certified by this update.
+
+The public GitHub history and a release timestamp are source/version records, not independent evidence of conception or legal priority. Original materials remain rights reserved pending review; third-party dependency licenses continue to apply. SrinivasNampalli's citation attribution is as project maintainer, not a finding of human inventorship.

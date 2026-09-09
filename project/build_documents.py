@@ -216,9 +216,14 @@ def markdown(text,include_first_title=True):
         story.append(KeepTogether([paragraph]) if re.match(r"^\*\*\d+\.\*\*",parts[0]) else paragraph)
     return story
 def writepdf(name,text,drawings=False):
-    story=markdown(text)
-    if drawings:story.extend([PageBreak(),h("Drawings"),copy.deepcopy(FIGURES["architecture"]),PageBreak(),copy.deepcopy(FIGURES["flow"])])
-    Doc(OUT/name).multiBuild(story)
+    # Keep the expanded manuscript's references together without shrinking type.
+    body=styles["body"];spacing=(body.leading,body.spaceAfter)
+    if name=="RESEARCH_MANUSCRIPT.pdf":body.leading=15.0;body.spaceAfter=7
+    try:
+        story=markdown(text)
+        if drawings:story.extend([PageBreak(),h("Drawings"),copy.deepcopy(FIGURES["architecture"]),PageBreak(),copy.deepcopy(FIGURES["flow"])])
+        Doc(OUT/name).multiBuild(story)
+    finally:body.leading,body.spaceAfter=spacing
 def build():
     writepdf("START_HERE.pdf",(BASE/"docs/START_HERE.md").read_text(encoding="utf8"))
     writepdf("RESEARCH_MANUSCRIPT.pdf",(BASE/"docs/RESEARCH_MANUSCRIPT.md").read_text(encoding="utf8"))

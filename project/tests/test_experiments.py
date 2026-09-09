@@ -14,7 +14,7 @@ import sys
 import tempfile
 import unittest
 from collections import defaultdict
-from pathlib import Path
+from pathlib import Path, PurePosixPath, PureWindowsPath
 
 
 PROJECT = Path(__file__).resolve().parents[1]
@@ -123,8 +123,9 @@ class ExperimentIntegrationTests(unittest.TestCase):
                 self.assertEqual(meta["sampled_transitions"], len(self.raw))
                 self.assertTrue(math.isfinite(meta["duration_seconds"]))
                 self.assertGreaterEqual(meta["duration_seconds"], 0)
-                hashes = {Path(name).as_posix(): value
-                          for name, value in meta["source_sha256"].items()}
+                # Check serialized keys directly: normalizing them here would hide
+                # Windows separators that a POSIX reviewer cannot use as paths.
+                hashes = meta["source_sha256"]
                 self.assertEqual(set(hashes), {"run_experiments.py", "src/governor.py"})
                 for name, digest in hashes.items():
                     self.assertEqual(digest, sha256(self.base / name))
@@ -260,7 +261,13 @@ class ExperimentIntegrationTests(unittest.TestCase):
         result = self.run_cli(output, self.tiny_config("relative"))
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertTrue((self.base / output / "run_metadata.json").is_file())
-        latest = Path((self.base / "results" / "LATEST.txt").read_text())
+        serialized = (self.base / "results" / "LATEST.txt").read_text()
+        self.assertEqual(serialized, "results/relative-output")
+        # Both path grammars must see two components, on either CI host.
+        for grammar in (PurePosixPath, PureWindowsPath):
+            with self.subTest(grammar=grammar.__name__):
+                self.assertEqual(grammar(serialized).parts, ("results", "relative-output"))
+        latest = Path(serialized)
         self.assertFalse(latest.is_absolute())
         self.assertEqual(latest, output)
 
@@ -269,7 +276,10 @@ class ExperimentIntegrationTests(unittest.TestCase):
         result = self.run_cli(output, self.tiny_config("external"))
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertTrue((output / "run_metadata.json").is_file())
-        latest = Path((self.base / "results" / "LATEST.txt").read_text())
+        serialized = (self.base / "results" / "LATEST.txt").read_text()
+        self.assertEqual(serialized, output.resolve().as_posix())
+        self.assertNotIn("\\", serialized)
+        latest = Path(serialized)
         self.assertTrue(latest.is_absolute())
         self.assertEqual(latest, output.resolve())
 

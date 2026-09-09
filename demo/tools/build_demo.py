@@ -1,6 +1,5 @@
 """Rebuild the self-contained demo with only the Python standard library."""
 from pathlib import Path
-import html
 import shutil
 import runpy
 
@@ -14,13 +13,9 @@ for marker,filename,identifier in [('THERMAL_ENGINE','thermal-engine.js','tq-eng
     code=(DEMO/'src'/filename).read_text(encoding='utf-8')
     fragment=fragment.replace(token,f'<script id="{identifier}">\n'+code+'\n</script>')
 if len(fragment.encode('utf-8'))>=1_000_000:raise ValueError('Fragment exceeds size limit')
-template=(DEMO/'tools/standalone-template.html').read_text(encoding='utf-8')
-if template.count('__THERMAL_FRAGMENT__')!=1:raise ValueError('Invalid standalone template')
 (DEMO/'thermal-queue-governor.fragment.html').write_text(fragment,encoding='utf-8',newline='\n')
-(DEMO/'index.html').write_text(template.replace('__THERMAL_FRAGMENT__',html.escape(fragment)),encoding='utf-8',newline='\n')
 site=DEMO.parent/'docs'
 (site/'media').mkdir(parents=True,exist_ok=True)
-shutil.copyfile(DEMO/'index.html',site/'prototype.html')
 shutil.copyfile(DEMO/'watch.html',site/'watch.html')
 for source in sorted((DEMO/'media').iterdir()):
     if source.is_file():shutil.copyfile(source,site/'media'/source.name)
