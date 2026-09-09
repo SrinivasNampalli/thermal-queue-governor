@@ -52,6 +52,8 @@ npm run build
 
 Recording also requires FFmpeg with H.264 and GIF encoders on PATH, or `FFMPEG_PATH` set to its executable. Optional `CHROMIUM_EXECUTABLE` and `PLAYWRIGHT_MODULE_PATH` overrides support an existing local runtime. The recording script operates the actual UI, burns in chapter captions, and produces MP4, a short GIF preview, a poster, and caption/recording metadata. Raw intermediate video stays in a temporary folder or the `DEMO_RECORD_DIR` override.
 
+The interactive CI job uses the official Playwright `v1.62.1-noble` container, pinned by digest and matched to the npm lockfile. Browsers and their system dependencies are already installed, so CI does not depend on unrelated runner-wide apt repositories. Update the image version and digest together with Playwright when upgrading. See the [official container CI guidance](https://playwright.dev/docs/ci#via-containers) and [Docker version guidance](https://playwright.dev/docs/docker#image-tags).
+
 ## Evidence and references
 
 See [validation](VALIDATION.md) and [third-party/component sources](THIRD_PARTY_NOTICES.md). The 23 JavaScript tests and browser checks are additional software verification; they do not add research episodes to the preserved paper or certify hardware.

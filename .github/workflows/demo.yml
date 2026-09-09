@@ -7,7 +7,12 @@ permissions:
   contents: read
 jobs:
   demo:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    container:
+      # Match demo/package-lock.json. Browsers and OS dependencies are baked in;
+      # this avoids runner-wide apt sources unrelated to the test environment.
+      image: mcr.microsoft.com/playwright:v1.62.1-noble@sha256:dcc5531e97840b9b5e794f2814476b21571c5124a3fca2267d73041f56e7580e
+      options: --init --ipc=host
     timeout-minutes: 10
     defaults:
       run:
@@ -27,7 +32,6 @@ jobs:
       - run: python tools/build_demo.py
       - name: Ensure committed export matches its source
         run: git diff --exit-code -- ../index.html
-      - run: npx playwright install --with-deps chromium
       - run: npm run test:browser
       - run: npm run test:landing
       - name: Verify hosted Pages assets and video captions over HTTP
