@@ -29,5 +29,7 @@ jobs:
         run: python -m unittest discover -s tests -v
       - name: Synthetic virtual-motor software verification (no motor-specific validation)
         run: python -m unittest discover -s virtual_motor/tests -v
+      - name: Exact arithmetic for uncertain FIFO progress (no motor validation)
+        run: python tools/check_joint_queue_example.py --check
       - name: Documented worked example
         run: python demo.py

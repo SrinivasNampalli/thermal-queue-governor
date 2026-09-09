@@ -1,0 +1,198 @@
+{
+  "scope": "Constructed exact-arithmetic example; no motor, calibration, held-out study, or patentability evidence",
+  "model": {
+    "a": ".99",
+    "b": "4",
+    "w": "0",
+    "ambient_C": 25,
+    "temperature_limit_C": 105,
+    "clipping_C": 95,
+    "effort_grid": ".05"
+  },
+  "contract": "Exactly-once FIFO; at most one consecutive zero-effort idle while backlogged; zero effort after drain",
+  "current_hypotheses": [
+    {
+      "explanation": "Old command executed; its heat is already present",
+      "rise_C": 76.711,
+      "temperature_C": 101.711,
+      "remaining_efforts": []
+    },
+    {
+      "explanation": "Old command did not execute; it remains an obligation",
+      "rise_C": 74.151,
+      "temperature_C": 99.151,
+      "remaining_efforts": [
+        0.8
+      ]
+    }
+  ],
+  "shared_reading_C": 95,
+  "candidate_levels_checked": 21,
+  "full_effort_future_peak_rises_C": [
+    79.94389,
+    79.1844511,
+    79.2097951,
+    78.457697149
+  ],
+  "joint_admitted_effort": 1.0,
+  "rectangle_admitted_effort": 0.75,
+  "joint_matches_full_history_reference_at_every_candidate": true,
+  "zero_input_tail_decreases": true,
+  "general_idle_envelope_check": {
+    "finite_cases": 864,
+    "enumerated_schedules": 4896,
+    "all_exactly_equal": true,
+    "includes_waiting_below_equilibrium": true,
+    "scope": "Finite exact-arithmetic verification of the stated scalar service contract; not global proof or physical validation"
+  },
+  "interpretation": "Preserving correlation avoids a fictitious double heat obligation. A full joint-history robust reference obtains the same decision; this is not an advantage over that reference.",
+  "candidates": [
+    {
+      "candidate": 0.0,
+      "joint_peak_rise_C": 76.711,
+      "rectangle_peak_rise_C": 78.50389,
+      "joint_admits": true,
+      "rectangle_admits": true
+    },
+    {
+      "candidate": 0.05,
+      "joint_peak_rise_C": 76.711,
+      "rectangle_peak_rise_C": 78.50389,
+      "joint_admits": true,
+      "rectangle_admits": true
+    },
+    {
+      "candidate": 0.1,
+      "joint_peak_rise_C": 76.711,
+      "rectangle_peak_rise_C": 78.50389,
+      "joint_admits": true,
+      "rectangle_admits": true
+    },
+    {
+      "candidate": 0.15,
+      "joint_peak_rise_C": 76.711,
+      "rectangle_peak_rise_C": 78.50389,
+      "joint_admits": true,
+      "rectangle_admits": true
+    },
+    {
+      "candidate": 0.2,
+      "joint_peak_rise_C": 76.711,
+      "rectangle_peak_rise_C": 78.50389,
+      "joint_admits": true,
+      "rectangle_admits": true
+    },
+    {
+      "candidate": 0.25,
+      "joint_peak_rise_C": 76.711,
+      "rectangle_peak_rise_C": 78.50389,
+      "joint_admits": true,
+      "rectangle_admits": true
+    },
+    {
+      "candidate": 0.3,
+      "joint_peak_rise_C": 76.711,
+      "rectangle_peak_rise_C": 78.50389,
+      "joint_admits": true,
+      "rectangle_admits": true
+    },
+    {
+      "candidate": 0.35,
+      "joint_peak_rise_C": 76.711,
+      "rectangle_peak_rise_C": 78.50389,
+      "joint_admits": true,
+      "rectangle_admits": true
+    },
+    {
+      "candidate": 0.4,
+      "joint_peak_rise_C": 76.711,
+      "rectangle_peak_rise_C": 78.50389,
+      "joint_admits": true,
+      "rectangle_admits": true
+    },
+    {
+      "candidate": 0.45,
+      "joint_peak_rise_C": 76.75389,
+      "rectangle_peak_rise_C": 78.5288511,
+      "joint_admits": true,
+      "rectangle_admits": true
+    },
+    {
+      "candidate": 0.5,
+      "joint_peak_rise_C": 76.94389,
+      "rectangle_peak_rise_C": 78.7188511,
+      "joint_admits": true,
+      "rectangle_admits": true
+    },
+    {
+      "candidate": 0.55,
+      "joint_peak_rise_C": 77.15389,
+      "rectangle_peak_rise_C": 78.9288511,
+      "joint_admits": true,
+      "rectangle_admits": true
+    },
+    {
+      "candidate": 0.6,
+      "joint_peak_rise_C": 77.38389,
+      "rectangle_peak_rise_C": 79.1588511,
+      "joint_admits": true,
+      "rectangle_admits": true
+    },
+    {
+      "candidate": 0.65,
+      "joint_peak_rise_C": 77.63389,
+      "rectangle_peak_rise_C": 79.4088511,
+      "joint_admits": true,
+      "rectangle_admits": true
+    },
+    {
+      "candidate": 0.7,
+      "joint_peak_rise_C": 77.90389,
+      "rectangle_peak_rise_C": 79.6788511,
+      "joint_admits": true,
+      "rectangle_admits": true
+    },
+    {
+      "candidate": 0.75,
+      "joint_peak_rise_C": 78.19389,
+      "rectangle_peak_rise_C": 79.9688511,
+      "joint_admits": true,
+      "rectangle_admits": true
+    },
+    {
+      "candidate": 0.8,
+      "joint_peak_rise_C": 78.50389,
+      "rectangle_peak_rise_C": 80.2788511,
+      "joint_admits": true,
+      "rectangle_admits": false
+    },
+    {
+      "candidate": 0.85,
+      "joint_peak_rise_C": 78.83389,
+      "rectangle_peak_rise_C": 80.6088511,
+      "joint_admits": true,
+      "rectangle_admits": false
+    },
+    {
+      "candidate": 0.9,
+      "joint_peak_rise_C": 79.18389,
+      "rectangle_peak_rise_C": 80.9588511,
+      "joint_admits": true,
+      "rectangle_admits": false
+    },
+    {
+      "candidate": 0.95,
+      "joint_peak_rise_C": 79.55389,
+      "rectangle_peak_rise_C": 81.3288511,
+      "joint_admits": true,
+      "rectangle_admits": false
+    },
+    {
+      "candidate": 1.0,
+      "joint_peak_rise_C": 79.94389,
+      "rectangle_peak_rise_C": 81.7188511,
+      "joint_admits": true,
+      "rectangle_admits": false
+    }
+  ]
+}

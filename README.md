@@ -14,6 +14,8 @@ Follow the [dated process log](project/research/VALIDATION_PROCESS_LOG.md), [mot
 
 The [Python workflow](https://github.com/SrinivasNampalli/thermal-queue-governor/actions/workflows/tests.yml) runs both the original controller checks and the new synthetic plant checks on GitHub-hosted Linux and Windows VMs. Each run records its commit and pass/fail logs. It performs software verification; it does not run the pending motor-specific study.
 
+The [next technical research step](project/research/NEXT_TECHNICAL_STEP.md) specifies admission when FIFO execution progress is uncertain. It includes a constructed 100%-versus-75% admission example and an exact-arithmetic check of 864 bounded-idle cases against 4,896 schedules. These are mechanism calculations, not motor-performance statistics. The [focused prior-art follow-up](project/research/JOINT_QUEUE_PRIOR_ART_2026-09.md) documents why joint state/queue reasoning itself is already established. The proposed online history estimator is not yet implemented.
+
 ## Explore the landing page and interactive prototype
 
 **[Open the live webpage](https://srinivasnampalli.github.io/thermal-queue-governor/)** · **[Jump to the interactive prototype](https://srinivasnampalli.github.io/thermal-queue-governor/#prototype)** · **[Watch the recorded walkthrough](https://srinivasnampalli.github.io/thermal-queue-governor/watch.html)**
