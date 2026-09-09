@@ -21,4 +21,5 @@ for source in sorted((DEMO/'media').iterdir()):
     if source.is_file():shutil.copyfile(source,site/'media'/source.name)
 (site/'.nojekyll').write_text('',encoding='utf-8')
 runpy.run_path(str(DEMO/'tools/build_landing.py'))
+runpy.run_path(str(DEMO/'tools/build_thermal_bridge.py'))
 print('Built standalone simulator and refreshed the docs/ GitHub Pages export.')

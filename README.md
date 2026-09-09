@@ -4,6 +4,14 @@ A reproducible research and patent discussion package for scalar motor thermal c
 
 This is a synthetic simulation prototype. It is not a validated hardware controller or a granted patent. Patentability, human inventorship, ownership, and filing readiness remain unresolved.
 
+## New sensor-module candidate: Guarded Thermal Bridge Interrogator
+
+**[Explore the new interactive hardware concept](https://srinivasnampalli.github.io/thermal-queue-governor/thermal-bridge.html)** · **[Read the technical design](project/research/GUARDED_THERMAL_BRIDGE.md)** · **[Inspect the prior-art comparison](project/research/THERMAL_BRIDGE_PRIOR_ART.md)**
+
+This separate concept uses a selectable cooling bridge and an independently controlled thermal guard to distinguish winding heat from heat escaping through sensor leads. In one constructed example, it reconstructs 130 °C where a simpler cooled-probe model incorrectly reports 85 °C. The clickable hardware diagram replays ten computed cases, including two failures that still pass the consistency check. It is a proposed measurement architecture, not an upgraded motor safety guarantee.
+
+[Thirteen software tests and stored traces](project/thermal_bridge/) make the mechanism reproducible. Switched cooling thermometry and active guards have earlier disclosures; the exact proposed combination remains an invention candidate with unresolved novelty. No physical device has been built. The [single-file offline demo](thermal-bridge.html) includes all replay data and requires no build or network connection.
+
 ## September 2026 patent review and motor-validation preparation
 
 The [expanded patent review](project/research/PATENT_REVIEW_2026-09.md) maps all 11 discussion claims against earlier research and patents, with an [auditable search log](project/research/PATENT_SEARCH_LOG_2026-09.md). It finds substantial overlap in the broad ingredients. The exact narrow combination remains unresolved; **uniqueness has not been established**. The new [review and validation-preparation packet](PATENT_REVIEW_AND_VIRTUAL_VALIDATION.pdf) supplements the historical dossier.
@@ -14,7 +22,7 @@ Follow the [dated process log](project/research/VALIDATION_PROCESS_LOG.md), [mot
 
 The [Python workflow](https://github.com/SrinivasNampalli/thermal-queue-governor/actions/workflows/tests.yml) runs both the original controller checks and the new synthetic plant checks on GitHub-hosted Linux and Windows VMs. Each run records its commit and pass/fail logs. It performs software verification; it does not run the pending motor-specific study.
 
-The [next technical research step](project/research/NEXT_TECHNICAL_STEP.md) specifies admission when FIFO execution progress is uncertain. It includes a constructed 100%-versus-75% admission example and an exact-arithmetic check of 864 bounded-idle cases against 4,896 schedules. These are mechanism calculations, not motor-performance statistics. The [focused prior-art follow-up](project/research/JOINT_QUEUE_PRIOR_ART_2026-09.md) documents why joint state/queue reasoning itself is already established. The proposed online history estimator is not yet implemented.
+The [earlier FIFO research direction](project/research/NEXT_TECHNICAL_STEP.md) specifies admission when FIFO execution progress is uncertain. It includes a constructed 100%-versus-75% admission example and an exact-arithmetic check of 864 bounded-idle cases against 4,896 schedules. These are mechanism calculations, not motor-performance statistics. The [focused prior-art follow-up](project/research/JOINT_QUEUE_PRIOR_ART_2026-09.md) documents why joint state/queue reasoning itself is already established. The proposed online history estimator is not yet implemented.
 
 ## Explore the landing page and interactive prototype
 

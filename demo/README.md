@@ -59,3 +59,9 @@ The interactive CI job uses the official Playwright `v1.62.1-noble` container, p
 See [validation](VALIDATION.md) and [third-party/component sources](THIRD_PARTY_NOTICES.md). The 23 JavaScript tests and browser checks are additional software verification; they do not add research episodes to the preserved paper or certify hardware.
 
 The MP4 contains a real browser recording of this synthetic demo. It is silent with explanatory captions. The GIF is a cropped excerpt of that same recording.
+
+## Separate guarded sensor concept
+
+The [Guarded Thermal Bridge Interrogator](../thermal-bridge.html) is a self-contained replay of ten computed sensor-module experiments with a selectable cooling bridge and an independently controlled thermal guard. Its [technical design](../project/research/GUARDED_THERMAL_BRIDGE.md) and [model](../project/thermal_bridge/) explain the equations, tests and known false-consistency cases. It does not change the TQG controller.
+
+`python tools/build_demo.py` also bundles this page from `src/thermal-bridge.template.html` and the recorded model results. Run `node tools/test-thermal-bridge.cjs` to check the offline replay and component interactions in Chromium. The public URL is [thermal-bridge.html](https://srinivasnampalli.github.io/thermal-queue-governor/thermal-bridge.html).

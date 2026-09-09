@@ -61,3 +61,7 @@ No reminder or automation has been created. Do not label materials patent pendin
 The public [v0.3.0 release](https://github.com/SrinivasNampalli/thermal-queue-governor/releases/tag/v0.3.0) was verified after publication at 20:23:36 UTC and targets `c5d91820cdc7496e4a3b12d13f32814190fe40fb`. It includes the expanded review packet and updated manuscript. This records a verified repository event, not the earliest possible disclosure or a legal priority determination.
 
 The subsequent technical-direction materials are published as an ordinary repository update: `NEXT_TECHNICAL_STEP.md`, `JOINT_QUEUE_PRIOR_ART_2026-09.md`, and the exact-arithmetic example/calculator. They describe proposed research and limited mathematical verification, with the online estimator still unimplemented. Their Git history records this particular publication; it does not establish who conceived claim limitations or resolve any filing deadline.
+
+## Guarded thermal bridge repository update - September 9, 2026
+
+The user requested a materially different invention and had already authorized documenting and publishing the project on this repository. The prepared ordinary Git update adds the guarded sensor architecture, source comparison, synthetic model/results and interactive replay. The corresponding Git commit and Pages deployment record this version's public availability after upload. This preparation entry does not establish earliest disclosure, priority or human conception; it creates no patent filing. No published history or release tag is replaced.

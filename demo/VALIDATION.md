@@ -31,3 +31,9 @@ The public and offline exports now have different packaging. In this reviewed lo
 Generated `docs/`, duplicate compact exports, and the intermediate fragment are no longer tracked; the Pages workflow assembles deployment artifacts from source. Media has one tracked source copy in `demo/media/`. The historical `PROJECT.zip` is removed from the current tracked tree and designated for release-asset distribution. This changes the current tree, not existing Git history. Publication, release attachment, and CI completion must be verified separately.
 
 The [primary evidence reanalysis](../project/research/PRIMARY_EVIDENCE.md) adds seed-level spread, a deterministic paired cluster bootstrap, and the near-limit peak of 104.99997190667195 °C. The editable manuscript has been corrected to describe this numerical boundary result and the uncertainty method. These are analyses of preserved synthetic results; no new research episodes or hardware measurements were added.
+
+## Guarded thermal bridge acceptance - September 9, 2026
+
+The separate `thermal-bridge.html` replay passed `tools/test-thermal-bridge.cjs` in Chromium with networking disabled and reduced motion enabled. The check exercised all ten stored cases, four observations per case, all nine selectable hardware parts, keyboard timeline control, play/pause/step, final-result visibility and exact displayed-result parity. Both known false-consistency cases show prominent explanations. No client errors, remote requests, horizontal overflow or component-label overflow were recorded at 1440, 1024, 768, 390 and 320 pixels. Desktop and phone screenshots were visually inspected. The original landing acceptance also passed after adding the new concept link.
+
+These are browser and synthetic-mechanism checks. The model prescribes thermal boundaries and excludes guard-actuator energy and hardware dynamics. It makes no physical motor-validation or patentability claim.

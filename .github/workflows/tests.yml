@@ -31,5 +31,9 @@ jobs:
         run: python -m unittest discover -s virtual_motor/tests -v
       - name: Exact arithmetic for uncertain FIFO progress (no motor validation)
         run: python tools/check_joint_queue_example.py --check
+      - name: Guarded thermal bridge mechanism checks (synthetic sensor model)
+        run: python -m unittest discover -s thermal_bridge/tests -v
+      - name: Verify stored guarded-bridge experiments
+        run: python thermal_bridge/model.py --check
       - name: Documented worked example
         run: python demo.py
