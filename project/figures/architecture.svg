@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="504" height="340" preserveAspectRatio="xMinYMin meet" viewBox="0 0 504 340" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="504" height="340"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-340)" style="clip-path: url(#clip)">
+		<g transform="">
+			<text x="111.08935546875" y="324" style="font-family: Arial-Bold; font-size: 11px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,648) scale(1,-1)">FIG. 1. Scalar thermal governor and explicit interfaces</text>
+			<rect x="8" y="240" width="135" height="55" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="51.486083984375" y="279" style="font-family: Arial-Bold; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,558) scale(1,-1)">100 Sensor</text>
+			<text x="24.716796874999993" y="266" style="font-family: Arial; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,532) scale(1,-1)">Noise then upper clipping</text>
+			<text x="24.481689453124993" y="253" style="font-family: Arial; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,506) scale(1,-1)">Reading / missing marker</text>
+			<rect x="184" y="240" width="135" height="55" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="206.4736328125" y="279" style="font-family: Arial-Bold; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,558) scale(1,-1)">110 Interval observer</text>
+			<text x="195.722412109375" y="266" style="font-family: Arial; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,532) scale(1,-1)">Finite commissioning bound</text>
+			<text x="203.966552734375" y="253" style="font-family: Arial; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,506) scale(1,-1)">Intersect and propagate</text>
+			<rect x="360" y="240" width="135" height="55" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="398.4873046875" y="279" style="font-family: Arial-Bold; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,558) scale(1,-1)">130 Governor</text>
+			<text x="375.580810546875" y="266" style="font-family: Arial; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,532) scale(1,-1)">Queue + candidate bound</text>
+			<text x="382.482421875" y="253" style="font-family: Arial; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,506) scale(1,-1)">Zero-input terminal set</text>
+			<rect x="8" y="65" width="135" height="55" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="41.23144531249999" y="104" style="font-family: Arial-Bold; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,208) scale(1,-1)">150 Scalar plant</text>
+			<text x="33.59814453124999" y="91" style="font-family: Arial; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,182) scale(1,-1)">Applied effort -&gt; heat</text>
+			<text x="30.976806640624993" y="78" style="font-family: Arial; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,156) scale(1,-1)">Synthetic embodiment</text>
+			<rect x="184" y="65" width="135" height="55" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="210.98681640625" y="104" style="font-family: Arial-Bold; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,208) scale(1,-1)">120 Accepted FIFO</text>
+			<text x="205.974853515625" y="91" style="font-family: Arial; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,182) scale(1,-1)">All pending commands</text>
+			<text x="205.728759765625" y="78" style="font-family: Arial; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,156) scale(1,-1)">Exact external contract</text>
+			<rect x="360" y="65" width="135" height="55" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="401.7392578125" y="104" style="font-family: Arial-Bold; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,208) scale(1,-1)">140 Adapter</text>
+			<text x="392.98974609375" y="91" style="font-family: Arial; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,182) scale(1,-1)">Apply FIFO order</text>
+			<text x="387.47900390625" y="78" style="font-family: Arial; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,156) scale(1,-1)">Assert applied effort</text>
+			<polyline points="75 120, 75 240" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: None; fill-rule: evenodd;"/>
+			<polygon points="75 240, 72.82517 235.4978, 77.17483 235.4978" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,0%,0%); fill-rule: evenodd;"/>
+			<text x="80" y="177" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,354) scale(1,-1)">Temperature</text>
+			<polyline points="143 268, 184 268" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: None; fill-rule: evenodd;"/>
+			<polygon points="184 268, 179.4978 270.1748, 179.4978 265.8252" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,0%,0%); fill-rule: evenodd;"/>
+			<polyline points="319 268, 360 268" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: None; fill-rule: evenodd;"/>
+			<polygon points="360 268, 355.4978 270.1748, 355.4978 265.8252" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,0%,0%); fill-rule: evenodd;"/>
+			<polyline points="428 240, 428 120" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: None; fill-rule: evenodd;"/>
+			<polygon points="428 120, 430.1748 124.5022, 425.8252 124.5022" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,0%,0%); fill-rule: evenodd;"/>
+			<text x="432" y="204" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,408) scale(1,-1)">Selected</text>
+			<text x="432" y="191" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,382) scale(1,-1)">effort</text>
+			<polyline points="360 94, 319 94" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: None; fill-rule: evenodd;"/>
+			<polygon points="319 94, 323.5022 91.82517, 323.5022 96.17483" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,0%,0%); fill-rule: evenodd;"/>
+			<text x="328.491455078125" y="103" style="font-family: Arial; font-size: 7px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,206) scale(1,-1)">Queue</text>
+			<polyline points="251 120, 251 155, 399 155, 399 240" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: None; fill-rule: evenodd;"/>
+			<polygon points="399 240, 396.8252 235.4978, 401.1748 235.4978" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,0%,0%); fill-rule: evenodd;"/>
+			<text x="289.09375" y="161" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,322) scale(1,-1)">Pending efforts</text>
+			<polyline points="373 120, 373 212, 251 212, 251 240" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: None; fill-rule: evenodd;"/>
+			<polygon points="251 240, 248.8252 235.4978, 253.1748 235.4978" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,0%,0%); fill-rule: evenodd;"/>
+			<text x="268.9765625" y="218" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,436) scale(1,-1)">Asserted applied effort</text>
+			<polyline points="427 65, 427 36, 75 36, 75 65" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: None; fill-rule: evenodd;"/>
+			<polygon points="75 65, 72.82517 60.49776, 77.17483 60.49776" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,0%,0%); fill-rule: evenodd;"/>
+			<text x="215.64453125" y="42" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,84) scale(1,-1)">Actual applied effort</text>
+			<text x="127.03515625" y="9" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,18) scale(1,-1)">100, 120, 140 and 150 are simulated or externally assumed interfaces.</text>
+		</g>
+	</g>
+</svg>

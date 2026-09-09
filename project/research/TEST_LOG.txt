@@ -1,0 +1,21 @@
+2026-09-09T05:19:01.477Z
+test_clipped_unknown_start_rejected (test_governor.ThermalTests.test_clipped_unknown_start_rejected) ... ok
+test_clipping_preserves_upper (test_governor.ThermalTests.test_clipping_preserves_upper) ... ok
+test_corners_contained (test_governor.ThermalTests.test_corners_contained) ... ok
+test_empty_intersection_rejects (test_governor.ThermalTests.test_empty_intersection_rejects) ... ok
+test_inconsistent_packet_no_rebase (test_governor.ThermalTests.test_inconsistent_packet_no_rebase) ... ok
+test_invalid_demand (test_governor.ThermalTests.test_invalid_demand) ... ok
+test_invalid_model (test_governor.ThermalTests.test_invalid_model) ... ok
+test_invalid_queue_latches (test_governor.ThermalTests.test_invalid_queue_latches) ... ok
+test_missing_is_prediction_only (test_governor.ThermalTests.test_missing_is_prediction_only) ... ok
+test_nondefault_nominal_parameters (test_governor.ThermalTests.test_nondefault_nominal_parameters) ... ok
+test_queue_changes_admissibility (test_governor.ThermalTests.test_queue_changes_admissibility) ... ok
+test_queue_overflow (test_governor.ThermalTests.test_queue_overflow) ... ok
+test_requested_grid_quantization (test_governor.ThermalTests.test_requested_grid_quantization) ... ok
+test_upper_corner_closed_loop (test_governor.ThermalTests.test_upper_corner_closed_loop) ... ok
+test_zero_terminal_invariant (test_governor.ThermalTests.test_zero_terminal_invariant) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.007s
+
+OK

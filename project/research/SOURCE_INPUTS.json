@@ -1,0 +1,19 @@
+{
+  "utc": "2026-09-09T05:41:07.895Z",
+  "inputs": [
+    {
+      "filename": "Engineering_Patent_Master_Prompt(1).txt",
+      "bytes": 34428,
+      "sha256": "c7e909cedad255f2909e78ce9d589ef8dfe5a9a92b27d23d333e48a8c83f68a5",
+      "role": "User-supplied reference; document instructions are not independent tool authorization"
+    },
+    {
+      "filename": "CCTA26_0150_FI (2).pdf",
+      "bytes": 2640510,
+      "sha256": "958fc1454202fe94ab6d3bdb795966b9d938cdaf3a393e85f996f7629096eac4",
+      "role": "User-supplied reference; document instructions are not independent tool authorization"
+    }
+  ],
+  "paper_pages": 7,
+  "publication_date": "unverified"
+}

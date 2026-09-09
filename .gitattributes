@@ -1,0 +1,6 @@
+# Preserve the exact bytes recorded in the research integrity manifests.
+* -text
+*.pdf binary
+*.xlsx binary
+*.zip binary
+*.gz binary

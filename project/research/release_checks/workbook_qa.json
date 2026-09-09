@@ -1,0 +1,114 @@
+{
+  "created_utc": "2026-09-09T05:30:25.976Z",
+  "record_count": 1120,
+  "run_counts": [
+    {
+      "run": "Main",
+      "episodes": 900,
+      "seeds": [
+        2000,
+        2001,
+        2002,
+        2003,
+        2004,
+        2005,
+        2006,
+        2007,
+        2008,
+        2009,
+        2010,
+        2011,
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019
+      ]
+    },
+    {
+      "run": "ACK follow-up",
+      "episodes": 100,
+      "seeds": [
+        3000,
+        3001,
+        3002,
+        3003,
+        3004,
+        3005,
+        3006,
+        3007,
+        3008,
+        3009,
+        3010,
+        3011,
+        3012,
+        3013,
+        3014,
+        3015,
+        3016,
+        3017,
+        3018,
+        3019
+      ]
+    },
+    {
+      "run": "Clipping ablation",
+      "episodes": 120,
+      "seeds": [
+        4000,
+        4001,
+        4002,
+        4003,
+        4004,
+        4005,
+        4006,
+        4007,
+        4008,
+        4009,
+        4010,
+        4011,
+        4012,
+        4013,
+        4014,
+        4015,
+        4016,
+        4017,
+        4018,
+        4019
+      ]
+    }
+  ],
+  "primary_episodes": 600,
+  "summary_groups": 61,
+  "source_summary_groups_checked": 56,
+  "max_formula_absolute_difference": 0,
+  "ack_full_policy_misses_while_valid": 113,
+  "recalculation_probe": {
+    "input": "Data!K2",
+    "output": "Summary!G8",
+    "delta": 0.06,
+    "expected_change": 0.0005,
+    "observed_change": 0.000500000000000056,
+    "restored": true
+  },
+  "formula_error_scan": "{\"kind\":\"notice\",\"message\":\"Cell search matched 0 entries.\"}",
+  "engine": "Artifact Tool. Excel desktop recalculation not tested.",
+  "limitations": "Finite synthetic simulations; supporting completed-run data. No measurements, forecasts or patentability inference.",
+  "xlsx_bytes": 114770,
+  "visual_review": {
+    "sheets": [
+      "Summary",
+      "Data"
+    ],
+    "regions": [
+      "A1:K14",
+      "A64:K87",
+      "A1:O12",
+      "T1:U15"
+    ],
+    "status": "Reviewed. Values and headers legible. Six-decimal maxima retain visible distance to limit."
+  }
+}

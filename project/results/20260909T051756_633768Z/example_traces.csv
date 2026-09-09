@@ -1,0 +1,1 @@
+scenario,seed,policy,k,true_T_C,reading_C,requested,accepted,applied,acknowledged,decision_id,cumulative_effort,lo_C,hi_C,valid,reason,predicted_peak_C,pending_json,next_T_C,interval_miss,breach

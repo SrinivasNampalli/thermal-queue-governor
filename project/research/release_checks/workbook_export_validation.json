@@ -1,0 +1,17 @@
+{
+  "sheets": [
+    "Summary",
+    "Data"
+  ],
+  "formula_error_cells": [],
+  "data_rows": 1120,
+  "data_pane": {
+    "xSplit": "3",
+    "ySplit": "1",
+    "topLeftCell": "D2",
+    "activePane": "bottomRight",
+    "state": "frozen"
+  },
+  "first_temperature_numeric": 78.29723325635678,
+  "primary_full_max_cached_C": 104.99997190667195
+}

@@ -1,0 +1,66 @@
+python -m unittest discover -s tests -v
+test_completed_metadata_has_correct_counts_and_source_hashes (test_experiments.ExperimentIntegrationTests.test_completed_metadata_has_correct_counts_and_source_hashes) ... ok
+test_episode_metrics_reconcile_to_raw_transitions (test_experiments.ExperimentIntegrationTests.test_episode_metrics_reconcile_to_raw_transitions) ... ok
+test_example_traces_are_exact_selected_raw_rows (test_experiments.ExperimentIntegrationTests.test_example_traces_are_exact_selected_raw_rows) ... ok
+test_existing_output_is_rejected_without_changes (test_experiments.ExperimentIntegrationTests.test_existing_output_is_rejected_without_changes) ... ok
+test_external_absolute_output_completes_and_records_absolute_latest (test_experiments.ExperimentIntegrationTests.test_external_absolute_output_completes_and_records_absolute_latest) ... ok
+test_policy_and_seed_order_do_not_change_paired_outcomes (test_experiments.ExperimentIntegrationTests.test_policy_and_seed_order_do_not_change_paired_outcomes) ... ok
+test_raw_fifo_and_acknowledgment_are_consistent (test_experiments.ExperimentIntegrationTests.test_raw_fifo_and_acknowledgment_are_consistent) ... ok
+test_relative_output_completes_and_records_relative_latest (test_experiments.ExperimentIntegrationTests.test_relative_output_completes_and_records_relative_latest) ... ok
+test_repeat_run_reproduces_data_and_nonvolatile_metadata (test_experiments.ExperimentIntegrationTests.test_repeat_run_reproduces_data_and_nonvolatile_metadata) ... ok
+test_summary_metrics_reconcile_to_episode_rows (test_experiments.ExperimentIntegrationTests.test_summary_metrics_reconcile_to_episode_rows) ... ok
+test_clipped_unknown_start_rejected (test_governor.ThermalTests.test_clipped_unknown_start_rejected) ... ok
+test_clipping_preserves_upper (test_governor.ThermalTests.test_clipping_preserves_upper) ... ok
+test_corners_contained (test_governor.ThermalTests.test_corners_contained) ... ok
+test_empty_intersection_rejects (test_governor.ThermalTests.test_empty_intersection_rejects) ... ok
+test_inconsistent_packet_no_rebase (test_governor.ThermalTests.test_inconsistent_packet_no_rebase) ... ok
+test_invalid_demand (test_governor.ThermalTests.test_invalid_demand) ... ok
+test_invalid_model (test_governor.ThermalTests.test_invalid_model) ... ok
+test_invalid_queue_latches (test_governor.ThermalTests.test_invalid_queue_latches) ... ok
+test_missing_is_prediction_only (test_governor.ThermalTests.test_missing_is_prediction_only) ... ok
+test_nondefault_nominal_parameters (test_governor.ThermalTests.test_nondefault_nominal_parameters) ... ok
+test_queue_changes_admissibility (test_governor.ThermalTests.test_queue_changes_admissibility) ... ok
+test_queue_overflow (test_governor.ThermalTests.test_queue_overflow) ... ok
+test_requested_grid_quantization (test_governor.ThermalTests.test_requested_grid_quantization) ... ok
+test_upper_corner_closed_loop (test_governor.ThermalTests.test_upper_corner_closed_loop) ... ok
+test_zero_terminal_invariant (test_governor.ThermalTests.test_zero_terminal_invariant) ... ok
+test_action_is_maximal_against_independent_exhaustive_grid_oracle (test_governor_extended.ExtendedThermalTests.test_action_is_maximal_against_independent_exhaustive_grid_oracle) ... ok
+test_admitted_candidate_has_bounded_infinite_zero_input_tail (test_governor_extended.ExtendedThermalTests.test_admitted_candidate_has_bounded_infinite_zero_input_tail) ... ok
+test_bad_measurement_cannot_be_cleared_by_later_plausible_data (test_governor_extended.ExtendedThermalTests.test_bad_measurement_cannot_be_cleared_by_later_plausible_data) ... ok
+test_commissioning_requires_ordered_finite_nonnegative_interval (test_governor_extended.ExtendedThermalTests.test_commissioning_requires_ordered_finite_nonnegative_interval) ... ok
+test_delayed_closed_loops_contain_time_varying_in_box_plants (test_governor_extended.ExtendedThermalTests.test_delayed_closed_loops_contain_time_varying_in_box_plants) ... ok
+test_false_in_range_ack_can_lose_containment_without_invalid_flag (test_governor_extended.ExtendedThermalTests.test_false_in_range_ack_can_lose_containment_without_invalid_flag)
+Negative control: caller-reported effort is not physical validation. ... ok
+test_fifo_order_is_material_even_for_same_effort_multiset (test_governor_extended.ExtendedThermalTests.test_fifo_order_is_material_even_for_same_effort_multiset) ... ok
+test_greater_request_cannot_reduce_admitted_effort (test_governor_extended.ExtendedThermalTests.test_greater_request_cannot_reduce_admitted_effort) ... ok
+test_higher_upper_bound_never_increases_admitted_effort (test_governor_extended.ExtendedThermalTests.test_higher_upper_bound_never_increases_admitted_effort) ... ok
+test_invalid_acknowledgment_preserves_bounds_and_latches (test_governor_extended.ExtendedThermalTests.test_invalid_acknowledgment_preserves_bounds_and_latches) ... ok
+test_invalid_demand_raises_without_authorizing_an_action (test_governor_extended.ExtendedThermalTests.test_invalid_demand_raises_without_authorizing_an_action) ... ok
+test_missing_sensor_preserves_the_full_prediction_interval (test_governor_extended.ExtendedThermalTests.test_missing_sensor_preserves_the_full_prediction_interval) ... ok
+test_model_rejects_nonfinite_fields_and_invalid_boxes (test_governor_extended.ExtendedThermalTests.test_model_rejects_nonfinite_fields_and_invalid_boxes) ... ok
+test_no_fallback_latches_even_after_queue_is_reported_empty (test_governor_extended.ExtendedThermalTests.test_no_fallback_latches_even_after_queue_is_reported_empty) ... ok
+test_out_of_range_and_nonfinite_queue_entries_latch_invalid (test_governor_extended.ExtendedThermalTests.test_out_of_range_and_nonfinite_queue_entries_latch_invalid) ... ok
+test_over_limit_current_state_is_not_hidden_by_future_cooling (test_governor_extended.ExtendedThermalTests.test_over_limit_current_state_is_not_hidden_by_future_cooling) ... ok
+test_queue_length_boundary_accepts_120_and_rejects_121 (test_governor_extended.ExtendedThermalTests.test_queue_length_boundary_accepts_120_and_rejects_121) ... ok
+test_sensor_below_ambient_can_describe_zero_rise (test_governor_extended.ExtendedThermalTests.test_sensor_below_ambient_can_describe_zero_rise) ... ok
+test_sensor_law_contains_truth_at_noise_and_clipping_boundaries (test_governor_extended.ExtendedThermalTests.test_sensor_law_contains_truth_at_noise_and_clipping_boundaries) ... ok
+test_sensor_nonfinite_and_above_ceiling_packets_are_rejected (test_governor_extended.ExtendedThermalTests.test_sensor_nonfinite_and_above_ceiling_packets_are_rejected) ... ok
+test_unsafe_prefix_is_rejected_even_when_queue_end_is_safe (test_governor_extended.ExtendedThermalTests.test_unsafe_prefix_is_rejected_even_when_queue_end_is_safe) ... ok
+test_unsaturated_reading_near_ceiling_retains_finite_error_bar (test_governor_extended.ExtendedThermalTests.test_unsaturated_reading_near_ceiling_retains_finite_error_bar) ... ok
+
+----------------------------------------------------------------------
+Ran 47 tests in 6.448s
+
+OK
+
+python demo.py
+{
+  "action": 0.75,
+  "valid": true,
+  "reason": "",
+  "peak": 79.96643492500003,
+  "lo": 69.7,
+  "hi": 78,
+  "decision_id": 1
+}
+PASS: clipped reading retains upper bound; three pending unit commands admit effort 0.75.

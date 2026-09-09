@@ -1,0 +1,54 @@
+{
+  "steps": 900,
+  "seeds": [
+    3000,
+    3001,
+    3002,
+    3003,
+    3004,
+    3005,
+    3006,
+    3007,
+    3008,
+    3009,
+    3010,
+    3011,
+    3012,
+    3013,
+    3014,
+    3015,
+    3016,
+    3017,
+    3018,
+    3019
+  ],
+  "ambient_C": 25,
+  "clip_C": 95,
+  "limit_C": 105,
+  "noise_bound_C": 0.3,
+  "a_min": 0.985,
+  "a_max": 0.995,
+  "b_min": 0.55,
+  "b_max": 0.95,
+  "w_min": 0,
+  "w_max": 0.04,
+  "action_step": 0.05,
+  "initial_interval_rise_C": [
+    30,
+    75
+  ],
+  "scenarios": [
+    "queue_mismatch"
+  ],
+  "policies": [
+    "fixed_cap",
+    "threshold",
+    "nominal_queue",
+    "interval_no_queue",
+    "interval_queue"
+  ],
+  "mismatch_window": [
+    500,
+    525
+  ]
+}

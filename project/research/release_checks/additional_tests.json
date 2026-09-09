@@ -1,0 +1,17 @@
+{
+  "utc": "2026-09-09T15:34:04.898785+00:00",
+  "python": "3.12.8 (tags/v3.12.8:2dc476b, Dec  3 2024, 19:30:04) [MSC v.1942 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "tests_passed": 47,
+  "original_tests": 15,
+  "new_governor_tests": 22,
+  "new_integration_tests": 10,
+  "demo": "passed",
+  "source_sha256": {
+    "src/governor.py": "9cccc5f82ad0aaa759e379471874bd7fa163d0580c920f4d033ae14a07b6975f",
+    "run_experiments.py": "790e0040776be17745d2d7873eb814d9d8329be03ed9d1a0c9175bcce8b4efa4",
+    "tests/test_experiments.py": "8824e915e9bc0429da306f5d3a2c6a290884228471ea362364af382a3774318a",
+    "tests/test_governor.py": "384f93e1963672cb116717b8eb22990fb8851bacacac259af7a5a2df4d1c7920",
+    "tests/test_governor_extended.py": "f03368d2a32f485f8ea249f9ec421d4a634708ab2e004b38360f504dae4f5e05"
+  }
+}

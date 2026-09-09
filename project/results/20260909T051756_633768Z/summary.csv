@@ -1,0 +1,6 @@
+scenario,policy,episodes,breach_episodes,max_T_C,mean_effort_fraction,interval_misses,invalid_steps,clipped_steps
+queue_mismatch,fixed_cap,20,0,84.55371664735581,0.402767295597484,1506,7948,0
+queue_mismatch,threshold,20,0,96.51574680194928,0.7401792452830174,581,3953,106
+queue_mismatch,nominal_queue,20,8,135.4103960972201,1.004465408805028,0,0,5748
+queue_mismatch,interval_no_queue,20,0,102.63189129103434,0.6214182389937091,535,7227,355
+queue_mismatch,interval_queue,20,0,102.9863017205203,0.8462830188679229,317,2350,2447

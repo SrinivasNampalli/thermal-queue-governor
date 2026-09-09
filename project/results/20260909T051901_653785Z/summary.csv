@@ -1,0 +1,7 @@
+scenario,policy,episodes,breach_episodes,max_T_C,mean_effort_fraction,interval_misses,invalid_steps,clipped_steps
+delay_20,interval_queue,20,0,101.64805887397299,0.9063584905660356,0,0,3449
+delay_20,interval_no_queue,20,5,109.9609308462001,0.5300880503144637,0,8461,628
+delay_20,interval_exact_clip,20,8,143.1732865935981,0.9555094339622616,6795,0,6983
+upper_corner,interval_queue,20,0,104.99996820141271,0.7055220125786211,0,0,15355
+upper_corner,interval_no_queue,20,20,116.23404383520987,0.08967295597484277,0,16571,1863
+upper_corner,interval_exact_clip,20,20,176.5824531842075,0.8987012578616339,16883,0,15355

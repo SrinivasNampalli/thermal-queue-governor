@@ -1,0 +1,124 @@
+{
+  "utc": "2026-09-09T05:18:02.489311+00:00",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "duration_seconds": 6.101990099996328,
+  "episodes": 100,
+  "sampled_transitions": 90000,
+  "config_sha256": "e161fef726f784bcab8c299f82dd3c5baf9a6d498fbdc60e338ba97302135240",
+  "source_sha256": {
+    "run_experiments.py": "2e0fa833c503f81649f788cb81c130d27adb2ce558edf8c5ed3989220421184c",
+    "src\\governor.py": "71a1a6dc639a0f8252b01233d3c3765f22bea48a9f3bc36051374d233eae0158"
+  },
+  "config": {
+    "steps": 900,
+    "seeds": [
+      3000,
+      3001,
+      3002,
+      3003,
+      3004,
+      3005,
+      3006,
+      3007,
+      3008,
+      3009,
+      3010,
+      3011,
+      3012,
+      3013,
+      3014,
+      3015,
+      3016,
+      3017,
+      3018,
+      3019
+    ],
+    "ambient_C": 25,
+    "clip_C": 95,
+    "limit_C": 105,
+    "noise_bound_C": 0.3,
+    "a_min": 0.985,
+    "a_max": 0.995,
+    "b_min": 0.55,
+    "b_max": 0.95,
+    "w_min": 0,
+    "w_max": 0.04,
+    "action_step": 0.05,
+    "initial_interval_rise_C": [
+      30,
+      75
+    ],
+    "scenarios": [
+      "queue_mismatch"
+    ],
+    "policies": [
+      "fixed_cap",
+      "threshold",
+      "nominal_queue",
+      "interval_no_queue",
+      "interval_queue"
+    ],
+    "mismatch_window": [
+      500,
+      525
+    ]
+  },
+  "aggregation": [
+    {
+      "scenario": "queue_mismatch",
+      "policy": "fixed_cap",
+      "episodes": 20,
+      "breach_episodes": 0,
+      "max_T_C": 84.55371664735581,
+      "mean_effort_fraction": 0.402767295597484,
+      "interval_misses": 1506,
+      "invalid_steps": 7948,
+      "clipped_steps": 0
+    },
+    {
+      "scenario": "queue_mismatch",
+      "policy": "threshold",
+      "episodes": 20,
+      "breach_episodes": 0,
+      "max_T_C": 96.51574680194928,
+      "mean_effort_fraction": 0.7401792452830174,
+      "interval_misses": 581,
+      "invalid_steps": 3953,
+      "clipped_steps": 106
+    },
+    {
+      "scenario": "queue_mismatch",
+      "policy": "nominal_queue",
+      "episodes": 20,
+      "breach_episodes": 8,
+      "max_T_C": 135.4103960972201,
+      "mean_effort_fraction": 1.004465408805028,
+      "interval_misses": 0,
+      "invalid_steps": 0,
+      "clipped_steps": 5748
+    },
+    {
+      "scenario": "queue_mismatch",
+      "policy": "interval_no_queue",
+      "episodes": 20,
+      "breach_episodes": 0,
+      "max_T_C": 102.63189129103434,
+      "mean_effort_fraction": 0.6214182389937091,
+      "interval_misses": 535,
+      "invalid_steps": 7227,
+      "clipped_steps": 355
+    },
+    {
+      "scenario": "queue_mismatch",
+      "policy": "interval_queue",
+      "episodes": 20,
+      "breach_episodes": 0,
+      "max_T_C": 102.9863017205203,
+      "mean_effort_fraction": 0.8462830188679229,
+      "interval_misses": 317,
+      "invalid_steps": 2350,
+      "clipped_steps": 2447
+    }
+  ]
+}

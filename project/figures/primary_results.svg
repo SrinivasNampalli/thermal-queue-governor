@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="504" height="263" preserveAspectRatio="xMinYMin meet" viewBox="0 0 504 263" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="504" height="263"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-263)" style="clip-path: url(#clip)">
+		<g transform="">
+			<text x="104.974365234375" y="247" style="font-family: Arial-Bold; font-size: 11px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,494) scale(1,-1)">Primary valid-model results: 120 episodes per controller</text>
+			<text x="250.46923828125" y="225" style="font-family: Arial; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,450) scale(1,-1)">Applied / requested effort (%)</text>
+			<path d="M 190,40 L 190,211 Z" style="stroke: rgb(86%,86%,86%); stroke-linecap: butt; stroke-width: 0.5;"/>
+			<text x="187.775390625" y="28" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,56) scale(1,-1)">0</text>
+			<path d="M 251.25,40 L 251.25,211 Z" style="stroke: rgb(86%,86%,86%); stroke-linecap: butt; stroke-width: 0.5;"/>
+			<text x="246.80078125" y="28" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,56) scale(1,-1)">25</text>
+			<path d="M 312.5,40 L 312.5,211 Z" style="stroke: rgb(86%,86%,86%); stroke-linecap: butt; stroke-width: 0.5;"/>
+			<text x="308.05078125" y="28" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,56) scale(1,-1)">50</text>
+			<path d="M 373.75,40 L 373.75,211 Z" style="stroke: rgb(86%,86%,86%); stroke-linecap: butt; stroke-width: 0.5;"/>
+			<text x="369.30078125" y="28" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,56) scale(1,-1)">75</text>
+			<path d="M 435,40 L 435,211 Z" style="stroke: rgb(86%,86%,86%); stroke-linecap: butt; stroke-width: 0.5;"/>
+			<text x="428.326171875" y="28" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,56) scale(1,-1)">100</text>
+			<text x="108.06640625" y="191" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,382) scale(1,-1)">Robust constant cap</text>
+			<rect x="190" y="184" width="164.44276729560022" height="18" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(54%,58%,61%); fill-rule: evenodd;"/>
+			<text x="358.4427672956002" y="189" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,378) scale(1,-1)">67.1</text>
+			<text x="468.990234375" y="189" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,378) scale(1,-1)">0/120</text>
+			<text x="107.19140625" y="157" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,314) scale(1,-1)">Threshold hysteresis</text>
+			<rect x="190" y="150" width="194.100351153039" height="18" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(54%,58%,61%); fill-rule: evenodd;"/>
+			<text x="388.100351153039" y="155" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,310) scale(1,-1)">79.2</text>
+			<text x="466.765625" y="155" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,310) scale(1,-1)">20/120</text>
+			<text x="120.29296875" y="123" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,246) scale(1,-1)">Nominal + queue</text>
+			<rect x="190" y="116" width="242.86331236897178" height="18" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(54%,58%,61%); fill-rule: evenodd;"/>
+			<text x="436.8633123689718" y="121" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,242) scale(1,-1)">99.1</text>
+			<text x="466.765625" y="121" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,242) scale(1,-1)">60/120</text>
+			<text x="99.6171875" y="89" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,178) scale(1,-1)">Interval, queue omitted</text>
+			<rect x="190" y="82" width="123.2163810272533" height="18" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(54%,58%,61%); fill-rule: evenodd;"/>
+			<text x="317.2163810272533" y="87" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,174) scale(1,-1)">50.3</text>
+			<text x="466.765625" y="87" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,174) scale(1,-1)">22/120</text>
+			<text x="108.734375" y="55" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,110) scale(1,-1)">Full interval + queue</text>
+			<rect x="190" y="48" width="221.41168763102684" height="18" style="stroke: none; stroke-linecap: butt; stroke-width: 1; fill: rgb(14%,36%,49%); fill-rule: evenodd;"/>
+			<text x="415.41168763102684" y="53" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,106) scale(1,-1)">90.4</text>
+			<text x="468.990234375" y="53" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,106) scale(1,-1)">0/120</text>
+			<text x="461.1015625" y="225" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,450) scale(1,-1)">Breaches</text>
+			<text x="123.265625" y="4" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,8) scale(1,-1)">Higher effort is useful only when the stated thermal constraint also holds.</text>
+		</g>
+	</g>
+</svg>

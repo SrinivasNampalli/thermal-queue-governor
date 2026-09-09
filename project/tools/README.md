@@ -1,0 +1,1 @@
+The workbook builder uses the bundled @oai/artifact-tool package. Set up a node_modules junction to the bundled runtime package directory, then run the builder with the workspace root as its argument (the root containing outputs/project). It reads completed result pointers and writes RESULTS_DATA.xlsx plus QA files. It does not run new experiments.

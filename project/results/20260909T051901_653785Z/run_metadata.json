@@ -1,0 +1,130 @@
+{
+  "utc": "2026-09-09T05:19:11.462149+00:00",
+  "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "duration_seconds": 10.058429699973203,
+  "episodes": 120,
+  "sampled_transitions": 108000,
+  "config_sha256": "7821bb76a93cee53a239d0567ba38d03299e2c252089c9e0dbbe01bdcfdd0fda",
+  "source_sha256": {
+    "run_experiments.py": "2e0fa833c503f81649f788cb81c130d27adb2ce558edf8c5ed3989220421184c",
+    "src\\governor.py": "9cccc5f82ad0aaa759e379471874bd7fa163d0580c920f4d033ae14a07b6975f"
+  },
+  "config": {
+    "steps": 900,
+    "seeds": [
+      4000,
+      4001,
+      4002,
+      4003,
+      4004,
+      4005,
+      4006,
+      4007,
+      4008,
+      4009,
+      4010,
+      4011,
+      4012,
+      4013,
+      4014,
+      4015,
+      4016,
+      4017,
+      4018,
+      4019
+    ],
+    "ambient_C": 25,
+    "clip_C": 95,
+    "limit_C": 105,
+    "noise_bound_C": 0.3,
+    "a_min": 0.985,
+    "a_max": 0.995,
+    "b_min": 0.55,
+    "b_max": 0.95,
+    "w_min": 0,
+    "w_max": 0.04,
+    "action_step": 0.05,
+    "initial_interval_rise_C": [
+      30,
+      75
+    ],
+    "scenarios": [
+      "delay_20",
+      "upper_corner"
+    ],
+    "policies": [
+      "interval_queue",
+      "interval_no_queue",
+      "interval_exact_clip"
+    ]
+  },
+  "aggregation": [
+    {
+      "scenario": "delay_20",
+      "policy": "interval_queue",
+      "episodes": 20,
+      "breach_episodes": 0,
+      "max_T_C": 101.64805887397299,
+      "mean_effort_fraction": 0.9063584905660356,
+      "interval_misses": 0,
+      "invalid_steps": 0,
+      "clipped_steps": 3449
+    },
+    {
+      "scenario": "delay_20",
+      "policy": "interval_no_queue",
+      "episodes": 20,
+      "breach_episodes": 5,
+      "max_T_C": 109.9609308462001,
+      "mean_effort_fraction": 0.5300880503144637,
+      "interval_misses": 0,
+      "invalid_steps": 8461,
+      "clipped_steps": 628
+    },
+    {
+      "scenario": "delay_20",
+      "policy": "interval_exact_clip",
+      "episodes": 20,
+      "breach_episodes": 8,
+      "max_T_C": 143.1732865935981,
+      "mean_effort_fraction": 0.9555094339622616,
+      "interval_misses": 6795,
+      "invalid_steps": 0,
+      "clipped_steps": 6983
+    },
+    {
+      "scenario": "upper_corner",
+      "policy": "interval_queue",
+      "episodes": 20,
+      "breach_episodes": 0,
+      "max_T_C": 104.99996820141271,
+      "mean_effort_fraction": 0.7055220125786211,
+      "interval_misses": 0,
+      "invalid_steps": 0,
+      "clipped_steps": 15355
+    },
+    {
+      "scenario": "upper_corner",
+      "policy": "interval_no_queue",
+      "episodes": 20,
+      "breach_episodes": 20,
+      "max_T_C": 116.23404383520987,
+      "mean_effort_fraction": 0.08967295597484277,
+      "interval_misses": 0,
+      "invalid_steps": 16571,
+      "clipped_steps": 1863
+    },
+    {
+      "scenario": "upper_corner",
+      "policy": "interval_exact_clip",
+      "episodes": 20,
+      "breach_episodes": 20,
+      "max_T_C": 176.5824531842075,
+      "mean_effort_fraction": 0.8987012578616339,
+      "interval_misses": 16883,
+      "invalid_steps": 0,
+      "clipped_steps": 15355
+    }
+  ]
+}

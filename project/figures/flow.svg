@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="504" height="465" preserveAspectRatio="xMinYMin meet" viewBox="0 0 504 465" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="504" height="465"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-465)" style="clip-path: url(#clip)">
+		<g transform="">
+			<text x="121.178955078125" y="450" style="font-family: Arial-Bold; font-size: 11px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,900) scale(1,-1)">FIG. 2. Decision and state-advancement sequence</text>
+			<rect x="20" y="390" width="340" height="42" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="109.98657226562499" y="416" style="font-family: Arial-Bold; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,832) scale(1,-1)">Commission model and finite interval</text>
+			<text x="118.46142578124999" y="403" style="font-family: Arial; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,806) scale(1,-1)">Check invariant zero-input condition</text>
+			<rect x="20" y="335" width="340" height="42" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="112.73095703124999" y="361" style="font-family: Arial-Bold; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,722) scale(1,-1)">Validate demand and accepted FIFO</text>
+			<text x="98.95190429687499" y="348" style="font-family: Arial; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,696) scale(1,-1)">Invalid demand raises; other listed faults latch</text>
+			<polyline points="190 390, 190 377" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: None; fill-rule: evenodd;"/>
+			<polygon points="190 377, 192.1748 381.5022, 187.8252 381.5022" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,0%,0%); fill-rule: evenodd;"/>
+			<rect x="20" y="280" width="340" height="42" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="114.96997070312499" y="306" style="font-family: Arial-Bold; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,612) scale(1,-1)">Intersect observed temperature set</text>
+			<text x="98.45971679687499" y="293" style="font-family: Arial; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,586) scale(1,-1)">Missing: retain. Clipped: lower constraint only.</text>
+			<polyline points="190 335, 190 322" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: None; fill-rule: evenodd;"/>
+			<polygon points="190 322, 192.1748 326.5022, 187.8252 326.5022" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,0%,0%); fill-rule: evenodd;"/>
+			<rect x="20" y="225" width="340" height="42" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="112.22558593749999" y="251" style="font-family: Arial-Bold; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,502) scale(1,-1)">Propagate every queued upper state</text>
+			<text x="123.71728515624999" y="238" style="font-family: Arial; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,476) scale(1,-1)">Reject any prefix beyond the limit</text>
+			<polyline points="190 280, 190 267" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: None; fill-rule: evenodd;"/>
+			<polygon points="190 267, 192.1748 271.5022, 187.8252 271.5022" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,0%,0%); fill-rule: evenodd;"/>
+			<rect x="20" y="170" width="340" height="42" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="101.49853515624999" y="196" style="font-family: Arial-Bold; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,392) scale(1,-1)">Compute candidate and round downward</text>
+			<text x="93.43896484374999" y="183" style="font-family: Arial; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,366) scale(1,-1)">Recheck endpoint; retain zero-input continuation</text>
+			<polyline points="190 225, 190 212" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: None; fill-rule: evenodd;"/>
+			<polygon points="190 212, 192.1748 216.5022, 187.8252 216.5022" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,0%,0%); fill-rule: evenodd;"/>
+			<rect x="20" y="115" width="340" height="42" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="118.73608398437499" y="141" style="font-family: Arial-Bold; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,282) scale(1,-1)">Return action, interval and status</text>
+			<text x="112.96166992187499" y="128" style="font-family: Arial; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,256) scale(1,-1)">Adapter applies existing FIFO ordering</text>
+			<polyline points="190 170, 190 157" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: None; fill-rule: evenodd;"/>
+			<polygon points="190 157, 192.1748 161.5022, 187.8252 161.5022" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,0%,0%); fill-rule: evenodd;"/>
+			<rect x="20" y="60" width="340" height="42" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="111.48071289062499" y="86" style="font-family: Arial-Bold; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,172) scale(1,-1)">Advance with asserted applied effort</text>
+			<text x="109.94702148437499" y="73" style="font-family: Arial; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,146) scale(1,-1)">Update both bounds for the next sample</text>
+			<polyline points="190 115, 190 102" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: None; fill-rule: evenodd;"/>
+			<polygon points="190 102, 192.1748 106.5022, 187.8252 106.5022" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,0%,0%); fill-rule: evenodd;"/>
+			<rect x="382" y="187" width="110" height="72" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: rgb(100%,100%,100%); fill-rule: evenodd;"/>
+			<text x="410.9931640625" y="243" style="font-family: Arial-Bold; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,486) scale(1,-1)">Invalid latch</text>
+			<text x="413.4892578125" y="230" style="font-family: Arial; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,460) scale(1,-1)">Return zero</text>
+			<text x="409.997802734375" y="217" style="font-family: Arial; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,434) scale(1,-1)">FIFO persists</text>
+			<text x="406.737060546875" y="204" style="font-family: Arial; font-size: 9px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,408) scale(1,-1)">No safety reset</text>
+			<polyline points="360 355, 372 355, 372 220, 382 220" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: None; fill-rule: evenodd;"/>
+			<polygon points="382 220, 377.4978 222.1748, 377.4978 217.8252" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,0%,0%); fill-rule: evenodd;"/>
+			<polyline points="360 300, 372 300, 372 220, 382 220" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: None; fill-rule: evenodd;"/>
+			<polygon points="382 220, 377.4978 222.1748, 377.4978 217.8252" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,0%,0%); fill-rule: evenodd;"/>
+			<polyline points="360 245, 372 245, 372 220, 382 220" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: None; fill-rule: evenodd;"/>
+			<polygon points="382 220, 377.4978 222.1748, 377.4978 217.8252" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,0%,0%); fill-rule: evenodd;"/>
+			<polyline points="360 190, 372 190, 372 220, 382 220" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: None; fill-rule: evenodd;"/>
+			<polygon points="382 220, 377.4978 222.1748, 377.4978 217.8252" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,0%,0%); fill-rule: evenodd;"/>
+			<polyline points="360 80, 372 80, 372 220, 382 220" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 0.8; fill: None; fill-rule: evenodd;"/>
+			<polygon points="382 220, 377.4978 222.1748, 377.4978 217.8252" style="stroke: rgb(0%,0%,0%); stroke-linecap: butt; stroke-width: 1; fill: rgb(0%,0%,0%); fill-rule: evenodd;"/>
+			<text x="386" y="281" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,562) scale(1,-1)">Fault paths</text>
+			<text x="122.13671875" y="8" style="font-family: Arial; font-size: 8px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,16) scale(1,-1)">Internal status does not authenticate model bounds or reported actuation.</text>
+		</g>
+	</g>
+</svg>

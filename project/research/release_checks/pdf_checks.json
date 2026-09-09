@@ -1,0 +1,22 @@
+{
+  "FULL_REVIEW_DOSSIER.pdf": {
+    "pages": 68,
+    "selectable_text": true,
+    "link_annotations": 93
+  },
+  "RESEARCH_MANUSCRIPT.pdf": {
+    "pages": 8,
+    "selectable_text": true,
+    "link_annotations": 5
+  },
+  "START_HERE.pdf": {
+    "pages": 2,
+    "selectable_text": true,
+    "link_annotations": 0
+  },
+  "TECHNICAL_DISCLOSURE.pdf": {
+    "pages": 9,
+    "selectable_text": true,
+    "link_annotations": 0
+  }
+}
