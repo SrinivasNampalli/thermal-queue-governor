@@ -31,7 +31,8 @@ jobs:
       - run: npm test
       - run: python tools/build_demo.py
       - name: Ensure committed export matches its source
-        run: git diff --exit-code -- ../index.html
+        # The container and checkout action can have different home/owner contexts.
+        run: git -c safe.directory="$GITHUB_WORKSPACE" -C "$GITHUB_WORKSPACE" diff --exit-code -- index.html
       - run: npm run test:browser
       - run: npm run test:landing
       - name: Verify hosted Pages assets and video captions over HTTP
