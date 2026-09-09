@@ -1,0 +1,18 @@
+{
+  "scope": "GitHub-hosted VM synthetic software verification; no physical or selected-motor validation",
+  "source_commit": "cd6284f6e63c106331d68da88f2bbf5d4c4923fd",
+  "workflow_run": "https://github.com/SrinivasNampalli/thermal-queue-governor/actions/runs/34400181239",
+  "conclusion": "success",
+  "workflow": ".github/workflows/tests.yml",
+  "jobs": [
+    {"id": 102629849693, "runner": "ubuntu-latest", "python": "3.13", "conclusion": "success", "original_test_step": "success", "virtual_harness_test_step": "success"},
+    {"id": 102629849896, "runner": "ubuntu-latest", "python": "3.12", "conclusion": "success", "original_test_step": "success", "virtual_harness_test_step": "success", "inspected_log_counts": {"original_tests": 47, "virtual_harness_tests": 24}},
+    {"id": 102629849909, "runner": "windows-latest", "python": "3.12", "conclusion": "success", "original_test_step": "success", "virtual_harness_test_step": "success", "inspected_log_counts": {"original_tests": 47, "virtual_harness_tests": 24}},
+    {"id": 102629849941, "runner": "windows-latest", "python": "3.13", "conclusion": "success", "original_test_step": "success", "virtual_harness_test_step": "success"}
+  ],
+  "runner_documentation": "https://docs.github.com/en/actions/concepts/runners/github-hosted-runners",
+  "motor_specific_calibration_executions": 0,
+  "motor_specific_held_out_executions": 0,
+  "physical_motor_executions": 0,
+  "remaining_input": "The owner selected a specific motor and will supply its model/specifications."
+}
