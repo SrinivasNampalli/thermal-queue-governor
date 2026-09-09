@@ -4,9 +4,13 @@ A reproducible research and patent discussion package for scalar motor thermal c
 
 This is a synthetic simulation prototype. It is not a validated hardware controller or a granted patent. Patentability, human inventorship, ownership, and filing readiness remain unresolved.
 
-## Explore the interactive 3D demo
+## Explore the landing page and interactive prototype
 
-**[Launch the demo](https://srinivasnampalli.github.io/Patent/)** · **[Watch the recorded walkthrough](https://srinivasnampalli.github.io/Patent/watch.html)**
+**[Open the live webpage](https://srinivasnampalli.github.io/Patent/)** · **[Jump to the interactive prototype](https://srinivasnampalli.github.io/Patent/#prototype)** · **[Watch the recorded walkthrough](https://srinivasnampalli.github.io/Patent/watch.html)**
+
+The landing page explains clipped readings, queued heat, and command admission with a dark navy/copper design, subtle thermal animation, a 3D motor hero, and the full simulator. Its results comparison separates the complete 1,120-episode study from the 120 primary TQG episodes behind the zero-breach and 90.4% effort figures.
+
+For offline use, save the repository's [single-file index.html](index.html) and open it in a modern browser. The page includes its styles, code, Three.js, D3, and license notices. No build, install, server, or internet connection is needed to run the prototype; external research and video links need internet access. The [standalone simulation view](https://srinivasnampalli.github.io/Patent/prototype.html) remains available too.
 
 Click any of the 16 motor and drive components to highlight it and learn what it does. Explore the windings, bearings, encoder, sensor, phase connections, inverter, capacitor, and controller; rotate the assembly or open the exploded view. Run the thermal simulation, add commands, and watch the bounds and accepted FIFO update.
 
@@ -41,7 +45,7 @@ python run_experiments.py --config config/evaluation.json
 
 New experiments create separate run folders. See [reproducibility instructions](project/REPRODUCIBILITY.md) for the preserved study pointers and source snapshots. GitHub Actions runs the test suite and demo on Linux and Windows with Python 3.12 and 3.13.
 
-The interactive demo adds 23 JavaScript tests and browser checks for clickable components, simulation controls, waiting/expiry, and responsive layout. See [demo validation](demo/VALIDATION.md). The root manifest describes the current repository; the original research ZIP retains its historical internal manifest.
+The interactive demo adds 23 JavaScript tests and browser checks for clickable components, simulation controls, waiting/expiry, and responsive layout. The landing-page acceptance test additionally verifies offline operation, hero selection, reduced-motion controls, and layouts from 320 to 1440 pixels. See [demo validation](demo/VALIDATION.md). The root manifest describes the current repository; the original research ZIP retains its historical internal manifest.
 
 ## Evidence and limits
 

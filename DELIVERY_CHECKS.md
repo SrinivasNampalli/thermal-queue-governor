@@ -21,3 +21,7 @@ The separate `demo/` folder adds 16 selectable motor/drive component groups, an 
 The MP4 is an actual browser recording of the shipped synthetic demo, approximately 52 seconds long, with on-screen captions. Representative frames were inspected for readable hardware, sensor clipping, and result metrics. The README GIF is an excerpt of that recording. The exact encoded duration and recording provenance are in `demo/media/recording.json`.
 
 The `docs/` directory is a generated copy for GitHub Pages. The root manifest covers the current repository files other than itself. `PROJECT.zip` remains the earlier research bundle with its historical internal manifest; the interactive demo and video are distributed separately. These changes add software and explanatory geometry, not new research episodes or hardware-validation evidence.
+
+## Landing page follow-up
+
+The repository-root `index.html` is now a complete, offline landing page with the existing interactive simulator. `docs/index.html` is the identical GitHub Pages copy; `docs/prototype.html` preserves the earlier compact simulator. Added content covers the problem, control flow, scoped results comparison, and patent discussion status. Its local vendor assets include publisher provenance and license texts. Offline browser acceptance checks cover both models, all 16 component selections, controls, research-scope disclosure, motion preferences, and desktop/mobile widths. No controller mathematics or historical study results changed.

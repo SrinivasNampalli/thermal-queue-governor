@@ -2,6 +2,7 @@
 from pathlib import Path
 import html
 import shutil
+import runpy
 
 DEMO=Path(__file__).resolve().parents[1]
 fragment=(DEMO/'src/interface.html').read_text(encoding='utf-8')
@@ -19,9 +20,10 @@ if template.count('__THERMAL_FRAGMENT__')!=1:raise ValueError('Invalid standalon
 (DEMO/'index.html').write_text(template.replace('__THERMAL_FRAGMENT__',html.escape(fragment)),encoding='utf-8',newline='\n')
 site=DEMO.parent/'docs'
 (site/'media').mkdir(parents=True,exist_ok=True)
-for name in ('index.html','watch.html'):
-    shutil.copyfile(DEMO/name,site/name)
+shutil.copyfile(DEMO/'index.html',site/'prototype.html')
+shutil.copyfile(DEMO/'watch.html',site/'watch.html')
 for source in sorted((DEMO/'media').iterdir()):
     if source.is_file():shutil.copyfile(source,site/'media'/source.name)
 (site/'.nojekyll').write_text('',encoding='utf-8')
-print('Built demo/index.html and refreshed the docs/ GitHub Pages export.')
+runpy.run_path(str(DEMO/'tools/build_landing.py'))
+print('Built standalone simulator and refreshed the docs/ GitHub Pages export.')

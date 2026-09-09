@@ -1,6 +1,6 @@
 # Interactive motor and thermal governor
 
-[Open the demo](https://srinivasnampalli.github.io/Patent/) · [Watch the recorded walkthrough](https://srinivasnampalli.github.io/Patent/watch.html)
+[Open the landing page](https://srinivasnampalli.github.io/Patent/) · [Jump to the prototype](https://srinivasnampalli.github.io/Patent/#prototype) · [Watch the recorded walkthrough](https://srinivasnampalli.github.io/Patent/watch.html)
 
 Click a component in the 3D model to highlight it and read its purpose. The component selector provides the same information by keyboard. Drag to rotate the assembly, or switch on exploded view to expose the internals.
 
@@ -19,7 +19,9 @@ The sensor saturates at 95°C. A clipped reading provides a lower constraint and
 
 ## Run or rebuild
 
-Open `index.html` in a browser with internet access for the pinned Three.js and D3 libraries. Alternatively, from the repository root:
+The repository-root `index.html` is the complete landing page and simulator in one file. Open it directly, including offline: all runtime code and dependencies are embedded. Research and video links point to the public repository/site and require internet access. No build process is needed to use this file.
+
+The older `demo/index.html` is a compact simulator-only export that uses pinned CDN libraries. It is also published as `/prototype.html`. To serve this view from the repository root:
 
 ```sh
 python -m http.server 8000 --directory demo
@@ -27,14 +29,14 @@ python -m http.server 8000 --directory demo
 
 Open `http://localhost:8000`. No account, backend, or hardware connection is used.
 
-The editable sources are `src/interface.html`, `src/thermal-engine.js`, `src/motor-scene.js`, and `src/components.js`. Rebuild the single-page export with the Python standard library:
+The simulator sources are `src/interface.html`, `src/thermal-engine.js`, `src/motor-scene.js`, and `src/components.js`. The landing page's layout, styles, and motion controls are in `src/landing.html`. When editing the source, optionally rebuild all preassembled pages with the Python standard library:
 
 ```sh
 python demo/tools/build_demo.py
 node --test demo/tests/thermal-engine.test.cjs
 ```
 
-The standalone template preserves the original visualization exporter’s styles and sandbox wrapper. The public demo is assembled entirely from the committed files. The build also refreshes `docs/`, the GitHub Pages export served from the repository’s `main` branch.
+The compact simulator's standalone template preserves the original visualization exporter’s styles and sandbox wrapper. The landing-page builder directly embeds the same simulator with pinned local Three.js/D3 distributions from `vendor/`, their licenses, and no network loaders. It checks vendor hashes against publisher-verified provenance before assembly. All public pages are generated from committed files. The build refreshes the repository-root `index.html` and `docs/`, the GitHub Pages export served from `main`.
 
 For browser interaction tests or a new recording:
 
@@ -43,6 +45,7 @@ cd demo
 npm ci
 npx playwright install chromium
 npm run test:browser
+npm run test:landing
 npm run record
 npm run build
 ```

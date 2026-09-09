@@ -8,6 +8,8 @@ The media files record the actual browser demo with synthetic simulation data. T
 
 The browser loads the pinned Three.js and D3 packages from public CDNs. The exported visualization wrapper also loads Floating UI and Lucide. Its styles and sandbox wrapper originate from the Codex visualization exporter and are retained in `tools/standalone-template.html`. Playwright is a development dependency used for browser tests and recording, not part of the deployed browser application. FFmpeg and Chromium are separately installed recording/test tools; their binaries are not committed to this repository.
 
+The newer landing page at the repository-root `index.html` and `docs/index.html` instead embeds Three.js 0.160.1 and D3 7.9.0 directly, including their full licenses. Their unmodified UMD distributions, licenses, publisher package metadata, and verified source hashes are in `vendor/`. This page uses its own styles and the same procedural motor geometry and scalar simulator; it does not load Floating UI, Lucide, remote fonts, or any other network resource. The Three.js release includes an upstream UMD-deprecation warning; no runtime dependency download is required. The compact `demo/index.html` and `/prototype.html` preserve the earlier CDN-based wrapper described above.
+
 The package license labels and reproduced license texts below were verified against the exact publisher-distributed npm release archives on September 9, 2026. Each archive link is the source of the corresponding license text. Upstream library license terms apply to those libraries; this notice does not assert a license for the research or patent discussion materials elsewhere in the repository.
 
 | Package | Version | License | Verified release archive |

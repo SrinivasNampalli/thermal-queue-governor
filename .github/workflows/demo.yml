@@ -26,6 +26,7 @@ jobs:
       - run: npm test
       - run: python tools/build_demo.py
       - name: Ensure committed export matches its source
-        run: git diff --exit-code -- index.html thermal-queue-governor.fragment.html ../docs
+        run: git diff --exit-code -- index.html thermal-queue-governor.fragment.html ../index.html ../docs
       - run: npx playwright install --with-deps chromium
       - run: npm run test:browser
+      - run: npm run test:landing
