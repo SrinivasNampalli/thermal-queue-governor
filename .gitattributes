@@ -4,3 +4,6 @@
 *.xlsx binary
 *.zip binary
 *.gz binary
+*.mp4 binary
+*.gif binary
+*.png binary

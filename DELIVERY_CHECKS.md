@@ -13,3 +13,11 @@ Outcome: scalar simulation demonstrated; physical implementation untested; broad
 ## September 9 repository follow-up
 
 The additional software verification is recorded in project/research/ADDITIONAL_TESTS.md and its release_checks log/JSON. The suite now contains 47 tests. Relative and external experiment-output paths are fixed without changing the controller mathematics. The PDFs and workbook remain the reviewed original study exports. The updated ZIP and manifest include the additional tests and GitHub workflow. Repository publication is now authorized by the user; it is separate from any patent filing.
+
+## Interactive demo and recording follow-up
+
+The separate `demo/` folder adds 16 selectable motor/drive component groups, an exploded view, explanatory component descriptions, and the thermal simulator. Its 23 JavaScript tests pass, and Chromium acceptance checks cover all 16 direct component clicks, keyboard selection, play/pause/step, waiting expiry, and four viewport widths. The Python suite was rerun and all 47 tests pass.
+
+The MP4 is an actual browser recording of the shipped synthetic demo, approximately 52 seconds long, with on-screen captions. Representative frames were inspected for readable hardware, sensor clipping, and result metrics. The README GIF is an excerpt of that recording. The exact encoded duration and recording provenance are in `demo/media/recording.json`.
+
+The `docs/` directory is a generated copy for GitHub Pages. The root manifest covers the current repository files other than itself. `PROJECT.zip` remains the earlier research bundle with its historical internal manifest; the interactive demo and video are distributed separately. These changes add software and explanatory geometry, not new research episodes or hardware-validation evidence.

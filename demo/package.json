@@ -1,0 +1,15 @@
+{
+  "name": "thermal-queue-governor-demo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Interactive synthetic motor thermal governor and hardware explainer",
+  "scripts": {
+    "build": "python tools/build_demo.py",
+    "test": "node --test tests/thermal-engine.test.cjs",
+    "test:browser": "node tests/browser-smoke.cjs",
+    "record": "node tools/record-demo.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  }
+}

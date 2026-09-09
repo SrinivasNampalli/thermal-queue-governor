@@ -1,0 +1,1128 @@
+<div id="thermal-queue-governor-v1">
+  <style>
+    #thermal-queue-governor-v1 {position:relative;color:var(--foreground);background:transparent;}
+    #thermal-queue-governor-v1 .tq-top {display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+    #thermal-queue-governor-v1 .tq-main {display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:24px;margin-top:16px;}
+    #thermal-queue-governor-v1 .tq-main>section {min-width:0;}
+    #thermal-queue-governor-v1 .tq-motor {height:380px;position:relative;}
+    #thermal-queue-governor-v1 .tq-motor canvas {position:absolute;inset:0;}
+    #thermal-queue-governor-v1 .tq-motor svg {width:100%;height:100%;}
+    #thermal-queue-governor-v1 .tq-reading-row {display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-top:8px;}
+    #thermal-queue-governor-v1 .tq-block {margin-top:20px;}
+    #thermal-queue-governor-v1 .tq-chart {height:290px;position:relative;}
+    #thermal-queue-governor-v1 .tq-history-svg {display:block;width:100%;height:290px;}
+    #thermal-queue-governor-v1 .tq-history-svg text,#thermal-queue-governor-v1 .tq-queue-svg text {fill:var(--foreground);font-size:12px;}
+    #thermal-queue-governor-v1 .tq-legend {display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:8px;}
+    #thermal-queue-governor-v1 .tq-legend button {display:inline-flex;align-items:center;gap:6px;color:var(--foreground);background:transparent;border:0;padding:0;font:inherit;cursor:pointer;}
+    #thermal-queue-governor-v1 .tq-swatch {display:inline-block;width:18px;height:3px;background:var(--viz-series-1);}
+    #thermal-queue-governor-v1 .tq-legend button[aria-pressed="false"] .tq-swatch {opacity:0.22;}
+    #thermal-queue-governor-v1 .tq-flow {display:flex;gap:8px 12px;align-items:center;flex-wrap:wrap;margin-top:12px;}
+    #thermal-queue-governor-v1 .tq-decision {min-height:2.5em;margin-top:8px;}
+    #thermal-queue-governor-v1 .tq-queue-svg {display:block;width:100%;}
+    #thermal-queue-governor-v1 .tq-buffer {display:flex;align-items:baseline;flex-wrap:wrap;gap:8px 16px;min-height:2em;margin-top:8px;}
+    #thermal-queue-governor-v1 .tq-result {display:grid;grid-template-columns:auto 1fr;gap:6px 12px;align-items:baseline;margin:8px 0;}
+    #thermal-queue-governor-v1 .tq-result span:last-child {overflow-wrap:anywhere;}
+    #thermal-queue-governor-v1 .tq-rule {margin:16px 0;}
+    #thermal-queue-governor-v1 .tq-value {font-weight:500;}
+    #thermal-queue-governor-v1 .tq-tooltip {position:absolute;z-index:3;pointer-events:none;max-width:260px;display:none;}
+    #thermal-queue-governor-v1 .tq-tooltip-row {display:flex;justify-content:space-between;gap:16px;}
+    #thermal-queue-governor-v1 .tq-chart-message {position:absolute;inset:60px 30px 60px 70px;display:flex;align-items:center;justify-content:center;}
+    #thermal-queue-governor-v1 .tq-chart-message[hidden] {display:none;}
+    #thermal-queue-governor-v1 .tq-part-controls {margin:12px 0;}
+    #thermal-queue-governor-v1 .tq-inspector p {margin:8px 0;}
+    @media(max-width:760px) {#thermal-queue-governor-v1 .tq-main{grid-template-columns:1fr;gap:16px;}#thermal-queue-governor-v1 .tq-motor{height:310px;}}
+    @media(prefers-reduced-motion:reduce){#thermal-queue-governor-v1 *{scroll-behavior:auto;}}
+  </style>
+
+  <div class="tq-top">
+    <div>
+      <h2>Thermal Queue Governor</h2>
+      <span class="text-small text-muted">Synthetic motor · 1 simulation step = 1 second</span>
+    </div>
+    <div class="viz-row">
+      <button type="button" class="btn btn-primary" id="tq-play">Play</button>
+      <button type="button" class="btn" id="tq-step">Step +1 s</button>
+      <label class="form-label">Speed
+        <select class="form-select" id="tq-speed"><option value="1">1×</option><option value="4" selected>4×</option><option value="12">12×</option><option value="30">30×</option></select>
+      </label>
+      <span class="tabular-nums" id="tq-clock">0 s · paused</span>
+    </div>
+  </div>
+
+  <div class="tq-main">
+    <section aria-label="Motor and thermal capacity">
+      <div class="tq-reading-row"><span>Motor temperature <strong class="tq-value tabular-nums" id="tq-temperature">99.5°C</strong></span><span class="viz-badge" id="tq-containment">Inside bounds</span></div>
+      <div class="tq-motor" id="tq-motor" role="group" aria-label="Interactive schematic motor">
+        <svg id="tq-motor-fallback" viewBox="0 0 460 285" role="img" aria-label="Schematic motor with finned casing, internal shaft, and temperature sensor">
+          <defs>
+            <linearGradient id="tq-shell-gradient" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="var(--foreground)" stop-opacity=".18"/><stop offset=".48" stop-color="var(--background)"/><stop offset="1" stop-color="var(--foreground)" stop-opacity=".35"/></linearGradient>
+            <linearGradient id="tq-shaft-gradient" x1="0" x2="0" y1="0" y2="1"><stop stop-color="var(--foreground)" stop-opacity=".45"/><stop offset=".4" stop-color="var(--background)"/><stop offset="1" stop-color="var(--foreground)" stop-opacity=".5"/></linearGradient>
+          </defs>
+          <path d="M91 223L164 254 393 203 315 182Z" fill="var(--foreground)" opacity=".08"/>
+          <path d="M145 191L145 219 207 231 207 205M277 174L277 208 333 191 333 170" fill="var(--foreground)" opacity=".25"/>
+          <path d="M143 73C184 49 234 60 253 100L319 86 340 148 284 185C261 221 214 228 177 209Z" fill="url(#tq-shell-gradient)"/>
+          <ellipse cx="178" cy="145" rx="67" ry="80" fill="url(#tq-shell-gradient)" stroke="var(--border)"/>
+          <g fill="none" stroke="var(--foreground)" stroke-opacity=".3" stroke-width="5"><path d="M192 69L274 56M207 82L290 69M217 100L306 87M229 123L316 105M231 150L328 130M225 179L317 158M215 204L305 180"/></g>
+          <ellipse cx="176" cy="145" rx="46" ry="57" fill="var(--viz-series-2)" opacity=".17"/>
+          <g fill="none" stroke="var(--viz-series-3)" stroke-width="8"><ellipse cx="177" cy="145" rx="32" ry="43"/><path d="M182 105L271 86M199 116L293 98M207 141L303 122"/></g>
+          <path d="M75 143L176 127C197 128 199 151 180 158L80 176Z" fill="url(#tq-shaft-gradient)"/>
+          <ellipse cx="77" cy="160" rx="12" ry="18" fill="var(--foreground)" opacity=".35"/>
+          <ellipse cx="178" cy="145" rx="77" ry="92" fill="none" stroke="var(--viz-series-1)" stroke-opacity=".45" stroke-width="2"/>
+          <circle cx="296" cy="91" r="7" fill="var(--viz-series-3)"/>
+          <path d="M301 84L328 49 379 49" fill="none" stroke="var(--viz-series-3)"/>
+        </svg>
+      </div>
+      <div class="tq-reading-row text-small"><span>Bounds <span class="tabular-nums" id="tq-bounds">98.0–101.0°C</span></span><span id="tq-scene-label">3D motor loading · schematic</span></div>
+      <div class="viz-controls tq-part-controls">
+        <label class="form-label">Inspect a component
+          <select class="form-select" id="tq-part-select" aria-controls="tq-part-inspector"></select>
+        </label>
+        <label class="form-check"><input id="tq-exploded" class="form-check-input" type="checkbox"><span class="form-check-label">Exploded view</span></label>
+      </div>
+      <article class="card tq-inspector" id="tq-part-inspector" aria-label="Selected component explanation">
+        <span class="text-small" id="tq-part-group"></span>
+        <h3 id="tq-part-name">Temperature sensor</h3>
+        <p id="tq-part-summary"></p>
+        <p id="tq-part-role"></p>
+        <p class="text-small" id="tq-part-link"></p>
+        <span class="text-small" id="tq-part-scope"></span>
+      </article>
+      <div class="tq-reading-row"><span>Sensor <strong class="tq-value tabular-nums" id="tq-reading">95.0°C</strong></span><span class="viz-badge" id="tq-clipped">Clipped at 95°C</span></div>
+      <div class="tq-block">
+        <div class="tq-reading-row"><span>Thermal budget remaining</span><span class="tabular-nums tq-value" id="tq-headroom">—</span></div>
+        <div class="progress" id="tq-budget" role="progressbar" aria-label="Thermal headroom after accepted queue" aria-valuemin="0" aria-valuemax="80" aria-valuenow="0"><div class="progress-bar" id="tq-budget-fill" style="width:0%"></div></div>
+        <div class="tq-reading-row text-small text-muted"><span id="tq-forecast">After all accepted commands</span><span id="tq-next-cap">Next effort cap —</span></div>
+      </div>
+    </section>
+    <section aria-label="Temperature history">
+      <h3>Temperature history</h3>
+      <div class="tq-chart" id="tq-chart">
+        <svg class="tq-history-svg" id="tq-history" role="img" aria-label="Temperature history showing simulated actual temperature, estimated bounds, sensor readings, sensor clipping ceiling, and thermal limit"></svg>
+        <div class="tq-chart-message text-small text-muted" id="tq-chart-loading">Loading the temperature plot…</div>
+      </div>
+      <div class="tq-legend text-small" id="tq-legend" aria-label="Visible temperature series">
+        <button type="button" aria-pressed="true" data-series="actual"><span class="tq-swatch"></span>Actual</button>
+        <button type="button" aria-pressed="true" data-series="bounds"><span class="tq-swatch" style="background:var(--viz-series-2)"></span>Bounds</button>
+        <button type="button" aria-pressed="true" data-series="reading"><span class="tq-swatch" style="background:var(--viz-series-3)"></span>Sensor</button>
+        <button type="button" aria-pressed="true" data-series="limit"><span class="tq-swatch" style="background:var(--destructive)"></span>Limit</button>
+        <button type="button" aria-pressed="true" data-series="clip"><span class="tq-swatch" style="background:var(--muted-foreground)"></span>Sensor ceiling</button>
+      </div>
+      <div class="tq-reading-row text-small text-muted"><span>Solid: actual · band: possible range · squares: clipped readings</span><span id="tq-window">Latest 240 s</span></div>
+      <div class="tq-flow" aria-label="Controller decision process">
+        <span>Read sensor</span><span aria-hidden="true">→</span><span>Forecast FIFO</span><span aria-hidden="true">→</span><span class="viz-badge" id="tq-state">Ready</span><span aria-hidden="true">→</span><span>Execute head</span>
+      </div>
+      <div class="tq-decision text-small" id="tq-decision">Eight accepted commands are already in the delay line.</div>
+    </section>
+  </div>
+
+  <hr class="tq-rule">
+  <section aria-label="Command queues">
+    <div class="tq-top"><h3>Accepted FIFO · fixed 8-second delay</h3><span id="tq-executing" class="tabular-nums">Executing: none yet</span></div>
+    <svg id="tq-queue" class="tq-queue-svg" role="img" aria-label="Eight pending FIFO commands. First slot executes next; newly admitted commands enter at the end."></svg>
+    <div class="tq-buffer"><span class="tq-value">Awaiting admission</span><span id="tq-waiting" class="text-small">3 requests</span></div>
+    <div id="tq-wait-detail" class="text-small text-muted">Requests here are not yet in the accepted FIFO.</div>
+    <div class="viz-controls tq-block">
+      <label class="form-label">Requested effort <output id="tq-effort-value" class="tabular-nums">100%</output>
+        <input id="tq-effort" class="form-range" type="range" min="5" max="100" step="5" value="100">
+      </label>
+      <button type="button" class="btn btn-primary" id="tq-add">Add command</button>
+      <label class="form-check"><input id="tq-auto" class="form-check-input" type="checkbox" checked><span class="form-check-label">Continuous demo load</span></label>
+    </div>
+    <div class="viz-controls">
+      <label class="form-label">When full effort does not fit
+        <select id="tq-handling" class="form-select"><option value="reduce">Reduce effort · original governor</option><option value="wait">Wait for full effort · demo scheduler</option></select>
+      </label>
+      <span class="text-small text-muted" id="tq-policy-note">Reduced commands are admitted at a safe lower effort.</span>
+    </div>
+    <div id="tq-command-error" role="alert" hidden></div>
+    <div class="tq-block"><span class="text-small tq-value">Recent admission decisions</span><div id="tq-recent" class="text-small">No new admission decision yet.</div></div>
+  </section>
+
+  <hr class="tq-rule">
+  <section aria-label="Thermal settings">
+    <h3>Thermal settings</h3>
+    <div class="viz-controls">
+      <label class="form-label">Temperature ceiling <output id="tq-limit-value" class="tabular-nums">105°C</output>
+        <input id="tq-limit" class="form-range" type="range" min="98" max="115" step="1" value="105">
+      </label>
+      <label class="form-label">Starting interval width <output id="tq-width-value" class="tabular-nums">3°C</output>
+        <input id="tq-width" class="form-range" type="range" min="1" max="12" step="0.5" value="3">
+      </label>
+      <label class="form-label">Effort ceiling / cap rate <output id="tq-cap-value" class="tabular-nums">100%</output>
+        <input id="tq-cap" class="form-range" type="range" min="10" max="100" step="5" value="100">
+      </label>
+      <button id="tq-apply" type="button" class="btn">Apply &amp; restart</button>
+    </div>
+    <div class="text-small text-muted" id="tq-settings-note">Parameter changes start a new run; accepted commands are never silently rewritten.</div>
+  </section>
+
+  <div class="viz-grid tq-block" aria-label="Result summary">
+    <div class="card viz-stat"><span>Over-limit samples</span><div class="viz-stat-value tabular-nums" id="tq-breaches">0</div><span class="text-small" id="tq-breach-rate">0.0% of 0 samples</span></div>
+    <div class="card viz-stat"><span>Effort delivered</span><div class="viz-stat-value tabular-nums" id="tq-delivered">—</div><span class="text-small" id="tq-effort-detail">Completed commands only</span></div>
+    <div class="card viz-stat"><span>Command throughput</span><div class="viz-stat-value tabular-nums" id="tq-throughput">0.00/s</div><span class="text-small" id="tq-counts">0 completed · 0 rejected</span></div>
+  </div>
+  <div class="tq-reading-row text-small text-muted"><span>Actual temperature is simulator truth; a clipped sensor cannot verify it.</span><span id="tq-reduced-count">0 commands reduced</span></div>
+  <div class="tq-tooltip tooltip" id="tq-tooltip" role="tooltip"></div>
+  <div class="sr-only" id="tq-live" aria-live="polite"></div>
+</div>
+<script id="tq-engine">
+/* Pure scalar simulation. Accepted FIFO is never reordered or cancelled. */
+(function (host) {
+  'use strict';
+  const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+  function model(options = {}) {
+    const m = {ambient:25, clip:95, limit:105, eps:0.3, amin:0.985, amax:0.995,
+      bmin:0.55, bmax:0.95, wmin:0, wmax:0.04, step:0.05, width:3, cap:1, ...options};
+    if (!Object.values(m).every(Number.isFinite) || m.ambient >= m.clip || m.clip >= m.limit ||
+        m.amin < 0 || m.amin > m.amax || m.amax >= 1 || m.bmin < 0 || m.bmin > m.bmax ||
+        m.bmax <= 0 || m.wmin < 0 || m.wmin > m.wmax || m.eps < 0 || m.step <= 0 || m.step > 1 ||
+        m.width <= 0 || m.cap < 0 || m.cap > 1 || m.wmax/(1-m.amax) > m.limit-m.ambient)
+      throw new Error('Invalid thermal settings.');
+    return m;
+  }
+  function propagate(lo, hi, effort, m) {
+    return [m.amin*lo + m.bmin*effort*effort + m.wmin,
+      m.amax*hi + m.bmax*effort*effort + m.wmax];
+  }
+  function intersect(lo, hi, reading, m) {
+    if (reading === null) return [lo, hi];
+    if (!Number.isFinite(reading) || reading > m.clip+1e-9) throw new Error('Invalid sensor reading');
+    const lower=reading-m.ambient-m.eps;
+    const upper=reading>=m.clip-1e-9 ? Infinity : reading-m.ambient+m.eps;
+    const a=Math.max(lo,0,lower), b=Math.min(hi,upper);
+    if(a>b+1e-9) throw new Error('Reading and estimated interval disagree');
+    return [a,Math.max(a,b)];
+  }
+  function admissible(hi, pending, demand, m) {
+    let peak=hi;
+    for(const u of pending) { hi=m.amax*hi+m.bmax*u*u+m.wmax; peak=Math.max(peak,hi); }
+    const ceiling=m.limit-m.ambient;
+    if(peak>ceiling+1e-9) return {action:0,peak,valid:false};
+    const cap=Math.sqrt(Math.max(0,(ceiling-m.amax*hi-m.wmax)/m.bmax));
+    const action=Math.max(0,Math.floor((Math.min(demand,cap,1)+1e-12)/m.step)*m.step);
+    peak=Math.max(peak,m.amax*hi+m.bmax*action*action+m.wmax);
+    return {action,peak,valid:peak<=ceiling+1e-9};
+  }
+  function observe(s) {
+    s.reading=Math.min(s.m.ambient+s.x+s.m.eps*Math.sin(s.time*0.71),s.m.clip);
+    try { [s.lo,s.hi]=intersect(s.lo,s.hi,s.reading,s.m); }
+    catch(e) {s.valid=false; s.reason=e.message;}
+  }
+  function request(s, effort, source='Manual') {
+    if(!Number.isFinite(effort) || effort<0 || effort>1) throw new Error('Effort must be between 0 and 100%.');
+    const q={id:++s.sequence,requested:effort,source,submitted:s.time,lastWait:''};
+    if(s.requests.length>=24) {
+      s.stats.rejected++; s.recent.unshift({...q,status:'Rejected',reason:'Request buffer full (24 requests)'});
+      s.recent.length=Math.min(s.recent.length,4); return false;
+    }
+    s.requests.push(q); return true;
+  }
+  function create(options={}) {
+    const m=model(options);
+    const temperature=Math.min(99.5,m.limit-m.width/2-0.8);
+    const s={m,time:0,x:temperature-m.ambient,lo:temperature-m.ambient-m.width/2,
+      hi:temperature-m.ambient+m.width/2,valid:true,reason:'',sequence:0,queue:[],requests:[],recent:[],history:[],
+      handling:'reduce',automatic:true,workload:1,executing:null,decision:{kind:'Ready',reason:'Eight accepted commands are already in the delay line.'},
+      stats:{breaches:0,complete:0,rejected:0,scaled:0,delivered:0,requestedCompleted:0}};
+    for(let k=0;k<8;k++) {
+      const a=admissible(s.hi,s.queue.map(q=>q.effort),m.cap,m);
+      s.queue.push({id:++s.sequence,requested:1,effort:a.action,source:'Primed FIFO',submitted:0,accepted:0});
+    }
+    for(let k=0;k<3;k++) request(s,1,'Demo workload');
+    observe(s); record(s); return s;
+  }
+  function reject(s,q,reason) {
+    s.stats.rejected++; s.recent.unshift({...q,status:'Rejected',reason});
+    s.recent.length=Math.min(s.recent.length,4);
+    s.decision={kind:'Rejected',reason:`#${q.id}: ${reason}`};
+  }
+  function tick(s) {
+    observe(s);
+    let expired=0;
+    if(s.handling==='wait') {
+      s.requests=s.requests.filter(q=>{
+        if(s.time-q.submitted<20) return true;
+        reject(s,q,q.lastWait ? `20 s timeout. ${q.lastWait}` : '20 s timeout behind earlier requests.'); expired++; return false;
+      });
+    }
+    if(s.automatic && !s.requests.length) request(s,s.workload,'Demo workload');
+    let appended={id:null,effort:0,requested:0,source:'Idle'};
+    const q=s.requests[0];
+    if(!s.valid) {
+      s.decision={kind:'Invalid',reason:s.reason};
+      if(q) {s.requests.shift();reject(s,q,'Interval or queued fallback is invalid.');s.decision.kind='Invalid';}
+    } else if(q) {
+      const result=admissible(s.hi,s.queue.map(v=>v.effort),Math.min(q.requested,s.m.cap),s.m);
+      if(!result.valid) {
+        s.valid=false;s.reason='Accepted FIFO has no thermal fallback certificate.';
+        s.requests.shift();reject(s,q,s.reason);s.decision.kind='Invalid';
+      } else if(s.handling==='wait' && result.action<q.requested-1e-9) {
+        q.lastWait=s.m.cap<q.requested-1e-9 ? `Effort ceiling permits ${Math.round(s.m.cap*100)}%; request needs ${Math.round(q.requested*100)}%.` :
+          `Queued heat permits ${Math.round(result.action*100)}%; request needs ${Math.round(q.requested*100)}%.`;
+        s.decision={kind:'Waiting',reason:`#${q.id}: ${q.lastWait}`};
+      } else if(result.action===0 && q.requested>0) {
+        s.requests.shift();reject(s,q,'No positive effort fits the current thermal or effort ceiling.');
+      } else {
+        s.requests.shift();appended={...q,effort:result.action,accepted:s.time};
+        const limited=result.action<q.requested-1e-9;
+        if(limited) s.stats.scaled++;
+        const reason=limited ? `#${q.id}: ${Math.round(q.requested*100)}% requested; ${Math.round(result.action*100)}% admitted after queued heat and effort ceiling.` :
+          `#${q.id}: full ${Math.round(q.requested*100)}% effort fits after the accepted queue.`;
+        s.decision={kind:limited?'Limited':'Admitted',reason};
+        s.recent.unshift({...appended,status:limited?'Reduced':'Admitted',reason});s.recent.length=Math.min(s.recent.length,4);
+      }
+    } else if(!expired) s.decision={kind:'Cooling',reason:'No waiting request. An idle packet enters the accepted FIFO.'};
+    const applied=s.queue.shift();s.queue.push(appended);s.executing=applied;
+    s.x=s.m.amax*s.x+s.m.bmax*applied.effort**2+s.m.wmax;
+    [s.lo,s.hi]=propagate(s.lo,s.hi,applied.effort,s.m);
+    s.time++;
+    if(s.x+s.m.ambient>s.m.limit+1e-7) s.stats.breaches++;
+    if(applied.id!==null) {
+      s.stats.complete++;s.stats.delivered+=applied.effort;s.stats.requestedCompleted+=applied.requested;
+    }
+    observe(s); record(s); return s;
+  }
+  function record(s) {
+    s.history.push({time:s.time,actual:s.x+s.m.ambient,lo:s.lo+s.m.ambient,hi:s.hi+s.m.ambient,reading:s.reading,limit:s.m.limit,clip:s.m.clip});
+    if(s.history.length>241) s.history.shift();
+  }
+  function snapshot(s) {
+    const a=admissible(s.hi,s.queue.map(q=>q.effort),s.m.cap,s.m);
+    const reserved=admissible(s.hi,s.queue.map(q=>q.effort),0,s.m);
+    return {temperature:s.x+s.m.ambient,lower:s.lo+s.m.ambient,upper:s.hi+s.m.ambient,limit:s.m.limit,
+      reading:s.reading,effort:s.executing?.effort||0,time:s.time,inside:s.lo-1e-7<=s.x && s.x<=s.hi+1e-7,
+      clipped:s.reading>=s.m.clip-1e-9,remaining:s.m.limit-s.m.ambient-reserved.peak,capacity:a.action,
+      predictedPeak:reserved.peak+s.m.ambient,valid:s.valid&&reserved.valid,
+      effortPercent:s.stats.requestedCompleted?100*s.stats.delivered/s.stats.requestedCompleted:0,
+      breachRate:s.time?100*s.stats.breaches/s.time:0,throughput:s.time?s.stats.complete/s.time:0};
+  }
+  host.ThermalQueueCore={model,propagate,intersect,admissible,create,request,tick,snapshot,clamp};
+})(typeof window==='undefined'?globalThis:window);
+
+</script>
+<script id="tq-components">
+/*
+ * Educational component catalog for the Thermal Queue Governor schematic.
+ * The geometry is a generic motor-and-drive illustration, not a validated
+ * architecture, wiring diagram, parts list, or manufacturer product model.
+ * Only the scalar thermal state, clipped observation and command FIFO are
+ * simulated. Sources explain ordinary component functions, not this invention.
+ */
+window.THERMAL_COMPONENTS = [
+  {
+    id: "housing", name: "Motor housing and cooling fins", group: "Motor",
+    summary: "The outer shell supports and protects the motor, with fins that expose more area to cooling air.",
+    role: "Structure and heat path",
+    modelLink: "The thermal colors represent one simulated motor temperature, not a measured surface-temperature map.",
+    simulationStatus: "Illustrative hardware; no structural or spatial heat model"
+  },
+  {
+    id: "stator", name: "Stator core", group: "Motor",
+    summary: "The stationary core supports the windings and guides their magnetic field around the rotor.",
+    role: "Stationary magnetic structure",
+    modelLink: "The governor represents the whole motor with one thermal state rather than calculating heat inside the stator.",
+    simulationStatus: "Illustrative hardware; no magnetic-field model"
+  },
+  {
+    id: "windings", name: "Copper windings", group: "Motor",
+    summary: "Current through these coils creates the magnetic field that drives the rotor and also produces heat.",
+    role: "Electromagnetic drive and heat source",
+    modelLink: "The demo approximates effort-related heating with an effort-squared term; effort is dimensionless and is not a measured current.",
+    simulationStatus: "Scalar heating modeled; individual coil currents and temperatures omitted"
+  },
+  {
+    id: "rotor", name: "Rotor", group: "Motor",
+    summary: "The inner rotating assembly responds to the stator's magnetic field and turns the shaft.",
+    role: "Rotating magnetic assembly",
+    modelLink: "Rotation makes delivered effort visible, but its animation does not predict speed or torque.",
+    simulationStatus: "Illustrative motion; no mechanical or magnetic simulation"
+  },
+  {
+    id: "shaft", name: "Output shaft", group: "Motor",
+    summary: "The shaft transfers the motor's rotation to an external load through a coupling or other mechanism.",
+    role: "Mechanical output",
+    modelLink: "The governor limits a scalar effort request; it does not model load motion or verify a safe mechanical stop.",
+    simulationStatus: "Illustrative hardware; no load dynamics"
+  },
+  {
+    id: "bearings", name: "Shaft bearings", group: "Motor",
+    summary: "Bearings support the rotating shaft and help keep it aligned while allowing it to turn.",
+    role: "Shaft support",
+    modelLink: "Bearing condition and friction are not measured or diagnosed by this prototype.",
+    simulationStatus: "Illustrative hardware; no wear or vibration model"
+  },
+  {
+    id: "fan", name: "Cooling fan", group: "Motor",
+    summary: "A fan moves air over the motor to help carry heat away.",
+    role: "Cooling airflow",
+    modelLink: "Cooling is represented by the thermal model's decay toward ambient, not by an airflow or fan-speed calculation.",
+    simulationStatus: "Aggregate cooling modeled; fan geometry and airflow illustrative"
+  },
+  {
+    id: "encoder", name: "Position encoder", group: "Sensors",
+    summary: "An encoder reports shaft position and can support speed feedback in a motor drive.",
+    role: "Motion feedback",
+    modelLink: "This thermal governor does not use encoder pulses, and the displayed rotation is not an encoder measurement.",
+    simulationStatus: "Illustrative sensor; no position or speed feedback loop"
+  },
+  {
+    id: "temp_sensor", name: "Temperature sensor", group: "Sensors",
+    summary: "A temperature sensor gives the controller information about motor heat.",
+    role: "Thermal observation",
+    modelLink: "When this simulated reading reaches its ceiling, the governor keeps the model's upper bound because the true temperature may be hotter than the reading.",
+    simulationStatus: "Clipped observation modeled; physical sensor type and placement illustrative"
+  },
+  {
+    id: "terminals", name: "Motor terminal box", group: "Connections",
+    summary: "The terminal box provides protected connection points for the motor windings and associated wiring.",
+    role: "Electrical connection enclosure",
+    modelLink: "These connections explain the drive-to-motor path; the governor does not calculate terminal current, voltage or contact heating.",
+    simulationStatus: "Illustrative hardware; not a wiring diagram"
+  },
+  {
+    id: "earth", name: "Protective earth connection", group: "Connections",
+    summary: "This connection bonds the motor's exposed metal frame to protective earth as part of an electrical protection system.",
+    role: "Protective bonding",
+    modelLink: "The thermal governor does not replace electrical protection or model earth-fault behavior.",
+    simulationStatus: "Illustrative protection hardware; no fault-current simulation"
+  },
+  {
+    id: "phase_cables", name: "Motor phase cables", group: "Connections",
+    summary: "These conductors connect the inverter's three phase outputs to the motor windings.",
+    role: "Electrical power path",
+    modelLink: "Their colors identify the schematic connection path, not current magnitude, voltage or installation wiring requirements.",
+    simulationStatus: "Illustrative conductors; no cable or circuit model"
+  },
+  {
+    id: "inverter", name: "Inverter power stage", group: "Drive electronics",
+    summary: "A motor inverter switches a DC supply into controlled phase outputs that energize the windings.",
+    role: "Electrical power conversion",
+    modelLink: "The governor admits a dimensionless effort command before execution; switch timing, PWM and semiconductor heating are not simulated.",
+    simulationStatus: "Illustrative power stage; scalar effort interface only"
+  },
+  {
+    id: "dc_link", name: "DC-link capacitors", group: "Drive electronics",
+    summary: "These capacitors buffer electrical energy on the inverter's DC supply link.",
+    role: "Electrical energy buffer",
+    modelLink: "The governor's thermal headroom is a temperature margin, separate from the electrical energy stored in these capacitors.",
+    simulationStatus: "Illustrative hardware; no capacitance, bus-voltage or ripple model"
+  },
+  {
+    id: "current_sensor", name: "Current sensing stage", group: "Sensors",
+    summary: "A current sensor gives a motor drive feedback about the electrical current flowing through its power stage.",
+    role: "Electrical feedback",
+    modelLink: "This prototype uses an assumed applied effort and does not use this illustration to verify the physical actuator or its command acknowledgements.",
+    simulationStatus: "Illustrative sensor; no measured current or authenticated actuator feedback"
+  },
+  {
+    id: "controller", name: "Governor controller", group: "Drive electronics",
+    summary: "The governor maintains a temperature interval and predicts the effect of commands already accepted into the FIFO queue.",
+    role: "Thermal estimation and command admission",
+    modelLink: "It uses the predicted upper temperature to admit or reduce the next effort; the optional wait-for-headroom scheduler is a demo extension.",
+    simulationStatus: "Thermal and queue logic simulated in software; controller board illustrative"
+  }
+];
+
+window.THERMAL_COMPONENT_SOURCES = [
+  {
+    title: "Oriental Motor: servo motor structure and encoder function",
+    url: "https://www.orientalmotor.com/servo-motors/technology/servo-motor-overview.html",
+    supports: ["stator", "windings", "rotor", "shaft", "bearings", "encoder"]
+  },
+  {
+    title: "Infineon: motor control power board, inverter and current sensing",
+    url: "https://documentation.infineon.com/aurixtc3xx/docs/fog1707895108274",
+    supports: ["inverter", "current_sensor", "phase_cables", "controller"]
+  },
+  {
+    title: "ABB: low-voltage motor installation manual, terminals, earth and cooling",
+    url: "https://library.e.abb.com/public/cc86b1e29b794453ae6ca2fd4ea5b945/Standard_Manual_Low_Voltage_EN%20rev%20G%20web.pdf",
+    supports: ["housing", "fan", "terminals", "earth"]
+  },
+  {
+    title: "ABB: motor winding temperature sensors",
+    url: "https://new.abb.com/low-voltage/products/electronicrelays/monitors/thermistor-motor-protection-relays",
+    supports: ["temp_sensor"]
+  },
+  {
+    title: "TDK: practical DC-link capacitor energy buffering",
+    url: "https://www.tdk-electronics.tdk.com/download/3669958/001151774afe321a6036969b42431e69/tp-practical-use.pdf",
+    supports: ["dc_link"]
+  }
+];
+
+</script>
+<script id="tq-scene">
+/* Educational cutaway schematic. Geometry is illustrative, not a wiring or fabrication specification.
+ * The drive electronics explain a possible implementation; the scalar simulator does not model these circuits.
+ * No hardware interface, electrical protection, physical ACK authentication, or real motor control is implemented.
+ */
+window.mountThermalMotor = async function mountThermalMotor(container, colors, options = {}) {
+  const THREE = await import('https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js');
+  const scene = new THREE.Scene();
+  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: 'low-power' });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setClearColor(0, 0);
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.24;
+  const canvas = renderer.domElement;
+  canvas.style.cssText = 'display:block;width:100%;height:100%;touch-action:none;cursor:grab';
+  canvas.setAttribute('role', 'img');
+  container.appendChild(canvas);
+
+  const col = name => new THREE.Color(colors[name] || colors.foreground);
+  const fg = col('foreground'), bg = col('background');
+  const neutral = fg.clone().lerp(bg, 0.46);
+  const bright = fg.r + fg.g + fg.b > bg.r + bg.g + bg.b ? fg.clone() : bg.clone();
+  const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 80);
+  const assembly = new THREE.Group(); scene.add(assembly);
+  scene.add(new THREE.HemisphereLight(bright, neutral, 2.35));
+  const keyLight = new THREE.DirectionalLight(bright, 3.4);
+  keyLight.position.set(3, 7, 6); scene.add(keyLight);
+  const rimLight = new THREE.DirectionalLight(col('bounds'), 1.75);
+  rimLight.position.set(-4, 1, -5); scene.add(rimLight);
+  const fillLight = new THREE.DirectionalLight(bright, 1.3);
+  fillLight.position.set(-4, 2, 5); scene.add(fillLight);
+
+  const materials = new Set(), textures = new Set(), pickables = [];
+  const components = new Map();
+  const movers = [];
+  const matCache = new Map();
+  const definitions = {
+    casing: { color: neutral, metalness: 0.65, roughness: 0.32, side: THREE.DoubleSide },
+    dark: { color: fg.clone().lerp(bg, 0.68), metalness: 0.35, roughness: 0.43 },
+    steel: { color: fg.clone().lerp(bg, 0.24), metalness: 0.83, roughness: 0.24 },
+    copper: { color: col('bounds'), metalness: 0.58, roughness: 0.29 },
+    board: { color: col('reading').lerp(bg, 0.5), metalness: 0.12, roughness: 0.53 },
+    reading: { color: col('reading'), metalness: 0.2, roughness: 0.4 },
+    bounds: { color: col('bounds'), metalness: 0.3, roughness: 0.36 },
+    actual: { color: col('actual'), metalness: 0.2, roughness: 0.38 }
+  };
+  function component(id) {
+    if (components.has(id)) return components.get(id);
+    const group = new THREE.Group();
+    group.userData.componentId = id; assembly.add(group); components.set(id, group);
+    return group;
+  }
+  function mat(id, type) {
+    const cacheKey = id + ':' + type;
+    if (matCache.has(cacheKey)) return matCache.get(cacheKey);
+    const result = new THREE.MeshStandardMaterial(definitions[type]);
+    result.userData.baseColor = result.color.clone();
+    result.userData.componentId = id;
+    result.userData.type = type;
+    materials.add(result); matCache.set(cacheKey, result); return result;
+  }
+  function group(id, base = [0, 0, 0], delta = [0, 0, 0], parent = component(id)) {
+    const result = new THREE.Group(); result.position.fromArray(base); parent.add(result);
+    movers.push({ object: result, base: new THREE.Vector3(...base), delta: new THREE.Vector3(...delta) });
+    return result;
+  }
+  function mesh(id, geometry, type, parent = component(id)) {
+    const result = new THREE.Mesh(geometry, typeof type === 'string' ? mat(id, type) : type);
+    result.userData.componentId = id;
+    parent.add(result); if (id) pickables.push(result); return result;
+  }
+  function box(id, size, position, type, parent) {
+    const result = mesh(id, new THREE.BoxGeometry(...size), type, parent);
+    result.position.fromArray(position); return result;
+  }
+  function cylinder(id, radius, length, type, x = 0, parent, open = false, start = 0, arc = Math.PI * 2) {
+    const result = mesh(id, new THREE.CylinderGeometry(radius, radius, length, 48, 1, open, start, arc), type, parent);
+    result.rotation.z = Math.PI / 2; result.position.x = x; return result;
+  }
+  function ring(id, radius, tube, type, x, parent, arc = Math.PI * 2) {
+    const result = mesh(id, new THREE.TorusGeometry(radius, tube, 8, 64, arc), type, parent);
+    result.rotation.y = Math.PI / 2; result.position.x = x; return result;
+  }
+  function tube(id, points, radius, type, parent) {
+    return mesh(id, new THREE.TubeGeometry(new THREE.CatmullRomCurve3(points.map(p => new THREE.Vector3(...p))), 28, radius, 6, false), type, parent);
+  }
+  function label(text, position, id, parent = component(id), width = 0.26) {
+    const bitmap = document.createElement('canvas'); bitmap.width = 128; bitmap.height = 80;
+    const ctx = bitmap.getContext('2d');
+    ctx.fillStyle = colors.background; ctx.fillRect(0, 0, 128, 80);
+    ctx.strokeStyle = colors.bounds; ctx.lineWidth = 5; ctx.strokeRect(3, 3, 122, 74);
+    ctx.fillStyle = colors.foreground; ctx.font = 'bold 48px system-ui, sans-serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(text, 64, 43);
+    const texture = new THREE.CanvasTexture(bitmap); texture.colorSpace = THREE.SRGBColorSpace; textures.add(texture);
+    const material = new THREE.SpriteMaterial({ map: texture, depthTest: true, transparent: true }); materials.add(material);
+    const sprite = new THREE.Sprite(material); sprite.position.fromArray(position); sprite.scale.set(width, width * 0.625, 1);
+    sprite.userData.componentId = id; parent.add(sprite); pickables.push(sprite); return sprite;
+  }
+
+  const housing = group('housing', [0, 0, 0], [0, 0.35, -0.72]);
+  const cutStart = 0.83, cutArc = Math.PI * 2 - 1.66;
+  cylinder('housing', 1, 2.65, 'casing', 0, housing, true, cutStart, cutArc);
+  for (let i = 0; i < 15; i++) cylinder('housing', 1.105, 0.04, 'casing', -1.25 + i * 0.18, housing, true, cutStart, cutArc);
+  for (const x of [-1.41, 1.41]) {
+    const endPlate = mesh('housing', new THREE.RingGeometry(0.48, 1.01, 48), 'casing', housing);
+    endPlate.rotation.y = Math.PI / 2; endPlate.position.x = x;
+    ring('housing', 0.97, 0.075, 'casing', x, housing);
+    for (let j = 0; j < 8; j++) {
+      const angle = j * Math.PI / 4;
+      const bolt = cylinder('housing', 0.053, 0.085, 'steel', x + Math.sign(x) * 0.08, housing);
+      bolt.position.y = Math.cos(angle) * 0.86; bolt.position.z = Math.sin(angle) * 0.86;
+    }
+  }
+  for (const x of [-0.88, 0.88]) {
+    box('housing', [0.48, 0.35, 1.28], [x, -1.09, 0], 'casing', housing);
+    box('housing', [0.73, 0.1, 1.5], [x, -1.29, 0], 'dark', housing);
+    for (const z of [-0.54, 0.54]) {
+      const screw = mesh('housing', new THREE.CylinderGeometry(0.053, 0.053, 0.025, 6), 'steel', housing);
+      screw.position.set(x, -1.225, z);
+    }
+  }
+  const stator = group('stator', [0, 0, 0], [0, 0.13, -0.2]);
+  cylinder('stator', 0.905, 2.3, 'steel', 0, stator, true, cutStart, cutArc);
+  for (let j = 0; j < 18; j++) {
+    const angle = j * Math.PI * 2 / 18;
+    const tooth = box('stator', [2.19, 0.14, 0.115], [0, Math.cos(angle) * 0.815, Math.sin(angle) * 0.815], 'dark', stator);
+    tooth.rotation.x = angle;
+  }
+  for (let j = 0; j < 12; j++) cylinder('stator', 0.908, 0.014, 'dark', -1.02 + j * 0.185, stator, true, cutStart, cutArc);
+
+  const windings = group('windings', [0, 0, 0], [0, 0.74, 0.45]);
+  for (let j = 0; j < 18; j++) {
+    const angle = j * Math.PI * 2 / 18 + 0.145;
+    for (const offset of [-0.034, 0.034]) {
+      const winding = box('windings', [2.28, 0.07, 0.055], [0, Math.cos(angle) * 0.733 + Math.cos(angle + Math.PI / 2) * offset, Math.sin(angle) * 0.733 + Math.sin(angle + Math.PI / 2) * offset], 'copper', windings);
+      winding.rotation.x = angle;
+    }
+  }
+  for (const side of [-1, 1]) for (let i = 0; i < 4; i++) ring('windings', 0.72 + i * 0.027, 0.029, 'copper', side * (1.045 + i * 0.055), windings);
+
+  const rotorMove = group('rotor', [0, 0, 0], [0.28, -0.05, 0.04]);
+  const spinningRotor = new THREE.Group(); rotorMove.add(spinningRotor);
+  cylinder('rotor', 0.47, 2.43, 'dark', 0, spinningRotor);
+  for (let j = 0; j < 16; j++) {
+    const angle = j * Math.PI * 2 / 16;
+    const bar = box('rotor', [2.22, 0.02, 0.044], [0, Math.cos(angle) * 0.472, Math.sin(angle) * 0.472], 'steel', spinningRotor);
+    bar.rotation.x = angle;
+  }
+  for (const x of [-1.17, 1.17]) ring('rotor', 0.44, 0.026, 'steel', x, spinningRotor);
+  const shaftMove = group('shaft', [0, 0, 0], [0.28, -0.05, 0.04]);
+  const spinningShaft = new THREE.Group(); shaftMove.add(spinningShaft);
+  cylinder('shaft', 0.165, 4.24, 'steel', 0.12, spinningShaft);
+  cylinder('shaft', 0.205, 0.28, 'steel', 1.65, spinningShaft);
+  box('shaft', [0.45, 0.053, 0.081], [2.01, 0.168, 0], 'dark', spinningShaft);
+  for (const side of [-1, 1]) {
+    const bearing = group('bearings', [side * 1.43, 0, 0], [side * 0.65, 0, 0]);
+    ring('bearings', 0.335, 0.069, 'steel', 0, bearing);
+    ring('bearings', 0.204, 0.036, 'steel', 0, bearing);
+    for (let j = 0; j < 10; j++) {
+      const angle = j * Math.PI / 5;
+      const ball = mesh('bearings', new THREE.SphereGeometry(0.051, 12, 8), 'steel', bearing);
+      ball.position.set(0.02, Math.cos(angle) * 0.267, Math.sin(angle) * 0.267);
+    }
+    ring('bearings', 0.27, 0.013, 'dark', 0.06, bearing);
+  }
+
+  const fanMove = group('fan', [-1.79, 0, 0], [-1.04, 0.12, 0]);
+  const spinningFan = new THREE.Group(); fanMove.add(spinningFan);
+  cylinder('fan', 0.26, 0.16, 'dark', 0, spinningFan);
+  for (let j = 0; j < 9; j++) {
+    const angle = j * Math.PI * 2 / 9;
+    const blade = box('fan', [0.1, 0.41, 0.22], [0, Math.cos(angle) * 0.48, Math.sin(angle) * 0.48], 'bounds', spinningFan);
+    blade.rotation.set(angle, 0.21, 0.12);
+  }
+  for (let j = 0; j < 3; j++) ring('fan', 0.49 + j * 0.18, 0.018, 'steel', -0.12, fanMove);
+  for (let j = 0; j < 8; j++) {
+    const angle = j * Math.PI / 4;
+    const spoke = box('fan', [0.025, 1.63, 0.023], [-0.14, 0, 0], 'steel', fanMove); spoke.rotation.x = angle;
+  }
+  const encoder = group('encoder', [-2.14, 0, 0], [-1.23, 0.2, 0]);
+  cylinder('encoder', 0.31, 0.26, 'dark', 0, encoder);
+  cylinder('encoder', 0.245, 0.016, 'bounds', -0.14, encoder);
+  ring('encoder', 0.26, 0.025, 'steel', -0.13, encoder);
+  for (let j = 0; j < 12; j++) {
+    const angle = j * Math.PI / 6;
+    const mark = box('encoder', [0.025, 0.065, 0.018], [-0.16, Math.cos(angle) * 0.196, Math.sin(angle) * 0.196], 'steel', encoder);
+    mark.rotation.x = angle;
+  }
+  box('encoder', [0.19, 0.22, 0.21], [0.01, 0.28, 0], 'dark', encoder);
+
+  const terminals = group('terminals', [-0.41, 1.13, -0.12], [-0.1, 0.75, -0.35]);
+  box('terminals', [0.81, 0.14, 0.65], [0, 0, 0], 'casing', terminals);
+  box('terminals', [0.69, 0.13, 0.49], [0, 0.135, 0], 'dark', terminals);
+  for (let row = 0; row < 2; row++) for (let j = 0; j < 3; j++) {
+    const stud = mesh('terminals', new THREE.CylinderGeometry(0.052, 0.052, 0.1, 6), 'copper', terminals);
+    stud.position.set(-0.23 + j * 0.23, 0.24, -0.14 + row * 0.28);
+    box('terminals', [0.06, 0.016, 0.26], [-0.23 + j * 0.23, 0.205, 0], 'copper', terminals);
+  }
+  ['U', 'V', 'W'].forEach((letter, j) => label(letter, [-0.23 + j * 0.23, 0.42, 0.16], 'terminals', terminals, 0.19));
+  const earth = group('earth', [0.24, 1.03, 0.46], [0, 0.35, -0.72]);
+  const earthStud = mesh('earth', new THREE.CylinderGeometry(0.074, 0.074, 0.08, 6), 'steel', earth);
+  ring('earth', 0.087, 0.019, 'actual', 0, earth).rotation.set(Math.PI / 2, 0, 0);
+  label('PE', [0.1, 0.21, 0.04], 'earth', earth, 0.24);
+  tube('earth', [[0, 0, 0], [0.21, -0.04, 0.17], [0.25, -0.38, 0.18], [0.38, -0.67, 0.16]], 0.025, 'actual', earth);
+
+  const sensor = group('temp_sensor', [0.48, 0.82, 0.43], [0.16, 0.69, 0.46]);
+  const sensorBody = box('temp_sensor', [0.235, 0.105, 0.21], [0, 0, 0], 'reading', sensor);
+  sensorBody.rotation.x = -0.4;
+  cylinder('temp_sensor', 0.042, 0.28, 'steel', 0, sensor).rotation.z = 0;
+  label('T', [0, 0.21, 0.03], 'temp_sensor', sensor, 0.19);
+
+  // Exposed adjacent drive board is a conceptual component map, not a circuit diagram.
+  const driveOffset = [3.25, -0.79, 0.37];
+  const driveDelta = [0.42, 0.03, 0.52];
+  const drive = group('inverter', driveOffset, driveDelta);
+  box('inverter', [1.77, 0.11, 1.71], [0, 0, 0], 'board', drive);
+  box('inverter', [1.89, 0.1, 1.83], [0, -0.16, 0], 'casing', drive);
+  for (const x of [-0.76, 0.76]) for (const z of [-0.74, 0.74]) {
+    const standoff = mesh('inverter', new THREE.CylinderGeometry(0.035, 0.035, 0.16, 8), 'steel', drive);
+    standoff.position.set(x, -0.09, z);
+    const screw = mesh('inverter', new THREE.CylinderGeometry(0.049, 0.049, 0.018, 6), 'steel', drive);
+    screw.position.set(x, 0.067, z);
+  }
+  box('inverter', [1.14, 0.11, 0.58], [0.03, 0.13, -0.04], 'casing', drive);
+  for (let i = 0; i < 9; i++) box('inverter', [0.04, 0.34, 0.56], [-0.48 + i * 0.125, 0.29, -0.04], 'steel', drive);
+  for (let j = 0; j < 3; j++) for (const row of [-1, 1]) {
+    box('inverter', [0.2, 0.11, 0.12], [-0.35 + j * 0.35, 0.13, row * 0.36], 'dark', drive);
+    for (let lead = 0; lead < 3; lead++) box('inverter', [0.019, 0.022, 0.11], [-0.405 + j * 0.35 + lead * 0.055, 0.073, row * 0.445], 'copper', drive);
+  }
+  box('inverter', [0.86, 0.14, 0.17], [-0.08, 0.14, -0.72], 'dark', drive);
+  for (let j = 0; j < 3; j++) {
+    const screw = mesh('inverter', new THREE.CylinderGeometry(0.033, 0.033, 0.027, 8), 'steel', drive);
+    screw.position.set(-0.35 + j * 0.27, 0.228, -0.72);
+  }
+  label('DRV', [0.64, 0.18, 0.72], 'inverter', drive, 0.33);
+  const capacitors = group('dc_link', driveOffset, driveDelta);
+  for (const x of [0.36, 0.7]) {
+    const capacitor = mesh('dc_link', new THREE.CylinderGeometry(0.142, 0.142, 0.48, 28), 'dark', capacitors);
+    capacitor.position.set(x, 0.3, -0.57);
+    const capTop = mesh('dc_link', new THREE.CylinderGeometry(0.126, 0.126, 0.016, 28), 'steel', capacitors);
+    capTop.position.set(x, 0.55, -0.57);
+    box('dc_link', [0.016, 0.004, 0.17], [x, 0.56, -0.57], 'dark', capacitors);
+    box('dc_link', [0.17, 0.004, 0.016], [x, 0.56, -0.57], 'dark', capacitors);
+  }
+  label('DC', [0.54, 0.75, -0.55], 'dc_link', capacitors, 0.23);
+  const currentSense = group('current_sensor', driveOffset, driveDelta);
+  box('current_sensor', [0.28, 0.25, 0.23], [-0.69, 0.2, -0.46], 'reading', currentSense);
+  const senseOpening = mesh('current_sensor', new THREE.TorusGeometry(0.052, 0.015, 8, 24), 'dark', currentSense);
+  senseOpening.position.set(-0.69, 0.2, -0.335);
+  box('current_sensor', [0.025, 0.02, 0.42], [-0.69, 0.2, -0.46], 'copper', currentSense);
+  const controller = group('controller', driveOffset, driveDelta);
+  box('controller', [0.37, 0.065, 0.35], [-0.42, 0.12, 0.46], 'dark', controller);
+  for (let i = 0; i < 8; i++) for (const side of [-1, 1]) {
+    box('controller', [0.016, 0.022, 0.084], [-0.565 + i * 0.041, 0.085, 0.46 + side * 0.206], 'steel', controller);
+    box('controller', [0.084, 0.022, 0.016], [-0.42 + side * 0.217, 0.085, 0.315 + i * 0.041], 'steel', controller);
+  }
+  box('controller', [0.19, 0.065, 0.08], [0.02, 0.11, 0.56], 'steel', controller);
+  for (let i = 0; i < 4; i++) box('controller', [0.075, 0.042, 0.036], [0.14 + i * 0.13, 0.084, 0.38], 'reading', controller);
+  label('MCU', [-0.42, 0.33, 0.5], 'controller', controller, 0.3);
+
+  const cableGroup = component('phase_cables');
+  const cables = [];
+  const phaseStyles = ['actual', 'bounds', 'reading'];
+  ['U', 'V', 'W'].forEach((letter, j) => {
+    const cable = tube('phase_cables', [[0, 0, 0], [1, 0, 0]], 0.033, phaseStyles[j], cableGroup);
+    const tag = label(letter, [0, 0, 0], 'phase_cables', cableGroup, 0.2);
+    cables.push({ cable, tag });
+  });
+  const sensorCable = tube('temp_sensor', [[0, 0, 0], [1, 0, 0]], 0.017, 'dark', component('temp_sensor'));
+  function replacePath(object, points, radius) {
+    object.geometry.dispose();
+    object.geometry = new THREE.TubeGeometry(new THREE.CatmullRomCurve3(points.map(p => new THREE.Vector3(...p))), 28, radius, 6, false);
+  }
+  function updateCables(amount) {
+    cables.forEach(({ cable, tag }, j) => {
+      const start = [-0.64 + j * 0.23 - amount * 0.1, 1.38 + amount * 0.75, 0.02 - amount * 0.35];
+      const end = [2.9 + j * 0.27 + amount * 0.42, -0.55 + amount * 0.03, -0.35 + amount * 0.52];
+      const bend = [1.04 + j * 0.15 + amount * 0.16, 1.66 + j * 0.10 + amount * 0.64, 0.35 + j * 0.1];
+      replacePath(cable, [start, [0.1, 1.58 + amount * 0.75, 0.06 + j * 0.1], bend, [2.47 + amount * 0.35, 0.9 + j * 0.12 + amount * 0.36, 0.28 + amount * 0.48], end], 0.033);
+      tag.position.set(bend[0], bend[1] + 0.15, bend[2]);
+    });
+    replacePath(sensorCable, [[0.48 + amount * 0.16, 0.89 + amount * 0.69, 0.43 + amount * 0.46], [0.64, 1.08 + amount * 0.72, 0.69 + amount * 0.4], [1.76 + amount * 0.2, 0.45, 1.08 + amount * 0.55], [2.83 + amount * 0.42, -0.64 + amount * 0.03, 0.99 + amount * 0.52]], 0.017);
+  }
+  updateCables(0);
+
+  // Rings are simulation overlays, not physical motor components.
+  const overlays = new THREE.Group(); assembly.add(overlays);
+  function overlayMaterial(options) { const result = new THREE.MeshStandardMaterial(options); materials.add(result); return result; }
+  const actualMat = overlayMaterial({ color: col('actual'), emissive: col('actual'), emissiveIntensity: 0.3, roughness: 0.5, transparent: true, opacity: 0.72, depthWrite: false });
+  const boundMat = overlayMaterial({ color: col('bounds'), emissive: col('bounds'), emissiveIntensity: 0.2, transparent: true, opacity: 0.46, depthWrite: false });
+  const actualRing = ring('', 1.25, 0.018, actualMat, 0.64, overlays);
+  const lowRing = ring('', 1.25, 0.01, boundMat, 0.47, overlays);
+  const highRing = ring('', 1.25, 0.01, boundMat, 0.81, overlays);
+  const selectionBox = new THREE.Box3();
+  const selectionOutline = new THREE.Box3Helper(selectionBox, col('bounds'));
+  selectionOutline.material.transparent = true; selectionOutline.material.opacity = 0.67;
+  selectionOutline.material.depthTest = true; selectionOutline.visible = false;
+  scene.add(selectionOutline); materials.add(selectionOutline.material);
+
+  let selectedId = null, exploded = 0, heatLevel = 0, isDanger = false;
+  let yaw = -0.12, pitch = 0.045, disposed = false, lastTime = null, drag = null;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  function updateMaterials() {
+    matCache.forEach(material => {
+      const selected = material.userData.componentId === selectedId;
+      material.color.copy(material.userData.baseColor);
+      material.emissive.copy(selected ? col('bounds') : bg.clone().multiplyScalar(0));
+      material.emissiveIntensity = selected ? 0.42 : 0;
+      if (selected) material.color.lerp(col('bounds'), 0.22);
+      if (material.userData.componentId === 'windings') {
+        if (!selected) material.emissive.copy(isDanger ? col('danger') : col('actual'));
+        material.emissiveIntensity = (selected ? 0.42 : 0) + Math.min(heatLevel, 1) * 0.24;
+      }
+    });
+  }
+  function render() {
+    if (disposed) return;
+    assembly.rotation.set(pitch, yaw, 0); assembly.updateMatrixWorld(true);
+    if (selectedId) {
+      selectionBox.setFromObject(selectedId === 'temp_sensor' ? sensor : components.get(selectedId)); selectionBox.expandByScalar(0.055);
+      selectionOutline.visible = !selectionBox.isEmpty();
+    } else selectionOutline.visible = false;
+    renderer.render(scene, camera);
+  }
+  function resize() {
+    if (disposed) return;
+    const width = Math.max(1, container.clientWidth);
+    const height = Math.max(1, container.clientHeight || Math.round(width * 0.58));
+    renderer.setSize(width, height, false); camera.aspect = width / height;
+    // Keep the complete board, motor, and exploded rear encoder inside even a portrait viewport.
+    const distance = Math.max(9.0, 11.5 / camera.aspect) + exploded * 0.8;
+    camera.position.set(0.85 + distance * 0.32, 0.08 + distance * 0.34, 0.13 + distance * 0.887);
+    camera.lookAt(0.85, 0.08, 0.13); camera.updateProjectionMatrix(); render();
+  }
+  function selectComponent(id) {
+    if (disposed) return false;
+    selectedId = components.has(id) ? id : null; updateMaterials(); render();
+    return selectedId !== null;
+  }
+  // Test/recording anchor for a currently visible mesh; picking still uses real pointer events.
+  function getComponentScreenPoint(id) {
+    assembly.updateMatrixWorld(true);
+    for (const object of pickables.filter(object => object.userData.componentId === id)) {
+      const point = new THREE.Box3().setFromObject(object).getCenter(new THREE.Vector3()).project(camera);
+      if (point.z < -1 || point.z > 1 || Math.abs(point.x) > 1 || Math.abs(point.y) > 1) continue;
+      raycaster.setFromCamera(new THREE.Vector2(point.x, point.y), camera);
+      if (raycaster.intersectObjects(pickables, false)[0]?.object.userData.componentId === id)
+        return {x:(point.x+1)*container.clientWidth/2,y:(1-point.y)*container.clientHeight/2};
+    }
+    return null;
+  }
+  function setExploded(value) {
+    if (disposed) return;
+    exploded = THREE.MathUtils.clamp(Number(value) || 0, 0, 1);
+    movers.forEach(({ object, base, delta }) => object.position.copy(base).addScaledVector(delta, exploded));
+    updateCables(exploded); resize();
+  }
+  const raycaster = new THREE.Raycaster(), pointer = new THREE.Vector2();
+  function hitAt(event) {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width <= 0 || rect.height <= 0) return null;
+    pointer.set((event.clientX - rect.left) / rect.width * 2 - 1, -((event.clientY - rect.top) / rect.height) * 2 + 1);
+    raycaster.setFromCamera(pointer, camera);
+    return raycaster.intersectObjects(pickables, false)[0]?.object.userData.componentId || null;
+  }
+  function pointerDown(event) {
+    if (event.button !== 0 && event.pointerType !== 'touch') return;
+    drag = { x: event.clientX, y: event.clientY, yaw, pitch, id: event.pointerId, moved: false };
+    canvas.setPointerCapture(event.pointerId); canvas.style.cursor = 'grabbing';
+  }
+  function pointerMove(event) {
+    if (!drag) { canvas.style.cursor = hitAt(event) ? 'pointer' : 'grab'; return; }
+    if (event.pointerId !== drag.id) return;
+    const dx = event.clientX - drag.x, dy = event.clientY - drag.y;
+    if (Math.hypot(dx, dy) > 6) drag.moved = true;
+    if (!drag.moved) return;
+    yaw = drag.yaw + dx * 0.008;
+    pitch = Math.max(-0.42, Math.min(0.62, drag.pitch + dy * 0.004)); render();
+  }
+  function pointerEnd(event) {
+    if (!drag || event.pointerId !== drag.id) return;
+    const isClick = !drag.moved && event.type === 'pointerup';
+    if (canvas.hasPointerCapture(event.pointerId)) canvas.releasePointerCapture(event.pointerId);
+    drag = null; canvas.style.cursor = 'grab';
+    if (isClick) {
+      const id = hitAt(event); selectComponent(id);
+      if (typeof options.onSelect === 'function') options.onSelect(id);
+    }
+  }
+  function lostPointerCapture() { drag = null; canvas.style.cursor = 'grab'; }
+  canvas.addEventListener('pointerdown', pointerDown);
+  canvas.addEventListener('pointermove', pointerMove);
+  canvas.addEventListener('pointerup', pointerEnd);
+  canvas.addEventListener('pointercancel', pointerEnd);
+  canvas.addEventListener('lostpointercapture', lostPointerCapture);
+  const observer = new ResizeObserver(resize); observer.observe(container); resize();
+  canvas.setAttribute('aria-label', 'Interactive cutaway motor and conceptual drive electronics. Click a component to inspect it, drag to rotate, or use the component selector beside this view.');
+  return {
+    update(state) {
+      if (disposed) return;
+      const temp = Number.isFinite(state.temperature) ? state.temperature : 25;
+      const limit = Number.isFinite(state.limit) ? state.limit : 105;
+      heatLevel = THREE.MathUtils.clamp((temp - 25) / Math.max(1, limit - 25), 0, 1.2);
+      const lower = Number.isFinite(state.lower) ? state.lower : temp;
+      const upper = Number.isFinite(state.upper) ? state.upper : temp;
+      const interval = THREE.MathUtils.clamp((upper - lower) / 24, 0, 1);
+      isDanger = temp > limit;
+      const heatColor = isDanger ? col('danger') : col('actual');
+      actualMat.color.copy(heatColor); actualMat.emissive.copy(heatColor);
+      actualMat.opacity = 0.35 + Math.min(heatLevel, 1) * 0.5;
+      actualMat.emissiveIntensity = 0.2 + Math.min(heatLevel, 1) * 0.5;
+      const scale = 0.9 + Math.min(heatLevel, 1) * 0.18;
+      actualRing.scale.setScalar(scale);
+      lowRing.scale.setScalar(Math.max(0.88, scale - interval * 0.07));
+      highRing.scale.setScalar(scale + interval * 0.1);
+      const time = Number.isFinite(state.time) ? state.time : 0;
+      const effort = Number.isFinite(state.effort) ? Math.max(0, state.effort) : 0;
+      if (lastTime !== null && time >= lastTime && state.running && effort > 0 && !reducedMotion.matches) {
+        const motion = Math.min(time - lastTime, 4) * effort * 0.55;
+        spinningRotor.rotation.x += motion; spinningShaft.rotation.x += motion; spinningFan.rotation.x += motion;
+      }
+      if (lastTime !== null && time < lastTime) {
+        spinningRotor.rotation.x = 0; spinningShaft.rotation.x = 0; spinningFan.rotation.x = 0;
+      }
+      lastTime = time; updateMaterials();
+      const reading = Number.isFinite(state.reading) ? state.reading.toFixed(1) : 'unavailable';
+      canvas.setAttribute('aria-label', 'Motor and conceptual drive schematic. Actual temperature ' + temp.toFixed(1) + ' degrees Celsius; estimated range ' + lower.toFixed(1) + ' to ' + upper.toFixed(1) + '; reported reading ' + reading + '; thermal limit ' + limit.toFixed(1) + '. ' + (isDanger ? 'Limit exceeded. ' : 'Below limit. ') + 'Click to inspect components, drag to rotate, or use the component selector.');
+      render();
+    },
+    selectComponent,
+    getComponentScreenPoint,
+    setExploded,
+    resize,
+    dispose() {
+      if (disposed) return;
+      disposed = true; observer.disconnect();
+      canvas.removeEventListener('pointerdown', pointerDown);
+      canvas.removeEventListener('pointermove', pointerMove);
+      canvas.removeEventListener('pointerup', pointerEnd);
+      canvas.removeEventListener('pointercancel', pointerEnd);
+      canvas.removeEventListener('lostpointercapture', lostPointerCapture);
+      const geometries = new Set(); scene.traverse(object => { if (object.geometry) geometries.add(object.geometry); });
+      geometries.forEach(geometry => geometry.dispose()); textures.forEach(texture => texture.dispose());
+      materials.forEach(material => material.dispose()); renderer.dispose(); canvas.remove();
+    }
+  };
+};
+
+</script>
+<script>
+(function(){
+  'use strict';
+  const root=document.getElementById('thermal-queue-governor-v1');
+  const $=id=>root.querySelector('#'+id);
+  const C=window.ThermalQueueCore;
+  const components=window.THERMAL_COMPONENTS||[];
+  let selectedPart='temp_sensor';
+  let s=C.create(),playing=false,speed=4,clockAccum=0,rotorTime=0,lastWall=0,scene=null,d3lib=null,disposed=false,frame=0,lastAnnounced='',chartDraw=null;
+  const visible={actual:true,bounds:true,reading:true,limit:true,clip:true};
+  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+  const one=x=>x.toFixed(1),pct=x=>Math.round(x*100)+'%';
+  const set=(id,text)=>{$(id).textContent=text;};
+  function showPart(id,fromScene=false){
+    const part=components.find(c=>c.id===id);if(!part)return;
+    selectedPart=id;$('tq-part-select').value=id;
+    set('tq-part-group',part.group);set('tq-part-name',part.name);set('tq-part-summary',part.summary);
+    set('tq-part-role',part.role);set('tq-part-link',part.modelLink);set('tq-part-scope',part.simulationStatus);
+    set('tq-live',`${part.name}. ${part.summary}`);
+    if(scene&&!fromScene)scene.selectComponent(id);
+  }
+  for(const group of [...new Set(components.map(c=>c.group))]){
+    const node=document.createElement('optgroup');node.label=group;
+    for(const part of components.filter(c=>c.group===group)){
+      const option=document.createElement('option');option.value=part.id;option.textContent=part.name;node.append(option);
+    }
+    $('tq-part-select').append(node);
+  }
+  $('tq-part-select').addEventListener('change',e=>showPart(e.target.value));
+  $('tq-exploded').addEventListener('change',e=>{if(scene)scene.setExploded(e.target.checked?1:0);});
+  function svgNode(tag,attrs={},text){const n=document.createElementNS('http://www.w3.org/2000/svg',tag);for(const [k,v] of Object.entries(attrs))n.setAttribute(k,v);if(text!==undefined)n.textContent=text;return n;}
+  function drawQueue(){
+    const svg=$('tq-queue'),width=Math.max(280,svg.parentElement.getBoundingClientRect().width);
+    const columns=width<600?4:8,rows=Math.ceil(8/columns),gap=8,cell=(width-gap*(columns-1))/columns,height=rows*86;
+    svg.setAttribute('viewBox',`0 0 ${width} ${height}`);svg.setAttribute('height',height);svg.replaceChildren();
+    const title=svgNode('title',{},'Accepted commands execute in order. The leftmost first-row command executes next.');svg.appendChild(title);
+    s.queue.forEach((q,i)=>{
+      const x=(i%columns)*(cell+gap),y=Math.floor(i/columns)*86,g=svgNode('g');
+      g.appendChild(svgNode('rect',{x,y:y+21,width:cell,height:36,rx:3,fill:'var(--muted)',opacity:0.5}));
+      if(q.effort>0)g.appendChild(svgNode('rect',{x,y:y+21,width:Math.max(2,cell*q.effort),height:36,rx:3,fill:'var(--viz-series-1)',opacity:i===0?0.3:0.17}));
+      g.appendChild(svgNode('text',{x:x+cell/2,y:y+13,'text-anchor':'middle'},i===0?'NEXT · +1 s':`+${i+1} s`));
+      g.appendChild(svgNode('text',{x:x+cell/2,y:y+44,'text-anchor':'middle'},q.id===null?'IDLE':pct(q.effort)));
+      g.appendChild(svgNode('text',{x:x+cell/2,y:y+74,'text-anchor':'middle'},q.id===null?'Cooling':`#${q.id}`));
+      g.appendChild(svgNode('title',{},q.id===null?`Idle cooling packet in slot ${i+1}`:`Command ${q.id}, ${pct(q.effort)} accepted from ${pct(q.requested)} requested, executes in ${i+1} seconds.`));
+      svg.appendChild(g);
+    });
+  }
+  function render(){
+    const v=C.snapshot(s);
+    set('tq-clock',`${s.time} s · ${playing?'running':'paused'}`);
+    set('tq-temperature',one(v.temperature)+'°C');set('tq-bounds',`${one(v.lower)}–${one(v.upper)}°C`);set('tq-reading',one(v.reading)+'°C');
+    set('tq-containment',v.inside?'Inside bounds':'OUTSIDE BOUNDS');
+    $('tq-containment').classList.toggle('text-destructive',!v.inside);
+    set('tq-clipped',v.clipped?'Clipped at 95°C':'Unclipped');
+    set('tq-headroom',v.remaining.toFixed(2)+'°C');
+    const max=s.m.limit-s.m.ambient,headroom=Math.max(0,v.remaining);
+    $('tq-budget').setAttribute('aria-valuemax',max);$('tq-budget').setAttribute('aria-valuenow',headroom.toFixed(3));
+    $('tq-budget').setAttribute('aria-valuetext',`${one(headroom)} degrees remaining after queued heat`);
+    $('tq-budget-fill').style.width=C.clamp(100*headroom/max,0,100)+'%';
+    set('tq-forecast',`Queued upper peak ${one(v.predictedPeak)}°C / ${s.m.limit}°C limit`);set('tq-next-cap',`Next effort cap ${pct(v.capacity)}`);
+    set('tq-state',s.decision.kind);set('tq-decision',s.decision.reason);
+    const label=s.executing?(s.executing.id===null?'Idle · 0%':`#${s.executing.id} · ${pct(s.executing.effort)}`):'none yet';
+    set('tq-executing',`${playing?'Executing':'Last executed'}: ${label}`);
+    set('tq-waiting',s.requests.length?s.requests.slice(0,5).map(q=>`#${q.id} · ${pct(q.requested)}`).join('   →   ')+(s.requests.length>5?`   +${s.requests.length-5} more`:''):'No waiting requests');
+    const front=s.requests[0];
+    set('tq-wait-detail',front&&front.lastWait?`Waiting ${s.time-front.submitted} s: ${front.lastWait}`:'Requests here are not yet in the accepted FIFO.');
+    const recent=$('tq-recent');recent.replaceChildren();
+    if(!s.recent.length)recent.textContent='No new admission decision yet.';
+    s.recent.slice(0,3).forEach(r=>{
+      const row=document.createElement('div');row.className='tq-result';
+      const tag=document.createElement('span');tag.className=r.status==='Rejected'?'text-destructive':'tq-value';tag.textContent=r.status;
+      const detail=document.createElement('span');detail.textContent=r.reason;row.append(tag,detail);recent.append(row);
+    });
+    set('tq-breaches',s.stats.breaches);set('tq-breach-rate',`${one(v.breachRate)}% of ${s.time} samples`);
+    set('tq-delivered',s.stats.complete?one(v.effortPercent)+'%':'—');
+    set('tq-effort-detail',s.stats.complete?`${one(s.stats.delivered)} / ${one(s.stats.requestedCompleted)} effort-seconds · completed only`:'Completed commands only');
+    set('tq-throughput',v.throughput.toFixed(2)+'/s');set('tq-counts',`${s.stats.complete} completed · ${s.stats.rejected} rejected · ${s.requests.length} waiting`);
+    set('tq-reduced-count',`${s.stats.scaled} commands reduced`);
+    if(lastAnnounced!==s.decision.kind){set('tq-live',s.decision.reason);lastAnnounced=s.decision.kind;}
+    $('tq-play').textContent=playing?'Pause':'Play';$('tq-play').setAttribute('aria-pressed',String(playing));
+    drawQueue();if(chartDraw)chartDraw();
+    if(scene)scene.update({...v,running:playing,time:rotorTime});
+  }
+  function pause(){playing=false;clockAccum=0;render();}
+  $('tq-play').addEventListener('click',()=>{playing=!playing;lastWall=performance.now();clockAccum=0;render();});
+  $('tq-step').addEventListener('click',()=>{playing=false;clockAccum=0;C.tick(s);render();});
+  $('tq-speed').addEventListener('change',e=>{speed=Number(e.target.value);clockAccum=0;});
+  $('tq-effort').addEventListener('input',e=>{s.workload=Number(e.target.value)/100;set('tq-effort-value',e.target.value+'%');});
+  $('tq-auto').addEventListener('change',e=>{s.automatic=e.target.checked;render();});
+  $('tq-handling').addEventListener('change',e=>{
+    s.handling=e.target.value;
+    set('tq-policy-note',s.handling==='wait'?'Demo only: retry full effort; reject after 20 s waiting.':'Reduced commands are admitted at a safe lower effort.');
+    render();
+  });
+  $('tq-add').addEventListener('click',()=>{
+    const ok=C.request(s,Number($('tq-effort').value)/100);
+    $('tq-command-error').hidden=ok;
+    if(!ok)set('tq-command-error','The request buffer is full. Let the simulation advance before adding another command.');
+    set('tq-live',ok?'Command added to requests awaiting admission.':'Request rejected: buffer full.');render();
+  });
+  for(const [id,out,unit] of [['tq-limit','tq-limit-value','°C'],['tq-width','tq-width-value','°C'],['tq-cap','tq-cap-value','%']]){
+    $(id).addEventListener('input',e=>{set(out,e.target.value+unit);set('tq-settings-note','Unapplied settings. Apply & restart begins a new run with new bounds and metrics.');});
+  }
+  $('tq-apply').addEventListener('click',()=>{
+    s=C.create({limit:Number($('tq-limit').value),width:Number($('tq-width').value),cap:Number($('tq-cap').value)/100});
+    s.handling=$('tq-handling').value;s.automatic=$('tq-auto').checked;s.workload=Number($('tq-effort').value)/100;
+    playing=false;clockAccum=0;rotorTime=0;$('tq-command-error').hidden=true;
+    set('tq-settings-note','New run commissioned. Accepted FIFO and result counters restarted explicitly.');render();
+  });
+  function loop(wall){
+    if(disposed||!root.isConnected){dispose();return;}
+    const elapsed=Math.min(250,Math.max(0,wall-(lastWall||wall)));lastWall=wall;
+    if(playing && document.visibilityState!=='hidden'){
+      clockAccum+=elapsed*speed;rotorTime+=elapsed*speed/1000;
+      let advanced=false;
+      while(clockAccum>=1000){C.tick(s);clockAccum-=1000;advanced=true;}
+      if(advanced)render();
+      if(scene&&!reduced.matches)scene.update({...C.snapshot(s),running:true,time:rotorTime});
+    }
+    frame=requestAnimationFrame(loop);
+  }
+  const resizeObserver=new ResizeObserver(()=>{drawQueue();if(chartDraw)chartDraw();});resizeObserver.observe(root);
+  const visibilityChanged=()=>{lastWall=performance.now();clockAccum=0;};
+  document.addEventListener('visibilitychange',visibilityChanged);
+  function dispose(){if(disposed)return;disposed=true;cancelAnimationFrame(frame);resizeObserver.disconnect();document.removeEventListener('visibilitychange',visibilityChanged);themeMedia.removeEventListener('change',themeChanged);if(scene)scene.dispose();}
+  function color(token){
+    const probe=document.createElement('span');probe.style.color=`var(${token})`;probe.hidden=true;root.appendChild(probe);
+    const value=getComputedStyle(probe).color;probe.remove();
+    const canvas=document.createElement('canvas');canvas.width=canvas.height=1;
+    const ctx=canvas.getContext('2d');ctx.fillStyle=value;ctx.fillRect(0,0,1,1);
+    const pixel=ctx.getImageData(0,0,1,1).data;return `rgb(${pixel[0]},${pixel[1]},${pixel[2]})`;
+  }
+  function sceneColors(){return {foreground:color('--foreground'),background:color('--background'),border:color('--border'),actual:color('--viz-series-1'),bounds:color('--viz-series-2'),reading:color('--viz-series-3'),danger:color('--destructive')};}
+  let themeVersion=0;
+  async function mountScene(){
+    const current=++themeVersion;
+    if(scene){scene.dispose();scene=null;}
+    try{
+      const next=await window.mountThermalMotor($('tq-motor'),sceneColors(),{onSelect:id=>{if(id)showPart(id,true);else if(scene)scene.selectComponent(selectedPart);}});
+      if(disposed||current!==themeVersion){next.dispose();return;}
+      scene=next;$('tq-motor-fallback').style.display='none';set('tq-scene-label','Click a part · drag to rotate · schematic');
+      scene.selectComponent(selectedPart);scene.setExploded($('tq-exploded').checked?1:0);
+      scene.update({...C.snapshot(s),running:playing,time:rotorTime});
+    }catch(e){$('tq-motor-fallback').style.display='';set('tq-scene-label','2D schematic · 3D unavailable');}
+  }
+  const themeMedia=window.matchMedia('(prefers-color-scheme: dark)');
+  const themeChanged=()=>{mountScene();if(chartDraw)chartDraw();};themeMedia.addEventListener('change',themeChanged);
+  function installChart(d3){
+    d3lib=d3;$('tq-chart-loading').hidden=true;
+    let pinned=null;
+    const svg=d3.select($('tq-history')),tooltip=$('tq-tooltip');
+    const series=[{key:'actual',name:'Actual',get:d=>d.actual,color:'var(--viz-series-1)'},{key:'bounds',name:'Bounds',get:d=>d.hi,color:'var(--viz-series-2)'},{key:'reading',name:'Sensor',get:d=>d.reading,color:'var(--viz-series-3)'},{key:'limit',name:'Limit',get:d=>d.limit,color:'var(--destructive)'},{key:'clip',name:'Sensor ceiling',get:d=>d.clip,color:'var(--muted-foreground)'}];
+    const margin={left:64,right:18,top:16,bottom:48};
+    chartDraw=()=>{
+      const width=Math.max(280,$('tq-chart').getBoundingClientRect().width),height=290;
+      const left=margin.left,right=width-margin.right,top=margin.top,bottom=height-margin.bottom;
+      svg.attr('viewBox',`0 0 ${width} ${height}`);svg.selectAll('*').remove();
+      const data=s.history,xt=d3.extent(data,d=>d.time),all=data.flatMap(d=>[d.lo,d.hi,d.actual,d.reading,d.limit,d.clip]),yt=d3.extent(all);
+      const span=Math.max(4,yt[1]-yt[0]),yPad=span*.16;
+      const x=d3.scaleLinear().domain([xt[0],Math.max(xt[0]+1,xt[1])]).range([left+4,right-4]);
+      const y=d3.scaleLinear().domain([yt[0]-yPad,yt[1]+yPad]).range([bottom-4,top+4]);
+      svg.append('title').text(`Latest ${Math.min(s.time,240)} seconds of motor temperatures. Actual ${one(s.x+s.m.ambient)} degrees; bounds ${one(s.lo+s.m.ambient)} to ${one(s.hi+s.m.ambient)}.`);
+      svg.append('rect').attr('data-chart-frame','').attr('x',left).attr('y',top).attr('width',right-left).attr('height',bottom-top).attr('fill','none').attr('stroke','var(--border)');
+      const clip=svg.append('defs').append('clipPath').attr('id','tq-history-clip');clip.append('rect').attr('x',left).attr('y',top).attr('width',right-left).attr('height',bottom-top);
+      const yTicks=y.ticks(5),xTicks=x.ticks(width<400?3:4).filter(t=>Number.isInteger(t));
+      yTicks.forEach(t=>{svg.append('line').attr('x1',left).attr('x2',right).attr('y1',y(t)).attr('y2',y(t)).attr('stroke','var(--border)').attr('opacity',.45);svg.append('text').attr('x',left-9).attr('y',y(t)+4).attr('text-anchor','end').attr('data-axis-label','').text(t.toFixed(0));});
+      xTicks.forEach(t=>svg.append('text').attr('x',x(t)).attr('y',bottom+19).attr('text-anchor',t===xTicks[0]?'start':t===xTicks[xTicks.length-1]?'end':'middle').attr('data-axis-label','').text(t));
+      svg.append('text').attr('class','axis-title').attr('data-axis','x').attr('x',(left+right)/2).attr('y',height-5).attr('text-anchor','middle').text('Simulation time (s)');
+      svg.append('text').attr('class','axis-title').attr('data-axis','y').attr('transform',`translate(16 ${(top+bottom)/2}) rotate(-90)`).attr('text-anchor','middle').text('Temperature (°C)');
+      const plot=svg.append('g').attr('clip-path','url(#tq-history-clip)');
+      if(visible.bounds){
+        plot.append('path').datum(data).attr('d',d3.area().x(d=>x(d.time)).y0(d=>y(d.lo)).y1(d=>y(d.hi))).attr('fill','var(--viz-series-2)').attr('opacity',.16);
+        for(const key of ['lo','hi'])plot.append('path').datum(data).attr('d',d3.line().x(d=>x(d.time)).y(d=>y(d[key]))).attr('fill','none').attr('stroke','var(--viz-series-2)').attr('stroke-width',1).attr('opacity',.7);
+        if(data.length===1)plot.append('line').attr('x1',x(data[0].time)).attr('x2',x(data[0].time)).attr('y1',y(data[0].lo)).attr('y2',y(data[0].hi)).attr('stroke','var(--viz-series-2)').attr('stroke-width',4);
+      }
+      for(const ref of ['limit','clip'])if(visible[ref])plot.append('line').attr('x1',left).attr('x2',right).attr('y1',y(s.m[ref])).attr('y2',y(s.m[ref])).attr('stroke',ref==='limit'?'var(--destructive)':'var(--muted-foreground)').attr('stroke-width',1).attr('stroke-dasharray',ref==='clip'?'4 4':null);
+      if(visible.actual){plot.append('path').datum(data).attr('d',d3.line().x(d=>x(d.time)).y(d=>y(d.actual))).attr('fill','none').attr('stroke','var(--viz-series-1)').attr('stroke-width',2.5);plot.append('circle').attr('cx',x(data.at(-1).time)).attr('cy',y(data.at(-1).actual)).attr('r',3).attr('fill','var(--viz-series-1)');}
+      if(visible.reading){
+        plot.append('path').datum(data).attr('d',d3.line().x(d=>x(d.time)).y(d=>y(d.reading))).attr('fill','none').attr('stroke','var(--viz-series-3)').attr('stroke-width',1.5).attr('stroke-dasharray','3 3');
+        const stride=Math.max(1,Math.floor(data.length/30));
+        data.filter((d,i)=>i%stride===0||i===data.length-1).forEach(d=>{if(d.reading>=d.clip-1e-9)plot.append('rect').attr('x',x(d.time)-2.4).attr('y',y(d.reading)-2.4).attr('width',4.8).attr('height',4.8).attr('fill','var(--viz-series-3)');else plot.append('circle').attr('cx',x(d.time)).attr('cy',y(d.reading)).attr('r',2).attr('fill','var(--viz-series-3)');});
+      }
+      const hover=svg.append('g').attr('clip-path','url(#tq-history-clip)').style('display','none');
+      const guide=hover.append('line').attr('data-chart-hover-guide','').attr('y1',top).attr('y2',bottom).attr('stroke','var(--muted-foreground)').attr('opacity',.6);
+      function hoverAt(px,clientY){
+        const cursor=C.clamp(px,left+4,right-4),time=x.invert(cursor);
+        const index=d3.bisector(d=>d.time).left(data,time),a=data[Math.max(0,index-1)],b=data[Math.min(data.length-1,index)];
+        const f=a.time===b.time?0:C.clamp((time-a.time)/(b.time-a.time),0,1),value={time};
+        for(const key of ['actual','lo','hi','reading','limit','clip'])value[key]=a[key]+(b[key]-a[key])*f;
+        hover.style('display',null);guide.attr('x1',cursor).attr('x2',cursor);hover.selectAll('circle').remove();tooltip.replaceChildren();
+        const head=document.createElement('div');head.className='tq-value';head.textContent=`${one(time)} s · interpolated`;tooltip.append(head);
+        for(const line of series)if(visible[line.key]){
+          const val=line.get(value);hover.append('circle').attr('data-chart-hover-marker',line.key).attr('cx',cursor).attr('cy',y(val)).attr('r',3).attr('fill',line.color);
+          const row=document.createElement('div');row.className='tq-tooltip-row';
+          const key=document.createElement('span');key.textContent=line.name;
+          const result=document.createElement('span');result.className='tabular-nums';result.textContent=line.key==='bounds'?`${one(value.lo)}–${one(value.hi)}°C`:one(val)+'°C';row.append(key,result);tooltip.append(row);
+        }
+        const sr=svg.node().getBoundingClientRect(),rr=root.getBoundingClientRect();tooltip.style.display='block';
+        const tw=tooltip.getBoundingClientRect().width;
+        tooltip.style.left=C.clamp(sr.left-rr.left+cursor+12,0,Math.max(0,rr.width-tw))+'px';
+        tooltip.style.top=Math.max(0,(clientY||sr.top+80)-rr.top-30)+'px';
+      }
+      const hit=svg.append('rect').attr('data-chart-hit','').attr('data-chart-hover-overlay','cross-series').attr('x',left).attr('y',top).attr('width',right-left).attr('height',bottom-top).attr('fill','transparent');
+      hit.on('pointermove',event=>{if(event.pointerType!=='touch'&&pinned===null)hoverAt(d3.pointer(event,svg.node())[0],event.clientY);});
+      hit.on('pointerleave',()=>{if(pinned===null){hover.style('display','none');tooltip.style.display='none';}});
+      hit.on('click',event=>{if(pinned!==null){pinned=null;hover.style('display','none');tooltip.style.display='none';}else{pinned=x.invert(d3.pointer(event,svg.node())[0]);hoverAt(x(pinned),event.clientY);}});
+      if(pinned!==null){if(pinned<data[0].time)pinned=null;else hoverAt(x(pinned));}
+      else tooltip.style.display='none';
+      // Label bounds are measured together; suppress colliding secondary ticks.
+      const labels=[...svg.node().querySelectorAll('[data-axis-label],text.axis-title')];
+      const accepted=[];
+      for(const label of labels){const box=label.getBoundingClientRect();if(label.hasAttribute('data-axis-label')&&accepted.some(b=>box.left<b.right+4&&box.right>b.left-4&&box.top<b.bottom+4&&box.bottom>b.top-4))label.style.visibility='hidden';else accepted.push(box);}
+    };
+    for(const button of root.querySelectorAll('[data-series]'))button.addEventListener('click',()=>{const key=button.dataset.series;visible[key]=!visible[key];button.setAttribute('aria-pressed',String(visible[key]));chartDraw();});
+    chartDraw();
+  }
+  const chartScript=document.createElement('script');chartScript.src='https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js';
+  chartScript.onload=()=>{if(window.d3)installChart(window.d3);};
+  chartScript.onerror=()=>{set('tq-chart-loading','History plot unavailable. Live values and simulation remain active.');};
+  root.appendChild(chartScript);
+  root.thermalDemo={getSnapshot:()=>C.snapshot(s),getSelectedPart:()=>selectedPart,getScene:()=>scene};
+  showPart(selectedPart);render();mountScene();frame=requestAnimationFrame(loop);
+})();
+</script>

@@ -1,0 +1,31 @@
+{
+  "components": 16,
+  "raycastSelections": [
+    "housing",
+    "stator",
+    "windings",
+    "rotor",
+    "shaft",
+    "bearings",
+    "fan",
+    "encoder",
+    "temp_sensor",
+    "terminals",
+    "earth",
+    "phase_cables",
+    "inverter",
+    "dc_link",
+    "current_sensor",
+    "controller"
+  ],
+  "viewports": [
+    1360,
+    768,
+    390,
+    320
+  ],
+  "simulation": true,
+  "waitTimeout": true,
+  "consoleErrors": [],
+  "passed": true
+}
