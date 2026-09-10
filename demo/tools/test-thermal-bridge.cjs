@@ -13,7 +13,7 @@ const receipt = { scope: 'Synthetic concept webpage acceptance; no physical vali
 const expected = value => Number.isFinite(value) ? value.toFixed(1) : '—';
 
 (async () => {
-  const browser = await chromium.launch({ headless: true, ...(process.env.CHROMIUM_EXECUTABLE ? { executablePath: process.env.CHROMIUM_EXECUTABLE } : {}) });
+  const browser = await chromium.launch({ headless: true, ...(process.env.CHROMIUM_EXECUTABLE ? { executablePath: process.env.CHROMIUM_EXECUTABLE } : {}), args:['--use-angle=swiftshader','--enable-unsafe-swiftshader'] });
   try {
     const page = await browser.newPage({ viewport: { width: 1440, height: 1100 }, reducedMotion: 'reduce', offline: true });
     page.on('pageerror', error => receipt.errors.push(error.message));
@@ -26,6 +26,7 @@ const expected = value => Number.isFinite(value) ? value.toFixed(1) : '—';
     assert.equal(await page.locator('#estimated-hot').textContent(), '—', 'Final estimates stay hidden before final observation');
     assert.equal(await page.locator('#phase-list .phase').count(), data.cases[0].observations.length);
     assert.equal(await page.locator('#direct-reading').textContent(), '95.0°C');
+    await page.locator('#schematic-details summary').click();
     for (const id of ['guard', 'bond', 'pad', 'shunt', 'case', 'reference', 'adc', 'estimator', 'winding']) {
       await page.locator(`#hardware-svg [data-part="${id}"]`).click();
       assert.equal(await page.locator('#part-select').inputValue(), id);

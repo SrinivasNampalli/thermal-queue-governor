@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Watch the interactive 3D Guarded Thermal Bridge model: inspect the sensor hardware and replay synthetic clipping recovery and failure cases.">
+  <link rel="icon" href="data:,">
+  <title>3D walkthrough · Guarded Thermal Bridge</title>
+  <style>
+    :root{color-scheme:dark;--bg:#080f19;--panel:#101c2b;--ink:#edf2f6;--muted:#a8b9ca;--copper:#e5aa72;--line:#9aafc429;font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 85% 0,#6e402420,transparent 40%)}.shell{max-width:1120px;padding:0 28px;margin:auto}a{color:var(--copper);text-underline-offset:4px}a:focus-visible,summary:focus-visible,video:focus-visible{outline:3px solid #72dbca;outline-offset:5px}nav{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;padding:26px 0;border-bottom:1px solid var(--line);font-size:13px}nav a{text-decoration:none}header{padding:48px 0 26px}.eyebrow{margin:0 0 14px;color:var(--copper);font:11px/1.5 ui-monospace,Consolas,monospace;letter-spacing:.15em;text-transform:uppercase}h1{font-size:clamp(30px,5vw,48px);line-height:1.08;letter-spacing:-.04em;font-weight:590;margin:0 0 18px}p{line-height:1.6;color:var(--muted);margin:0;max-width:850px}.intro{font-size:17px}.player{padding:10px;background:#142135;border:1px solid var(--line);border-radius:16px;box-shadow:0 24px 90px #0005}video{display:block;width:100%;max-height:78vh;aspect-ratio:1360/1000;border-radius:9px;background:#080f19}video::cue{font-family:system-ui,sans-serif;font-size:17px;background:rgba(0,0,0,.9);color:white}.player-note{font-size:13px;margin:18px 0 28px}.actions{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;margin:22px 0 38px;font-size:14px}.primary{display:inline-block;color:#20170f;background:var(--copper);padding:12px 18px;border-radius:8px;font-weight:650;text-decoration:none}details{border:1px solid var(--line);border-radius:12px;background:#101c2b99;margin-bottom:42px}summary{padding:20px 22px;cursor:pointer;font-size:16px;font-weight:550}.transcript{padding:0 24px 24px}.transcript ol{padding-left:23px;margin:4px 0 0}.transcript li{padding-left:7px;margin:0 0 18px;color:var(--muted);line-height:1.55;font-size:14px}.transcript li:last-child{margin:0}.transcript strong{display:block;color:var(--ink);font-size:15px;font-weight:550;margin-bottom:4px}footer{border-top:1px solid var(--line);padding:24px 0 36px;font-size:12px;color:var(--muted);line-height:1.6}@media(max-width:600px){.shell{padding:0 16px}header{padding-top:34px}.intro{font-size:15px}.player{padding:5px;border-radius:10px}video{border-radius:6px;max-height:none}.transcript{padding:0 18px 20px}summary{padding:18px}nav{font-size:12px}.actions{gap:18px;margin-bottom:28px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <nav aria-label="Main"><a href="../thermal-bridge.html">← Interactive thermal bridge</a><a href="https://github.com/SrinivasNampalli/thermal-queue-governor">GitHub repository ↗</a></nav>
+    <main>
+      <header><p class="eyebrow">Guarded Thermal Bridge / recorded walkthrough</p><h1>Explore the hardware.<br>Watch the measurement change.</h1><p class="intro">Orbit the 3D motor, separate the sensor module, and inspect the control electronics. Then replay clipping recovery and the heat-leak case that can fool the estimator.</p></header>
+      <div class="player"><video controls playsinline preload="metadata" poster="media/bridge-poster.png" aria-label="Recorded 3D hardware and synthetic experiment walkthrough" aria-describedby="video-description">
+        <source src="media/bridge-walkthrough.mp4" type="video/mp4">
+        <track kind="captions" src="media/bridge-walkthrough.vtt" srclang="en" label="English" default>
+        Your browser can <a href="media/bridge-walkthrough.mp4">download the recorded walkthrough</a>.
+      </video></div>
+      <p class="player-note" id="video-description">Actual browser interactions, recorded with silent on-screen explanations and optional English captions. The hardware is a proposed functional model; the temperatures come from stored synthetic experiments. No physical motor or electronic circuit was tested.</p>
+      <div class="actions"><a class="primary" href="../thermal-bridge.html#experiment">Explore the interactive 3D model</a><a href="media/bridge-walkthrough.mp4" download>Download the video</a><a href="https://github.com/SrinivasNampalli/thermal-queue-governor/blob/main/project/research/GUARDED_THERMAL_BRIDGE.md">Read the technical design</a></div>
+      <details><summary>Read the walkthrough transcript</summary><div class="transcript"><ol>
+        <li><strong>Look inside the motor</strong>Orbit the assembly and separate the parts. The motor winding, attachment bond, sensing pad, heat shunt, thermal guard, and acquisition electronics can each be inspected.</li>
+        <li><strong>Two independent thermal controls</strong>The shunt cools the sensing pad into its readable range. A separate heater/cooler changes the temperature of the guard around the sensor leads. Its actuator and thermometer are shown as functional components.</li>
+        <li><strong>Inspect the measurement electronics</strong>The ADC reads the pad. The reference and guard thermometers provide the boundary temperatures. The estimator uses these observations and the assumed shunt calibration. The illustrated circuit is not electrically simulated.</li>
+        <li><strong>Recover information after clipping</strong>The hypothetical direct winding channel stays at its 95°C ceiling. Cooling the pad makes the pad measurement readable. Three settled observations fit the thermal model; a fourth observation checks its consistency. In the synthetic nominal case, the estimate is about 130°C.</li>
+        <li><strong>Why the separate guard matters</strong>With strong heat leakage through the wires, a shunt-only model that ignores that path returns 85°C. In the constructed guarded case, the independent guard-temperature change allows the fit to recover the 130°C source.</li>
+        <li><strong>A pass can still be wrong</strong>An extra heat path that bypasses the guard causes the model to report 85°C for a 130°C source. The fourth-state check still passes. Consistency is not an accuracy guarantee or a safety bound.</li>
+        <li><strong>Continue exploring</strong>The interactive page contains 18 clickable components and 10 synthetic cases, including failure cases. The geometry is conceptual; no physical prototype has been built or validated by this recording.</li>
+      </ol></div></details>
+    </main>
+    <footer>Document authors: Srinivas Nampalli and Saathvik Gampa. AI-assisted concept development and visualization. Patentability remains unestablished; no patent grant or filing is asserted.</footer>
+  </div>
+  <script>
+    // Separate native captions from the explanatory banner embedded at the bottom of the footage.
+    const captions = document.querySelector('track[kind="captions"]');
+    function positionCaptions() { for (const cue of Array.from(captions.track.cues || [])) { cue.snapToLines = false; cue.line = 4; cue.position = 50; cue.size = 92; cue.align = 'center'; } }
+    captions.addEventListener('load', positionCaptions);
+    if (captions.readyState === 2) positionCaptions();
+  </script>
+</body>
+</html>

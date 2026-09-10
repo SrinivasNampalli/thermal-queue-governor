@@ -65,3 +65,20 @@ The MP4 contains a real browser recording of this synthetic demo. It is silent w
 The [Guarded Thermal Bridge Interrogator](../thermal-bridge.html) is a self-contained replay of ten computed sensor-module experiments with a selectable cooling bridge and an independently controlled thermal guard. Its [technical design](../project/research/GUARDED_THERMAL_BRIDGE.md) and [model](../project/thermal_bridge/) explain the equations, tests and known false-consistency cases. It does not change the TQG controller.
 
 `python tools/build_demo.py` also bundles this page from `src/thermal-bridge.template.html` and the recorded model results. Run `node tools/test-thermal-bridge.cjs` to check the offline replay and component interactions in Chromium. The public URL is [thermal-bridge.html](https://srinivasnampalli.github.io/thermal-queue-governor/thermal-bridge.html).
+
+## Guarded bridge 3D assembly and walkthrough
+
+The guarded bridge page now embeds a separate procedural Three.js assembly with 18 selectable components: motor winding, bond, sensing pad, shunt, guard, case, case thermometer, ADC, estimator, rotor, shaft, stator, guard driver, guard thermometer, guarded leads, connector, power stage and unintended bypass. The original nine-node schematic remains available below the replay for comparison and as a fallback.
+
+Drag to orbit, scroll or pinch to zoom, choose a sensor/electronics close-up, open the housing, or separate the assembly. Selection updates the adjacent component inspector. The four temperature readouts and heat colours follow the stored experiment; changing the camera does not change the numerical results. Reduced-motion preferences disable automatic rotation, including when the preference changes during the session.
+
+The standalone page bundles the pinned local Three.js distribution and its license. No network or build is needed to open it. WebGL is required for the 3D view; the selector, plotted replay and schematic remain the alternate interface. The [recorded walkthrough](https://srinivasnampalli.github.io/thermal-queue-governor/bridge-watch.html) has on-screen explanations, default English captions and a transcript.
+
+```sh
+npm run test:bridge3d
+npm run record:bridge
+```
+
+Recording requires Playwright/Chromium and FFmpeg. The script accepts `PLAYWRIGHT_MODULE_PATH`, `CHROMIUM_EXECUTABLE`, and `FFMPEG_PATH` for existing runtimes. It records real offline browser interactions and writes new `media/bridge-*` files. Its receipt includes source and output hashes. The original TQG walkthrough remains available separately.
+
+The offline root HTML links to the hosted walkthrough for video playback. In a local clone, `demo/bridge-watch.html` also uses the recorded media under `demo/media/` and links back to the root prototype. Browsers may require an HTTP server to load native caption tracks from local files.

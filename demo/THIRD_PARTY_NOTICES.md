@@ -1,8 +1,14 @@
 # Demo third-party notices and educational references
 
-The motor and drive are a conceptual educational schematic created from procedural geometry in `src/motor-scene.js`. No external CAD models, manufacturer drawings, photographs, or textures were used. The component explanations describe ordinary hardware functions; they do not identify a buildable motor, validate a wiring arrangement, establish patent novelty, or imply manufacturer endorsement. Only the scalar thermal model, clipped observation, and command queue are simulated.
+The motor and drive are a conceptual educational schematic created from procedural geometry in `src/motor-scene.js`. No external CAD models, manufacturer drawings, photographs, or textures were used. The component explanations describe ordinary hardware functions; they do not identify a buildable motor, validate a wiring arrangement, establish patent novelty, or imply manufacturer endorsement. The original demo simulates the scalar thermal model, clipped observation, and command queue. The separate guarded bridge replays its own stored lumped sensing-pad experiments.
 
 The media files record the actual browser demo with synthetic simulation data. They are not footage of a physical motor test.
+
+## Guarded bridge 3D follow-up
+
+The additional `src/thermal-bridge-scene.js` assembly is also original procedural geometry. It illustrates a cutaway motor, enlarged guarded sensing stack, selectable thermal bridge and acquisition board; no manufacturer CAD, product photograph or texture was imported. The guard heater/cooler, circuit board, lead routing and moving contacts are functional illustrations. Guard power, electrical switching, mechanical dynamics and detailed motor heat flow are not simulated. The new `media/bridge-*` footage records this actual browser interface with stored synthetic data.
+
+The guarded bridge single-file export embeds the same pinned Three.js 0.160.1 distribution and its full MIT license. It does not use D3 or new runtime dependencies. Existing library notices remain applicable.
 
 ## Software dependencies
 

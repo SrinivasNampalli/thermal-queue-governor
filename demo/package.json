@@ -9,7 +9,9 @@
     "test:browser": "node tests/browser-smoke.cjs",
     "test:landing": "node tests/landing-smoke.cjs",
     "test:hosted": "node tests/hosted-smoke.cjs",
-    "record": "node tools/record-demo.cjs"
+    "record": "node tools/record-demo.cjs",
+    "test:bridge3d": "node tools/test-bridge-3d.cjs",
+    "record:bridge": "node tools/record-bridge-demo.cjs"
   },
   "devDependencies": {
     "playwright": "1.62.1"

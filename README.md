@@ -6,11 +6,15 @@ This is a synthetic simulation prototype. It is not a validated hardware control
 
 ## New sensor-module candidate: Guarded Thermal Bridge Interrogator
 
-**[Explore the new interactive hardware concept](https://srinivasnampalli.github.io/thermal-queue-governor/thermal-bridge.html)** · **[Read the technical design](project/research/GUARDED_THERMAL_BRIDGE.md)** · **[Inspect the prior-art comparison](project/research/THERMAL_BRIDGE_PRIOR_ART.md)**
+**[Explore the interactive 3D assembly](https://srinivasnampalli.github.io/thermal-queue-governor/thermal-bridge.html)** · **[Read the technical design](project/research/GUARDED_THERMAL_BRIDGE.md)** · **[Inspect the prior-art comparison](project/research/THERMAL_BRIDGE_PRIOR_ART.md)**
 
-This separate concept uses a selectable cooling bridge and an independently controlled thermal guard to distinguish winding heat from heat escaping through sensor leads. In one constructed example, it reconstructs 130 °C where a simpler cooled-probe model incorrectly reports 85 °C. The clickable hardware diagram replays ten computed cases, including two failures that still pass the consistency check. It is a proposed measurement architecture, not an upgraded motor safety guarantee.
+This separate concept uses a selectable cooling bridge and an independently controlled thermal guard to distinguish winding heat from heat escaping through sensor leads. In one constructed example, it reconstructs 130 °C where a simpler cooled-probe model incorrectly reports 85 °C. The detailed 3D assembly has 18 clickable components, a cutaway motor, an exploded sensor stack, electronics close-ups, and temperature colours synchronized with ten recorded synthetic cases. Two cases still fool the consistency check. It is a proposed measurement architecture, not an upgraded motor safety guarantee.
 
 [Thirteen software tests and stored traces](project/thermal_bridge/) make the mechanism reproducible. Switched cooling thermometry and active guards have earlier disclosures; the exact proposed combination remains an invention candidate with unresolved novelty. No physical device has been built. The [single-file offline demo](thermal-bridge.html) includes all replay data and requires no build or network connection.
+
+[![Recorded 3D guarded thermal bridge preview](demo/media/bridge-preview.gif)](https://srinivasnampalli.github.io/thermal-queue-governor/bridge-watch.html)
+
+**[Watch the captioned 3D walkthrough](https://srinivasnampalli.github.io/thermal-queue-governor/bridge-watch.html)** · [Download the MP4](demo/media/bridge-walkthrough.mp4). The recording shows actual browser interactions, including the reconstructed 130 °C example and the false 85 °C guard-bypass result. The motor and circuits are explanatory geometry; no physical device was tested. The [recording receipt](demo/media/bridge-recording.json) records the exact page, geometry, data and media hashes.
 
 ## September 2026 patent review and motor-validation preparation
 

@@ -1,0 +1,182 @@
+{
+  "recordedAt": "2026-09-10T17:58:35.732Z",
+  "source": "Actual offline Chromium interactions with the shipped guarded thermal bridge page",
+  "scope": "Conceptual hardware geometry and stored synthetic experiment replay; no physical motor, electronic circuit, or prototype validation.",
+  "format": "MP4 H.264, 1360×1000, 24 fps, silent with on-screen explanations and separate WebVTT captions",
+  "durationSeconds": 68.78999999999999,
+  "sessionDurationSeconds": 68.882,
+  "viewport": {
+    "width": 1360,
+    "height": 1000
+  },
+  "chromiumVersion": "151.0.7922.34",
+  "chapterTiming": "Approximate wall-clock offsets from the first banner; synchronized explanatory banners are also embedded in the recorded frames.",
+  "sourceHashes": [
+    {
+      "file": "thermal-bridge.html",
+      "sha256": "09262d294866f302d937acf59d6e5bbf6a8e1ec4920409d23b1667cb36a4fe3a"
+    },
+    {
+      "file": "demo/src/thermal-bridge.template.html",
+      "sha256": "8dca5bcc50b120773268b19f590f12a44b5cf9babe609295341853edd71fbaf0"
+    },
+    {
+      "file": "demo/src/thermal-bridge-scene.js",
+      "sha256": "0b75a10c67c0b044d4d632dfdd335eb9a23b26dcd6fbf23b3b8b566fc8783fac"
+    },
+    {
+      "file": "project/thermal_bridge/results.json",
+      "sha256": "44f59a27cb5bb89abdc1b521c592bb8484bc5711f8cc1d00bfdfcf3403864a94"
+    },
+    {
+      "file": "demo/tools/record-bridge-demo.cjs",
+      "sha256": "6167ed0c5e6f5aab78535287776fe391beb950a85b9fa809650b03b4db3624f9"
+    }
+  ],
+  "chapters": [
+    {
+      "t": 0,
+      "title": "Guarded Thermal Bridge · 3D walkthrough",
+      "body": "Actual browser recording of the concept model and synthetic experiment."
+    },
+    {
+      "t": 2.618,
+      "title": "1 · Look inside the motor",
+      "body": "Orbit the assembly, then separate the parts to inspect the sensor module."
+    },
+    {
+      "t": 16.462,
+      "title": "2 · Two independent thermal controls",
+      "body": "The shunt cools the sensing pad. A separate heater/cooler changes the guard around its leads."
+    },
+    {
+      "t": 21.224,
+      "title": "3 · Inspect the measurement electronics",
+      "body": "Click the ADC, guard driver, and estimator. The wiring is a functional illustration."
+    },
+    {
+      "t": 28.929,
+      "title": "4 · Recover information after clipping",
+      "body": "The direct channel stays at 95°C. Cooling the pad makes its own measurement readable again."
+    },
+    {
+      "t": 39.378,
+      "title": "Three observations fit; the fourth checks",
+      "body": "The synthetic nominal case reconstructs a 130°C winding. This is a model consistency check."
+    },
+    {
+      "t": 43.46,
+      "title": "5 · Why the separate guard matters",
+      "body": "With strong wire leakage, changing the guard supplies information that shunt changes alone cannot."
+    },
+    {
+      "t": 48.213,
+      "title": "130°C recovered in the constructed example",
+      "body": "A shunt-only model that ignores the wire path reports 85°C; the guarded fit recovers 130°C."
+    },
+    {
+      "t": 52.918,
+      "title": "6 · Test the blind spot too",
+      "body": "An extra heat path bypassing the guard can defeat the fit and its fourth-state check."
+    },
+    {
+      "t": 56.917,
+      "title": "A pass can still be wrong",
+      "body": "The bypass case reports 85°C for a 130°C source. Consistency does not establish safe motor operation."
+    },
+    {
+      "t": 65.941,
+      "title": "Explore all 18 components and 10 cases",
+      "body": "Proposed hardware geometry and synthetic replay. No physical motor, circuit, or prototype test."
+    }
+  ],
+  "actions": [
+    {
+      "t": 7.999,
+      "action": "Orbit assembly by pointer drag"
+    },
+    {
+      "t": 14.062,
+      "component": "pad",
+      "method": "3D raycast click"
+    },
+    {
+      "t": 16.531,
+      "component": "shunt",
+      "method": "3D raycast click"
+    },
+    {
+      "t": 18.818,
+      "component": "guard",
+      "method": "3D raycast click"
+    },
+    {
+      "t": 23.052,
+      "component": "adc",
+      "method": "3D raycast click"
+    },
+    {
+      "t": 25.227,
+      "component": "guard_driver",
+      "method": "3D raycast click"
+    },
+    {
+      "t": 27.119,
+      "component": "estimator",
+      "method": "3D raycast click"
+    },
+    {
+      "t": 31.048,
+      "component": "pad",
+      "method": "component selector"
+    },
+    {
+      "t": 38.772,
+      "replayCompleted": "nominal",
+      "estimatedWindingC": "130.0",
+      "index": 212
+    },
+    {
+      "t": 46.449,
+      "replayCompleted": "wire_leak",
+      "estimatedWindingC": "130.0",
+      "index": 212
+    },
+    {
+      "t": 55.96,
+      "replayCompleted": "unguarded_leak",
+      "estimatedWindingC": "85.0",
+      "index": 212
+    },
+    {
+      "t": 65.435,
+      "component": "winding",
+      "method": "3D raycast click"
+    }
+  ],
+  "assets": [
+    {
+      "file": "demo/media/bridge-walkthrough.mp4",
+      "bytes": 8080630,
+      "sha256": "ea058abf941b47b21eb9b30e0fc1e6a2be98c1323c46df288ca0855a41a4da34"
+    },
+    {
+      "file": "demo/media/bridge-preview.gif",
+      "bytes": 1773235,
+      "sha256": "3b54a0d83b29290f78b0a4b8ede82e92dd473b33a4ffe8be868f1e55c7ed0e14"
+    },
+    {
+      "file": "demo/media/bridge-poster.png",
+      "bytes": 238605,
+      "sha256": "50f6fdfd7a2d193e8f12bde816c65d393b7ba54097e56419b65c2016b3b579c9"
+    },
+    {
+      "file": "demo/media/bridge-walkthrough.vtt",
+      "bytes": 1741,
+      "sha256": "fc8db1bffd07bbe5b154e64299b87c0f789da868123fc98bb5ab3a566b241f2f"
+    }
+  ],
+  "consoleErrors": [],
+  "externalRequests": [],
+  "encodedVideoDecodePassed": true
+}

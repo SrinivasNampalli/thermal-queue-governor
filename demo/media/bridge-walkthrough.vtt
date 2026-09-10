@@ -1,0 +1,45 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:02.618
+Guarded Thermal Bridge · 3D walkthrough
+Actual browser recording of the concept model and synthetic experiment.
+
+00:00:02.618 --> 00:00:16.462
+1 · Look inside the motor
+Orbit the assembly, then separate the parts to inspect the sensor module.
+
+00:00:16.462 --> 00:00:21.224
+2 · Two independent thermal controls
+The shunt cools the sensing pad. A separate heater/cooler changes the guard around its leads.
+
+00:00:21.224 --> 00:00:28.929
+3 · Inspect the measurement electronics
+Click the ADC, guard driver, and estimator. The wiring is a functional illustration.
+
+00:00:28.929 --> 00:00:39.378
+4 · Recover information after clipping
+The direct channel stays at 95°C. Cooling the pad makes its own measurement readable again.
+
+00:00:39.378 --> 00:00:43.460
+Three observations fit; the fourth checks
+The synthetic nominal case reconstructs a 130°C winding. This is a model consistency check.
+
+00:00:43.460 --> 00:00:48.213
+5 · Why the separate guard matters
+With strong wire leakage, changing the guard supplies information that shunt changes alone cannot.
+
+00:00:48.213 --> 00:00:52.918
+130°C recovered in the constructed example
+A shunt-only model that ignores the wire path reports 85°C; the guarded fit recovers 130°C.
+
+00:00:52.918 --> 00:00:56.917
+6 · Test the blind spot too
+An extra heat path bypassing the guard can defeat the fit and its fourth-state check.
+
+00:00:56.917 --> 00:01:05.941
+A pass can still be wrong
+The bypass case reports 85°C for a 130°C source. Consistency does not establish safe motor operation.
+
+00:01:05.941 --> 00:01:08.790
+Explore all 18 components and 10 cases
+Proposed hardware geometry and synthetic replay. No physical motor, circuit, or prototype test.

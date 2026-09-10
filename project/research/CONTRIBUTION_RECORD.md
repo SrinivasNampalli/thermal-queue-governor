@@ -116,3 +116,7 @@ The new calculation demonstrates an admission difference from a Cartesian approx
 ## Guarded sensor concept - September 9, 2026
 
 Following the user request for a materially different invention, this AI-assisted session developed the Guarded Thermal Bridge Interrogator architecture, model, constructed failure examples, replay interface, software tests and focused source comparison. A mathematical cold-leak ambiguity prompted the independent guard excitation. These particular technical steps are recorded as session-generated assistance, not assigned retroactively as specific conception by either named human author. The earlier user-reported equal general contribution is preserved; claim-specific human contribution and inventorship remain unresolved.
+
+## 3D visualization follow-up - September 10, 2026
+
+At the user's request, AI-assisted work added a procedural three-dimensional guarded bridge assembly, explanatory component descriptions, camera and cutaway controls, browser checks and a recorded demonstration. This work presents the existing concept and computed traces; it does not add a physical device, new experimental motor data or a new attribution of claim conception. The named document authors remain Srinivas Nampalli and Saathvik Gampa.

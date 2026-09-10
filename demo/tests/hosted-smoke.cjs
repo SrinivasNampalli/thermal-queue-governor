@@ -115,6 +115,35 @@ async function localServer(){
     await page.waitForFunction(()=>document.querySelector('video').currentTime>47.2);
     const duration=await page.locator('video').evaluate(video=>{video.pause();return video.duration;});
     assert.ok(duration>51&&duration<53,'The recorded walkthrough is about 52 seconds');
+    const bridgeResponse=await page.goto(new URL('thermal-bridge.html',baseUrl).href);
+    assert.equal(bridgeResponse.status(),200);
+    await page.waitForFunction(()=>window.thermalBridge?.scene?.getState().ready);
+    assert.equal(await page.locator('#part-select option').count(),18);
+    await page.locator('#part-select').selectOption('guard');
+    assert.equal(await page.evaluate(()=>window.thermalBridge.scene.getState().selected),'guard');
+    const bridgeWatch=await page.goto(new URL('bridge-watch.html',baseUrl).href);
+    assert.equal(bridgeWatch.status(),200);
+    await page.waitForFunction(()=>document.querySelector('track[kind="captions"]').readyState===2);
+    const bridgeCaptions=await page.locator('track[kind="captions"]').evaluate(track=>({
+      default:track.default,mode:track.track.mode,cues:Array.from(track.track.cues).map(cue=>({line:cue.line,snapToLines:cue.snapToLines,start:cue.startTime,end:cue.endTime}))
+    }));
+    const bridgeReceipt=JSON.parse(fs.readFileSync(path.resolve(__dirname,'../media/bridge-recording.json'),'utf8'));
+    assert.equal(bridgeCaptions.default,true);assert.equal(bridgeCaptions.mode,'showing');
+    assert.equal(bridgeCaptions.cues.length,bridgeReceipt.chapters.filter(c=>c.t<bridgeReceipt.durationSeconds).length);
+    assert.ok(bridgeCaptions.cues.every(c=>c.line===4&&!c.snapToLines&&c.end>c.start));
+    await page.waitForFunction(()=>document.querySelector('video').readyState>=2);
+    const bridgeDuration=await page.locator('video').evaluate(v=>v.duration);
+    assert.ok(Math.abs(bridgeDuration-bridgeReceipt.durationSeconds)<.1,'Guarded bridge video matches its recorded duration');
+    assert.ok(bridgeCaptions.cues.every(c=>c.end<=bridgeDuration+.1),'Captions stay within the video');
+    await page.locator('video').evaluate(v=>{v.currentTime=7;});
+    await page.waitForFunction(()=>{const v=document.querySelector('video');return !v.seeking&&v.currentTime>=7;});
+    await page.locator('video').evaluate(v=>{v.muted=true;return v.play();});
+    await page.waitForFunction(()=>document.querySelector('video').currentTime>7.2);
+    await page.locator('video').evaluate(v=>v.pause());
+    for(const width of [768,320]){
+      await page.setViewportSize({width,height:1000});
+      assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+1),false,'Bridge watch page fits '+width);
+    }
     const offsite=requests.filter(url=>new URL(url).origin!==baseUrl.origin);
     const failedResponses=[...responses.values()].filter(response=>response.status()>=400).map(response=>({url:response.url(),status:response.status()}));
     assert.deepEqual(offsite,[],'The hosted experience requests no external dependencies');
@@ -122,6 +151,7 @@ async function localServer(){
     const result={passed:true,target:process.env.HOSTED_BASE_URL?baseUrl.href:'local docs/ HTTP server',htmlBytes,
       assets,simulationControls:true,stackedAt768:true,liveRegions:3,
       watch:{defaultCaptions:true,captionCues:captions.cues.length,captionPositionVerified:true,playbackVerified:true,durationSeconds:duration},
+      bridge:{components:18,defaultCaptions:true,captionCues:bridgeCaptions.cues.length,playbackVerified:true,durationSeconds:bridgeDuration},
       externalRequests:offsite,consoleErrors:errors,failedRequests:failures};
     if(process.env.HOSTED_TEST_REPORT)fs.writeFileSync(process.env.HOSTED_TEST_REPORT,JSON.stringify(result,null,2)+'\n');
     console.log(JSON.stringify(result));await context.close();
