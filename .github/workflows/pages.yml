@@ -22,7 +22,7 @@ jobs:
         with:
           python-version: '3.12'
       - run: python demo/tools/build_demo.py
-      - run: git diff --exit-code -- index.html thermal-bridge.html
+      - run: git diff --exit-code -- index.html thermal-bridge.html reference-bridge.html
       - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
         with:

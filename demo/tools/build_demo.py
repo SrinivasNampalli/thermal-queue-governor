@@ -22,4 +22,5 @@ for source in sorted((DEMO/'media').iterdir()):
 (site/'.nojekyll').write_text('',encoding='utf-8')
 runpy.run_path(str(DEMO/'tools/build_landing.py'))
 runpy.run_path(str(DEMO/'tools/build_thermal_bridge.py'))
+runpy.run_path(str(DEMO/'tools/build_reference_bridge.py'))
 print('Built standalone simulator and refreshed the docs/ GitHub Pages export.')

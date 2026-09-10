@@ -1,0 +1,250 @@
+{
+  "scope": "Completed local browser software acceptance, no hardware validation.",
+  "reference_evidence_page": {
+    "scope": "Offline webpage acceptance of stored synthetic evidence; no physical validation.",
+    "offline": true,
+    "cases": [
+      {
+        "id": "reference_bypass_130",
+        "status": "inconclusive",
+        "observationRows": 5,
+        "pointAndIntervalVerified": true,
+        "holdoutVerified": true,
+        "falseCoolWarning": false
+      },
+      {
+        "id": "strong_guard_and_reference_leak",
+        "status": "inconclusive",
+        "observationRows": 5,
+        "pointAndIntervalVerified": true,
+        "holdoutVerified": true,
+        "falseCoolWarning": false
+      },
+      {
+        "id": "cool_source_80",
+        "status": "model_consistent",
+        "observationRows": 5,
+        "pointAndIntervalVerified": true,
+        "holdoutVerified": true,
+        "falseCoolWarning": false
+      },
+      {
+        "id": "weak_bond",
+        "status": "inconclusive",
+        "observationRows": 5,
+        "pointAndIntervalVerified": true,
+        "holdoutVerified": true,
+        "falseCoolWarning": false
+      },
+      {
+        "id": "detached",
+        "status": "inconclusive",
+        "observationRows": 5,
+        "pointAndIntervalVerified": true,
+        "holdoutVerified": true,
+        "falseCoolWarning": false
+      },
+      {
+        "id": "no_reference_excitation",
+        "status": "inconclusive",
+        "observationRows": 5,
+        "pointAndIntervalVerified": true,
+        "holdoutVerified": true,
+        "falseCoolWarning": false
+      },
+      {
+        "id": "reference_readout_stuck",
+        "status": "inconclusive",
+        "observationRows": 5,
+        "pointAndIntervalVerified": true,
+        "holdoutVerified": true,
+        "falseCoolWarning": false
+      },
+      {
+        "id": "hot_reference",
+        "status": "inconclusive",
+        "observationRows": 5,
+        "pointAndIntervalVerified": true,
+        "holdoutVerified": true,
+        "falseCoolWarning": false
+      },
+      {
+        "id": "source_drift_at_holdout",
+        "status": "inconclusive",
+        "observationRows": 5,
+        "pointAndIntervalVerified": true,
+        "holdoutVerified": true,
+        "falseCoolWarning": false
+      },
+      {
+        "id": "holdout_shunt_fault",
+        "status": "inconclusive",
+        "observationRows": 5,
+        "pointAndIntervalVerified": true,
+        "holdoutVerified": true,
+        "falseCoolWarning": false
+      },
+      {
+        "id": "five_percent_shunt_uncertainty",
+        "status": "inconclusive",
+        "observationRows": 5,
+        "pointAndIntervalVerified": true,
+        "holdoutVerified": true,
+        "falseCoolWarning": false
+      },
+      {
+        "id": "ten_percent_shunt_uncertainty",
+        "status": "inconclusive",
+        "observationRows": 5,
+        "pointAndIntervalVerified": true,
+        "holdoutVerified": true,
+        "falseCoolWarning": false
+      },
+      {
+        "id": "unexcited_ambient_leak",
+        "status": "model_consistent",
+        "observationRows": 5,
+        "pointAndIntervalVerified": true,
+        "holdoutVerified": true,
+        "falseCoolWarning": true
+      },
+      {
+        "id": "common_shunt_gain_error",
+        "status": "inconclusive",
+        "observationRows": 5,
+        "pointAndIntervalVerified": true,
+        "holdoutVerified": true,
+        "falseCoolWarning": false
+      }
+    ],
+    "dynamicCases": [
+      {
+        "id": "regulated_finite_rate",
+        "status": "inconclusive",
+        "numericalValuesVerified": true
+      },
+      {
+        "id": "slow_pad_and_actuators",
+        "status": "inconclusive",
+        "numericalValuesVerified": true
+      },
+      {
+        "id": "rapid_heater_load",
+        "status": "inconclusive",
+        "numericalValuesVerified": true
+      }
+    ],
+    "viewports": [
+      {
+        "viewport": 1440,
+        "documentWidth": 1440,
+        "bodyWidth": 1440,
+        "selectorWidth": 308
+      },
+      {
+        "viewport": 1024,
+        "documentWidth": 1024,
+        "bodyWidth": 1024,
+        "selectorWidth": 308
+      },
+      {
+        "viewport": 768,
+        "documentWidth": 768,
+        "bodyWidth": 768,
+        "selectorWidth": 658
+      },
+      {
+        "viewport": 390,
+        "documentWidth": 390,
+        "bodyWidth": 390,
+        "selectorWidth": 328
+      },
+      {
+        "viewport": 320,
+        "documentWidth": 320,
+        "bodyWidth": 320,
+        "selectorWidth": 258
+      }
+    ],
+    "errors": [],
+    "externalRequests": [],
+    "keyboardSelector": true,
+    "traceControls": {
+      "keyboardScrubbing": true,
+      "completeResultPreserved": true,
+      "playPause": true
+    },
+    "passed": true
+  },
+  "historical_exploded_guide": {
+    "passed": true,
+    "component_count": 18,
+    "replay_count": 10,
+    "viewports": [
+      {
+        "width": 1440,
+        "scrollWidth": 1440,
+        "modelWidth": 1264,
+        "modelHeight": 600,
+        "cards": 6,
+        "leaderLines": 6,
+        "layout": "around model"
+      },
+      {
+        "width": 1024,
+        "scrollWidth": 1024,
+        "modelWidth": 904,
+        "modelHeight": 600,
+        "cards": 6,
+        "leaderLines": 6,
+        "layout": "around model"
+      },
+      {
+        "width": 768,
+        "scrollWidth": 768,
+        "modelWidth": 648,
+        "modelHeight": 440,
+        "cards": 6,
+        "leaderLines": 0,
+        "layout": "below model"
+      },
+      {
+        "width": 390,
+        "scrollWidth": 390,
+        "modelWidth": 322,
+        "modelHeight": 330,
+        "cards": 6,
+        "leaderLines": 0,
+        "layout": "below model"
+      },
+      {
+        "width": 320,
+        "scrollWidth": 320,
+        "modelWidth": 252,
+        "modelHeight": 330,
+        "cards": 6,
+        "leaderLines": 0,
+        "layout": "below model"
+      }
+    ],
+    "errors": [],
+    "externalRequests": []
+  },
+  "javascript_unit_tests": {
+    "command": "npm test",
+    "cwd": "demo",
+    "passed": 23,
+    "failed": 0
+  },
+  "sha256": {
+    "reference-bridge.html": "bb4611d6a507ae97bc57eb4ec79e45aad3324e185edda60e8f4fae81e9e09041",
+    "thermal-bridge.html": "393d1f57f61099a2f761320fe44594bd8b8c286de05b1357bc7346a82b7052f1",
+    "demo/src/reference-bridge.template.html": "8718441440674e8055a267e294c2e13f3a84ca3b36d66cc6a9235e5c32e78c67",
+    "demo/src/thermal-bridge.template.html": "a33cde731394958d88827127e0684544f3388f930fcb3571cf19c65078ef99ff",
+    "demo/tools/build_reference_bridge.py": "89a593c04f93031b8841f6b080128a3ead4d99f7f8e877fe8408dd5dbd0aaa18",
+    "demo/tools/test-reference-bridge.cjs": "6fd5d26540e7d3a569b87ac437397b9c4e039ecc707fc08cad9e7e1caac0f918",
+    "demo/tools/test-bridge-callouts.cjs": "d1eefb57c745f2a87d669f65d7a0a6c82a68f46a7f071644b5f50f663464d3b0"
+  },
+  "visual_review": "Desktop and 390-pixel full-page screenshots inspected after the passing run.",
+  "physical_measurements": 0
+}

@@ -4,7 +4,15 @@ A reproducible research and patent discussion package for scalar motor thermal c
 
 This is a synthetic simulation prototype. It is not a validated hardware controller or a granted patent. Patentability, human inventorship, ownership, and filing readiness remain unresolved.
 
-## New sensor-module candidate: Guarded Thermal Bridge Interrogator
+## Technical revision: reference excitation and uncertainty bounds
+
+**[Explore the new evidence report](https://srinivasnampalli.github.io/thermal-queue-governor/reference-bridge.html)** · **[Read the technical repair and its limits](project/research/REFERENCE_EXCITATION_REVISION.md)** · **[Reproduce the tests](project/reference_bridge/)** · **[Review the proposed physical experiment](project/research/REFERENCE_EXCITATION_BENCH_PROTOCOL.md)**
+
+The revised candidate independently changes and measures the actual reference endpoint, allowing it to identify the bypass that fooled the earlier guarded bridge. In the constructed 130 °C case, the point estimate improves from 85 °C to 130 °C. Its conditional uncertainty interval is **113.7–158.3 °C**, which fails the preset precision criterion; the result remains inconclusive. Exact rational certificates, 14 stationary cases and three separately integrated finite-rate challenges preserve both successful calculations and failures.
+
+**An extra leak to an unexcited ambient boundary still creates a false 85 °C result.** This exact ambiguity is documented and tested. No output authorizes motor operation. The owner confirmed that no hardware is available; all new fixture parameters are hypothetical, and physical measurements remain zero. The [additional prior-art screen](project/research/REFERENCE_EXCITATION_PRIOR_ART.md) also finds related cooled guarded probes and deliberate heat-sink excitation. Patent uniqueness remains unresolved.
+
+## Earlier sensor-module candidate: Guarded Thermal Bridge Interrogator
 
 **[Explore the interactive 3D assembly](https://srinivasnampalli.github.io/thermal-queue-governor/thermal-bridge.html)** · **[Open the exploded component guide](https://srinivasnampalli.github.io/thermal-queue-governor/thermal-bridge.html?guide=1#experiment)** · **[Read the technical design](project/research/GUARDED_THERMAL_BRIDGE.md)** · **[Inspect the prior-art comparison](project/research/THERMAL_BRIDGE_PRIOR_ART.md)**
 
@@ -20,7 +28,7 @@ This separate concept uses a selectable cooling bridge and an independently cont
 
 The [expanded patent review](project/research/PATENT_REVIEW_2026-09.md) maps all 11 discussion claims against earlier research and patents, with an [auditable search log](project/research/PATENT_SEARCH_LOG_2026-09.md). It finds substantial overlap in the broad ingredients. The exact narrow combination remains unresolved; **uniqueness has not been established**. The new [review and validation-preparation packet](PATENT_REVIEW_AND_VIRTUAL_VALIDATION.pdf) supplements the historical dossier.
 
-An independent [virtual-motor test harness](project/virtual_motor/) adds current response, winding and housing temperatures, sensor lag, and energy checks. Its defaults are explicitly illustrative. The owner selected a specific motor and is providing its specifications, so **motor-specific calibration and held-out validation are pending**. No physical motor has been tested. Running software in a VM does not change that distinction.
+An independent [virtual-motor test harness](project/virtual_motor/) adds current response, winding and housing temperatures, sensor lag, and energy checks. Its defaults are explicitly illustrative. The owner initially selected a specific-motor study but confirmed on September 10 that no hardware is available; no motor specifications have been supplied. **Motor-specific calibration and held-out validation are pending.** No physical motor has been tested. Running software in a VM does not change that distinction.
 
 Follow the [dated process log](project/research/VALIDATION_PROCESS_LOG.md), [motor specification worksheet](project/research/MOTOR_SPECIFICATION_INTAKE.md), and [draft validation protocol](project/virtual_motor/PROTOCOL.md). Synthetic code checks are reported separately from motor-validation episodes and the original study.
 

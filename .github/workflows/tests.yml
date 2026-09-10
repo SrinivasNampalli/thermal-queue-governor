@@ -35,5 +35,11 @@ jobs:
         run: python -m unittest discover -s thermal_bridge/tests -v
       - name: Verify stored guarded-bridge experiments
         run: python thermal_bridge/model.py --check
+      - name: Reference-excited bridge certificates and adversarial cases (synthetic only)
+        run: python -m unittest discover -s reference_bridge/tests -v
+      - name: Reproduce stored reference-excitation evidence
+        run: python reference_bridge/model.py --check
+      - name: Reproduce independent finite-rate challenge
+        run: python reference_bridge/dynamic_challenge.py --check --summary
       - name: Documented worked example
         run: python demo.py

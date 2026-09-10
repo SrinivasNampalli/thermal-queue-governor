@@ -32,7 +32,7 @@ jobs:
       - run: python tools/build_demo.py
       - name: Ensure committed export matches its source
         # The container and checkout action can have different home/owner contexts.
-        run: git -c safe.directory="$GITHUB_WORKSPACE" -C "$GITHUB_WORKSPACE" diff --exit-code -- index.html thermal-bridge.html
+        run: git -c safe.directory="$GITHUB_WORKSPACE" -C "$GITHUB_WORKSPACE" diff --exit-code -- index.html thermal-bridge.html reference-bridge.html
       - run: npm run test:browser
       - run: npm run test:landing
       - name: Guarded thermal bridge replay and responsive hardware diagram
@@ -41,6 +41,8 @@ jobs:
         run: node tools/test-bridge-3d.cjs
       - name: Exploded component guide and responsive callouts
         run: npm run test:callouts
+      - name: Reference-excitation evidence and retained failures
+        run: node tools/test-reference-bridge.cjs
       - name: Verify hosted Pages assets and video captions over HTTP
         run: npm run test:hosted
       - run: python ../project/tools/analyze_primary_evidence.py --check

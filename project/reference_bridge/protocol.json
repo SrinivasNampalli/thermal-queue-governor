@@ -1,0 +1,206 @@
+{
+  "title": "Reference-excited thermal bridge: hypothetical software verification protocol",
+  "scope": "Synthetic measurements only. No physical motor, fixture, instrument calibration or patent validation.",
+  "frozen_before_results": true,
+  "seed": 9102026,
+  "measurement_budget": {
+    "pad_error_c": 0.1,
+    "guard_error_c": 0.1,
+    "reference_error_c": 0.1,
+    "shunt_relative_error": 0.01,
+    "imbalance_w": 0.001
+  },
+  "criteria": {
+    "minimum_bond_w_per_k": 0.008,
+    "holdout_tolerance_c": 0.75,
+    "model_limit_c": 105.0,
+    "maximum_interval_width_c": 20.0,
+    "minimum_boundary_excitation_c": 5.0
+  },
+  "plant": {
+    "hot_c": 130.0,
+    "reference_c": 40.0,
+    "bond_w_per_k": 0.02,
+    "guard_leak_w_per_k": 0.005,
+    "reference_bypass_w_per_k": 0.02,
+    "capacity_j_per_k": 0.04,
+    "ambient_c": 40.0,
+    "ambient_leak_w_per_k": 0.0,
+    "clip_c": 95.0
+  },
+  "phases": [
+    {
+      "name": "A",
+      "purpose": "fit",
+      "duration_s": 20.0,
+      "shunt_w_per_k": 0.02,
+      "guard_delta_c": 0.0,
+      "reference_delta_c": 0.0
+    },
+    {
+      "name": "B",
+      "purpose": "fit",
+      "duration_s": 20.0,
+      "shunt_w_per_k": 0.05,
+      "guard_delta_c": 0.0,
+      "reference_delta_c": 0.0
+    },
+    {
+      "name": "C",
+      "purpose": "fit",
+      "duration_s": 20.0,
+      "shunt_w_per_k": 0.035,
+      "guard_delta_c": 25.0,
+      "reference_delta_c": 0.0
+    },
+    {
+      "name": "D",
+      "purpose": "fit",
+      "duration_s": 20.0,
+      "shunt_w_per_k": 0.035,
+      "guard_delta_c": 0.0,
+      "reference_delta_c": 15.0
+    },
+    {
+      "name": "E",
+      "purpose": "holdout",
+      "duration_s": 20.0,
+      "shunt_w_per_k": 0.04,
+      "guard_delta_c": 10.0,
+      "reference_delta_c": 8.0
+    }
+  ],
+  "cases": [
+    {
+      "id": "reference_bypass_130",
+      "name": "Recover the modeled reference bypass",
+      "changes": {},
+      "evaluation": "The earlier fixed-reference case gave a false 85 C; the revised model should identify the 130 C source."
+    },
+    {
+      "id": "strong_guard_and_reference_leak",
+      "name": "Two substantial leak paths",
+      "changes": {
+        "guard_leak_w_per_k": 0.02
+      },
+      "evaluation": "Joint recovery of winding, guarded leakage and reference bypass."
+    },
+    {
+      "id": "cool_source_80",
+      "name": "Source below the illustrative limit",
+      "changes": {
+        "hot_c": 80.0
+      },
+      "evaluation": "Report only a model-conditional classification; no motor operation is authorized."
+    },
+    {
+      "id": "weak_bond",
+      "name": "Weak winding attachment",
+      "changes": {
+        "bond_w_per_k": 0.003
+      },
+      "evaluation": "Do not assume a minimum bond to make the fit pass."
+    },
+    {
+      "id": "detached",
+      "name": "Detached winding contact",
+      "changes": {
+        "bond_w_per_k": 0.0
+      },
+      "evaluation": "An unattached sensor cannot identify the source."
+    },
+    {
+      "id": "no_reference_excitation",
+      "name": "Reference never changes",
+      "changes": {
+        "reference_stuck": true
+      },
+      "evaluation": "Reject rank-deficient data."
+    },
+    {
+      "id": "reference_readout_stuck",
+      "name": "Reference thermometer stuck",
+      "changes": {
+        "reference_readout_stuck": true
+      },
+      "evaluation": "Measured excitation is absent even when the hypothetical actuator changes."
+    },
+    {
+      "id": "hot_reference",
+      "name": "Reference above clipping ceiling",
+      "changes": {
+        "reference_c": 100.0,
+        "hot_c": 150.0
+      },
+      "evaluation": "Reject clipped plateau observations."
+    },
+    {
+      "id": "source_drift_at_holdout",
+      "name": "Source changes before holdout",
+      "changes": {
+        "holdout_hot_delta_c": 10.0
+      },
+      "evaluation": "The independent final observation challenges stationarity."
+    },
+    {
+      "id": "holdout_shunt_fault",
+      "name": "Last shunt differs from calibration",
+      "changes": {
+        "holdout_shunt_scale": 0.7
+      },
+      "evaluation": "The independent final observation challenges the assumed shunt."
+    },
+    {
+      "id": "five_percent_shunt_uncertainty",
+      "name": "Declared calibration uncertainty is wide",
+      "changes": {
+        "declared_shunt_relative_error": 0.05
+      },
+      "evaluation": "A point estimate alone must not conceal a broad feasible temperature interval."
+    },
+    {
+      "id": "ten_percent_shunt_uncertainty",
+      "name": "Upper temperature not certified",
+      "changes": {
+        "declared_shunt_relative_error": 0.1
+      },
+      "evaluation": "If a finite upper certificate is unavailable, withhold a qualified result."
+    },
+    {
+      "id": "unexcited_ambient_leak",
+      "name": "Remaining exact blind spot",
+      "changes": {
+        "ambient_leak_w_per_k": 0.02
+      },
+      "evaluation": "The estimator is deliberately not told this hidden path. A false-cool result must be preserved in the evidence."
+    },
+    {
+      "id": "common_shunt_gain_error",
+      "name": "Undeclared common calibration bias",
+      "changes": {
+        "shunt_scale": 0.5,
+        "bond_w_per_k": 0.006
+      },
+      "evaluation": "A coherent calibration error can still disguise weak attachment. Preserve it."
+    }
+  ],
+  "physical_validation": {
+    "status": "not_run",
+    "hardware_available": false,
+    "measurements_collected": 0,
+    "motor_model": null,
+    "instrument_models": null
+  },
+  "planned_checks": [
+    "independent exact equilibrium fixture",
+    "original versus revised bypass counterexample",
+    "exact primal/dual certificate verification",
+    "missing excitation and clipping rejection",
+    "withheld fifth-state fault tests",
+    "source-independent estimator interface",
+    "unexcited ambient alias including transients",
+    "declared uncertainty coverage",
+    "measurement/calibration sensitivity",
+    "separate finite-rate two-node plant challenge"
+  ]
+}

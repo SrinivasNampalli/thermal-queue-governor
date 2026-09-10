@@ -1,0 +1,85 @@
+{
+  "title": "Completed local software verification receipt",
+  "recorded_at_utc": "2026-09-10T23:09:50.404330+00:00",
+  "scope": "Commands below completed in this development session. Synthetic software checks only; passing negative-control tests preserve device failures.",
+  "environment": {
+    "operating_system": "Windows",
+    "python": "3.12.8",
+    "execution": "Local process, not a physical motor or local VM"
+  },
+  "checks": [
+    {
+      "command": "python -m unittest discover -s project/reference_bridge/tests -v",
+      "cwd": "repository root",
+      "tests_passed": 23,
+      "exit_code": 0
+    },
+    {
+      "command": "python -m unittest discover -s tests -v",
+      "cwd": "project",
+      "tests_passed": 47,
+      "exit_code": 0
+    },
+    {
+      "command": "python -m unittest discover -s virtual_motor/tests -v",
+      "cwd": "project",
+      "tests_passed": 24,
+      "exit_code": 0
+    },
+    {
+      "command": "python -m unittest discover -s thermal_bridge/tests -v",
+      "cwd": "project",
+      "tests_passed": 13,
+      "exit_code": 0
+    },
+    {
+      "command": "python project/reference_bridge/model.py --check",
+      "cwd": "repository root",
+      "exit_code": 0
+    },
+    {
+      "command": "python project/reference_bridge/dynamic_challenge.py --check --summary",
+      "cwd": "repository root",
+      "exit_code": 0
+    },
+    {
+      "command": "python project/thermal_bridge/model.py --check",
+      "cwd": "repository root",
+      "exit_code": 0
+    },
+    {
+      "command": "python project/tools/check_joint_queue_example.py --check",
+      "cwd": "repository root",
+      "exit_code": 0
+    },
+    {
+      "command": "python project/tools/analyze_primary_evidence.py --check",
+      "cwd": "repository root",
+      "exit_code": 0
+    }
+  ],
+  "new_stationary_synthetic_cases": 14,
+  "new_dynamic_synthetic_cases": 3,
+  "new_unit_tests_passed": 23,
+  "total_python_unit_tests_passed": 107,
+  "physical_measurements": 0,
+  "calibrated_motor_validation_runs": 0,
+  "physical_validation_status": "not_run",
+  "known_limits": [
+    "Default 130 C model case fails the frozen 20 C interval-width criterion.",
+    "Unexcited ambient leak still produces model-consistent false 85 C reading.",
+    "All three finite-rate challenge decisions are inconclusive.",
+    "Neither arbitrary heat-path topology nor physical error budgets are validated."
+  ],
+  "sha256": {
+    "dynamic_challenge.py": "fbc804b0bb1aa66063560a3960e81401ec66adede06801f84dcfeb0b6383ad43",
+    "dynamic_results.json": "03b84f74217e05e6a41998a30f1d883a6bb2fb45b1dbb53d721857e29129944e",
+    "linear_bounds.py": "6c2e65c60abf5a763d125f7b4efa847fb48eba027fcb8c1540cddbc5e35880d1",
+    "model.py": "d42624818b65b76b791abc27ab80ffa2fac8e8880667a086894ead436b686bf9",
+    "protocol.json": "d51e05e9433509afe5b48845f36517b9eab2397856304ed71e99f2fad0d41a76",
+    "report_io.py": "30233cc44ffa07e7917b158a6664b4adb2f8527756c23b0f02c640dca7fa2881",
+    "results.json": "3d0355d72f2e1d56e3418fca9352accd66a1dbeae12c981e380b370f065116e4",
+    "tests/test_reference_bridge.py": "604f812ac57a4e1389ba2273f3c0fcb4ebecaaa12559165f15049027265b4772"
+  },
+  "github_execution": "GitHub Actions logs identify their own tested commit and outcomes. Local completion is not a claim that future remote checks passed."
+}
