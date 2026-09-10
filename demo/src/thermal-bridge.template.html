@@ -21,6 +21,11 @@
     @media(max-width:1000px){.assembly-layout{grid-template-columns:1fr}.assembly-inspector{padding:22px 0 0;display:grid;grid-template-columns:1fr 1.4fr;gap:16px 25px}.assembly-inspector .eyebrow{grid-column:1/-1;margin:0}.assembly-inspector .part-control{margin:0}.assembly-inspector .inspector{grid-column:2;grid-row:2/5;min-height:0}.assembly-inspector .scene-note,.assembly-inspector .component-reading{margin:0}.assembly-inspector .video-link{grid-column:1/-1;margin:0}.scene-mount{height:500px}}
     @media(max-width:700px){.assembly-layout{padding:18px 16px 0}.assembly-title{padding:12px;font-size:10px}.assembly-title strong{font-size:12px}.assembly-title span{max-width:90px;text-align:right}.scene-mount{height:320px}.scene-readings{grid-template-columns:repeat(2,1fr);gap:12px;padding:12px}.scene-readings strong{font-size:16px}.assembly-inspector{display:block}.assembly-inspector .part-control{margin:14px 0}.assembly-inspector .scene-note,.assembly-inspector .component-reading,.assembly-inspector .video-link{margin-top:14px}.scene-controls{padding:16px;gap:12px}.scene-controls .btn{margin:0}.scene-controls label:first-child{width:100%;justify-content:space-between}.scene-controls label:first-child select{flex:1;margin-left:10px}.scene-controls select{font-size:16px}.main-grid .phase-list{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:360px){.main-grid .phase-list{grid-template-columns:1fr}.scene-mount{height:300px}}
+
+    .guide-toolbar{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding:0 26px 4px}.guide-toolbar p{font-size:12px;color:var(--muted);margin:0}.guide-toggle{border-color:#e5aa7280;color:var(--copper)}.guide-toggle[aria-pressed=true]{background:var(--copper);color:#21180f}.guide-tabs{display:flex;gap:7px;flex-wrap:wrap}.guide-tabs[hidden]{display:none}.guide-tabs button{font:inherit;font-size:12px;color:var(--muted);background:#091522;border:1px solid var(--line);border-radius:7px;padding:9px 13px;cursor:pointer}.guide-tabs button[aria-pressed=true]{color:var(--ink);background:#234052;border-color:#72dbca80}.guide-tabs span{opacity:.65;margin-left:5px}.assembly-stage{position:relative}.callout-overlay{position:absolute;inset:0;pointer-events:none;z-index:2;overflow:hidden}.callout-overlay[hidden],.callout-cards[hidden]{display:none}.callout-cards{position:absolute;inset:24px 16px;display:grid;grid-template-columns:206px 206px;grid-template-rows:repeat(3,1fr);justify-content:space-between;gap:18px;pointer-events:none;z-index:3}.component-callout{position:relative;align-self:center;min-height:124px;text-align:left;padding:14px 14px 12px;border:1px solid #7e9ebf55;border-radius:12px;background:linear-gradient(135deg,#152b3df2,#0b1827f7);color:var(--ink);box-shadow:0 10px 30px #0003;cursor:pointer;pointer-events:auto;font:inherit}.component-callout:hover{border-color:#e5aa72b0;background:#1c3447}.component-callout[aria-pressed=true]{border-color:var(--copper);box-shadow:0 0 0 1px #e5aa7240,0 10px 30px #0003}.component-callout:focus-visible,.guide-tabs button:focus-visible{outline:3px solid #72dbca;outline-offset:4px}.callout-top{display:flex;gap:8px;align-items:center;margin-bottom:8px}.callout-number{display:inline-grid;place-items:center;flex:none;width:23px;height:23px;border:1px solid #e5aa7270;border-radius:7px;color:var(--copper);font:11px ui-monospace,Consolas,monospace}.callout-name{font-size:12px;font-weight:600;line-height:1.3}.callout-copy{display:block;color:#b4c6d7;font-size:11px;line-height:1.5}.callout-status{display:block;margin-top:6px;color:var(--copper);font-size:10px;line-height:1.35}.callout-status:empty{display:none}.bridge-callout-line{fill:none;stroke:#8faebe;stroke-width:1.15;stroke-opacity:.65}.bridge-callout-line.is-selected{stroke:var(--copper);stroke-width:1.8;stroke-opacity:1}.callout-pin circle{fill:#112c3d;stroke:#d8bb91;stroke-width:1.4}.callout-pin text{fill:#fff1df;font:10px ui-monospace,Consolas,monospace;text-anchor:middle;dominant-baseline:central}.callout-pin.is-selected circle{fill:#a96626;stroke:#ffe3b9}.callout-mode .assembly-layout{grid-template-columns:1fr}.callout-mode .scene-mount{height:600px}.callout-mode .assembly-inspector{display:grid;grid-template-columns:220px 1fr 260px;gap:14px 24px;padding:24px 0 12px}.callout-mode .assembly-inspector .eyebrow{grid-column:1/-1;margin:0}.callout-mode .assembly-inspector .part-control{grid-column:1;margin:0}.callout-mode .assembly-inspector .inspector{grid-column:2;grid-row:2/5;min-height:0}.callout-mode .assembly-inspector .component-reading{grid-column:3;grid-row:2;margin:0}.callout-mode .assembly-inspector .scene-note{grid-column:3;grid-row:3;margin:0}.callout-mode .assembly-inspector .video-link{grid-column:1;grid-row:3;margin:0}.assembly-failed .guide-toolbar{display:none}
+    @media(max-width:1150px){.callout-cards{grid-template-columns:178px 178px;inset:18px 12px;gap:12px}.component-callout{padding:12px;min-height:132px}.callout-mode .assembly-inspector{grid-template-columns:200px 1fr}.callout-mode .assembly-inspector .component-reading,.callout-mode .assembly-inspector .scene-note{grid-column:1;grid-row:auto}.callout-mode .assembly-inspector .video-link{grid-column:1/-1;grid-row:auto}}
+    @media(max-width:850px){.callout-mode .scene-mount{height:440px}.callout-cards{position:relative;inset:auto;margin:14px;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none;gap:10px}.component-callout{grid-column:auto!important;grid-row:auto!important;min-height:120px;height:100%;align-self:stretch}.bridge-callout-line{display:none}.callout-copy{font-size:12px}.callout-name{font-size:13px}.callout-mode .assembly-inspector{display:block}.callout-mode .assembly-inspector .part-control,.callout-mode .assembly-inspector .component-reading,.callout-mode .assembly-inspector .scene-note,.callout-mode .assembly-inspector .video-link{margin-top:14px}.guide-toolbar{padding:0 16px 0;gap:12px}.guide-toolbar p{width:100%}}
+    @media(max-width:450px){.callout-mode .scene-mount{height:330px}.callout-cards{grid-template-columns:1fr;margin:12px}.component-callout{min-height:0;padding:13px 15px}.callout-top{margin-bottom:5px}.guide-tabs{gap:5px}.guide-tabs button{padding:9px 10px}}
   </style>
 </head>
 <body>
@@ -32,8 +37,9 @@
       <section class="lab" id="experiment" aria-labelledby="experiment-title">
         <div class="lab-heading"><div><div class="eyebrow">INTERACTIVE 3D + SYNTHETIC REPLAY</div><h2 id="experiment-title">Explore the 3D thermal bridge</h2></div><div class="case-control"><label for="case-select">Experiment case</label><select id="case-select"></select></div></div>
         <div class="lab-intro"><p id="case-description"></p><span class="badge" id="phase-badge">Ready</span></div>
+        <div class="guide-toolbar"><button class="btn guide-toggle" id="bridge-guide" type="button" aria-pressed="false" aria-controls="bridge-callouts bridge-callout-tabs">Exploded component guide</button><div class="guide-tabs" id="bridge-callout-tabs" role="group" aria-label="Component guide group" hidden><button type="button" data-callout-group="motor" aria-pressed="true">Motor <span>6 parts</span></button><button type="button" data-callout-group="sensor" aria-pressed="false">Sensor <span>6 parts</span></button><button type="button" data-callout-group="electronics" aria-pressed="false">Electronics <span>6 parts</span></button></div><p id="bridge-guide-hint">Separate the assembly and see what each part does.</p></div>
         <div class="assembly-layout">
-          <section class="assembly-viewport" aria-label="Interactive 3D hardware assembly"><div class="assembly-title"><strong>Motor + guarded sensing module</strong><span>Drag to orbit · scroll to zoom</span></div><div class="scene-mount" id="bridge-scene"><div id="bridge-scene-loading" class="scene-loading">Loading the 3D assembly…</div></div><div class="scene-readings" aria-label="Current replay temperatures"><div><span>Winding · reference truth</span><strong id="bridge-hot">—</strong></div><div><span>Sensing pad · actual</span><strong id="bridge-pad">—</strong></div><div><span>Guard · prescribed</span><strong id="bridge-guard">—</strong></div><div><span>ADC · observed</span><strong id="bridge-adc">—</strong></div></div></section>
+          <section class="assembly-viewport" aria-label="Interactive 3D hardware assembly"><div class="assembly-title"><strong>Motor + guarded sensing module</strong><span>Drag to orbit · scroll to zoom</span></div><div class="assembly-stage"><div class="scene-mount" id="bridge-scene"><div id="bridge-scene-loading" class="scene-loading">Loading the 3D assembly…</div></div><svg class="callout-overlay" id="bridge-callout-lines" aria-hidden="true" hidden></svg><div class="callout-cards" id="bridge-callouts" aria-label="Component explanations" hidden></div></div><div class="scene-readings" aria-label="Current replay temperatures"><div><span>Winding · reference truth</span><strong id="bridge-hot">—</strong></div><div><span>Sensing pad · actual</span><strong id="bridge-pad">—</strong></div><div><span>Guard · prescribed</span><strong id="bridge-guard">—</strong></div><div><span>ADC · observed</span><strong id="bridge-adc">—</strong></div></div></section>
           <aside class="assembly-inspector"><p class="eyebrow">Click a component to inspect</p><div class="part-control"><label for="part-select">Inspect component</label><select id="part-select" aria-controls="inspector"></select></div><article class="inspector" id="inspector" aria-label="Selected component explanation"><h3 id="part-name"></h3><p id="part-description"></p><p class="component-role" id="part-role"></p></article><p class="component-reading" id="bridge-part-reading"></p><p class="scene-note">Enlarged sensor details and explanatory geometry. The replay supplies temperatures; motor rotation, circuits, and guard power are not physically simulated.</p><a class="video-link" href="https://srinivasnampalli.github.io/thermal-queue-governor/bridge-watch.html">Watch the recorded 3D walkthrough online ↗</a></aside>
         </div>
         <div class="scene-controls" aria-label="3D view controls"><label>View <select id="bridge-view"><option value="assembly">Complete assembly</option><option value="sensor">Sensor close-up</option><option value="electronics">Electronics</option></select></label><label><input id="bridge-exploded" type="checkbox"> Exploded view</label><label><input id="bridge-cutaway" type="checkbox" checked> Cutaway housing</label><label><input id="bridge-spin" type="checkbox"> Auto-rotate</label><button class="btn" id="bridge-reset-view" type="button">Reset view</button></div>
@@ -76,7 +82,7 @@
       {id:'bypass',name:'Unintended heat bypass',description:'A separate path can carry heat straight from the sensing pad to the housing without passing through the controlled guard.',role:'Select the guard-bypass experiment to see the failure: the fit reports 85 °C for a 130 °C source while its consistency check passes.'}
 
     ];
-    let current=DATA.cases[0],index=0,playing=false,speed=4,elapsed=0,lastWall=0,lastLive=0,selected='bond',layoutKey='',frame=0,scene3d=null;
+    let current=DATA.cases[0],index=0,playing=false,speed=4,elapsed=0,lastWall=0,lastLive=0,selected='bond',layoutKey='',frame=0,scene3d=null,guideOpen=false,guideGroup='motor',guideBefore=null;
     const motionQuery=window.matchMedia('(prefers-reduced-motion: reduce)');
     let reduceMotion=motionQuery.matches;
     const fmt=(value,digits=1)=>Number.isFinite(value)?value.toFixed(digits):'—';
@@ -86,7 +92,88 @@
     function phaseName(phase){return String(phase).replace(/[_-]+/g,' ');}
     function atEnd(){return index===current.samples.length-1;}
     function phaseEnds(){return current.observations.map(o=>{let end=-1;current.samples.forEach((s,i)=>{if(String(s.phase)===String(o.phase))end=i;});return end;});}
-    function selectPart(id,spoken=true){const part=parts.find(p=>p.id===id);if(!part)return;selected=id;$('part-select').value=id;set('part-name',part.name);set('part-description',part.description);set('part-role',part.role);$('hardware-svg').querySelectorAll('[data-part]').forEach(g=>g.classList.toggle('selected',g.dataset.part===id));if(scene3d)scene3d.select(id);updateSelectedReading();if(spoken)announce(`${part.name}. ${part.description}`);}
+    function selectPart(id,spoken=true){const part=parts.find(p=>p.id===id);if(!part)return;selected=id;$('part-select').value=id;set('part-name',part.name);set('part-description',part.description);set('part-role',part.role);$('hardware-svg').querySelectorAll('[data-part]').forEach(g=>g.classList.toggle('selected',g.dataset.part===id));if(scene3d)scene3d.select(id);updateSelectedReading();syncGuideSelection();if(spoken)announce(`${part.name}. ${part.description}`);}
+
+    const guideGroups={
+      motor:{view:'assembly',ids:['winding','stator','rotor','shaft','case','reference']},
+      sensor:{view:'sensor',ids:['bond','pad','shunt','guard','guard_sensor','bypass']},
+      electronics:{view:'electronics',ids:['adc','estimator','guard_driver','connector','power','leads']}
+    };
+    const guideCopy={
+      winding:['Copper windings','Electrical current heats these coils. Their temperature is the quantity the sensor aims to estimate.'],
+      stator:['Laminated stator','The fixed steel core holds the windings around the rotor.'],
+      rotor:['Rotor','The magnetic assembly inside the stator turns with the motor shaft.'],
+      shaft:['Output shaft','Transfers the rotor’s mechanical rotation to an attached load.'],
+      case:['Motor housing','Protects the internals and provides the cooler destination for shunted heat.'],
+      reference:['Case thermometer','Measures the housing temperature used as the heat-flow reference.'],
+      bond:['Insulating bond','Passes winding heat to the sensing pad through an electrically insulating interface.'],
+      pad:['Sensing pad','The small sensing surface is cooled into a range its temperature electronics can read.'],
+      shunt:['Cooling shunt','Changes the thermal path from the pad to the housing to produce distinct observations.'],
+      guard:['Active thermal guard','Changes the thermal boundary around the leads so wire heat loss can be distinguished.'],
+      guard_sensor:['Guard thermometer','Measures the controlled boundary temperature needed to interpret the pad readings.'],
+      bypass:['Unintended bypass','A fault path around the guard can produce a falsely cool estimate. It is not a design component.'],
+      adc:['Temperature ADC','Converts the pad’s sensor signal into a reading, which stops increasing at the clipping ceiling.'],
+      estimator:['Stage controller','Combines three observations into an estimate and uses a fourth to check model consistency.'],
+      guard_driver:['Heater/cooler driver','Represents the electronics that would drive the thermal guard toward its target temperature.'],
+      connector:['Signal connector','Links the sensing head to the measurement and control electronics.'],
+      power:['Power and filtering','Represents the low-voltage supply and capacitors supporting the electronics.'],
+      leads:['Guarded sensor leads','Carry sensor signals while their heat-loss path meets the controlled guard.']
+    };
+    const guideIds=Object.values(guideGroups).flatMap(group=>group.ids);
+    function drawGuideCards(){
+      const cards=$('bridge-callouts'),lines=$('bridge-callout-lines');cards.replaceChildren();lines.replaceChildren();
+      guideGroups[guideGroup].ids.forEach((id,i)=>{
+        const number=guideIds.indexOf(id)+1,copy=guideCopy[id];
+        const button=document.createElement('button');button.type='button';button.className='component-callout';button.dataset.calloutId=id;button.setAttribute('aria-pressed',String(selected===id));button.setAttribute('aria-controls','inspector');button.style.gridColumn=i<3?'1':'2';button.style.gridRow=String(i%3+1);
+        const heading=document.createElement('span');heading.className='callout-top';
+        const badge=document.createElement('span');badge.className='callout-number';badge.textContent=String(number).padStart(2,'0');badge.setAttribute('aria-hidden','true');
+        const title=document.createElement('span');title.className='callout-name';title.textContent=copy[0];heading.append(badge,title);
+        const text=document.createElement('span');text.className='callout-copy';text.textContent=copy[1];
+        const status=document.createElement('span');status.className='callout-status';status.dataset.calloutStatus=id;
+        button.append(heading,text,status);button.addEventListener('click',()=>selectPart(id));cards.append(button);
+        const path=svg('path',{class:'bridge-callout-line','data-callout-line':id});
+        const pin=svg('g',{class:'callout-pin','data-callout-pin':id});pin.append(svg('circle',{r:11}),svg('text',{},String(number)));
+        lines.append(path,pin);
+      });
+      $('bridge-callout-tabs').querySelectorAll('button').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.calloutGroup===guideGroup)));
+    }
+    function syncGuideSelection(){
+      if(!guideOpen)return;
+      const group=Object.keys(guideGroups).find(key=>guideGroups[key].ids.includes(selected));
+      if(group&&group!==guideGroup){guideGroup=group;drawGuideCards();$('bridge-view').value=guideGroups[group].view;scene3d.setView(guideGroups[group].view);}
+      $('bridge-callouts').querySelectorAll('[data-callout-id]').forEach(card=>card.setAttribute('aria-pressed',String(card.dataset.calloutId===selected)));
+      drawGuideLinks();
+    }
+    function drawGuideLinks(){
+      if(!guideOpen||!scene3d||!scene3d.getAnnotationPoints)return;
+      const mount=$('bridge-scene'),rect=mount.getBoundingClientRect(),lines=$('bridge-callout-lines');
+      lines.setAttribute('viewBox','0 0 '+rect.width+' '+rect.height);lines.style.height=rect.height+'px';lines.style.width=rect.width+'px';
+      const points=scene3d.getAnnotationPoints(guideGroups[guideGroup].ids);
+      guideGroups[guideGroup].ids.forEach(id=>{
+        const card=$('bridge-callouts').querySelector('[data-callout-id="'+id+'"]'),pin=lines.querySelector('[data-callout-pin="'+id+'"]'),line=lines.querySelector('[data-callout-line="'+id+'"]'),point=points[id];
+        const show=!!(point&&point.visible);pin.style.display=show?'':'none';line.style.display=show?'':'none';pin.classList.toggle('is-selected',id===selected);line.classList.toggle('is-selected',id===selected);
+        const status=card.querySelector('.callout-status');status.textContent=id==='bypass'&&current.id!=='unguarded_leak'?(selected===id?'Fault path shown as a faint example.':'Fault example · select to reveal.'):(show?'':'Outside this angle · rotate to locate.');
+        if(!show)return;
+        pin.setAttribute('transform','translate('+point.x.toFixed(2)+' '+point.y.toFixed(2)+')');
+        const box=card.getBoundingClientRect(),left=card.style.gridColumn==='1',x=(left?box.right:box.left)-rect.left,y=box.top+box.height/2-rect.top;
+        const elbow=x+(left?18:-18);
+        line.setAttribute('d','M '+x.toFixed(2)+' '+y.toFixed(2)+' L '+elbow.toFixed(2)+' '+y.toFixed(2)+' L '+point.x.toFixed(2)+' '+point.y.toFixed(2));
+      });
+    }
+    function setGuideGroup(group){
+      if(!guideGroups[group]||!scene3d)return;guideGroup=group;drawGuideCards();const view=guideGroups[group].view;$('bridge-view').value=view;scene3d.setView(view);$('bridge-spin').checked=false;scene3d.setAutoRotate(false);selectPart(guideGroups[group].ids[0]);drawGuideLinks();
+    }
+    function setGuide(open,assembled=false){
+      if(!scene3d)return;
+      if(open===guideOpen)return;
+      if(open)guideBefore={exploded:$('bridge-exploded').checked,cutaway:$('bridge-cutaway').checked,view:$('bridge-view').value,spin:$('bridge-spin').checked};
+      guideOpen=open;$('experiment').classList.toggle('callout-mode',open);$('bridge-guide').setAttribute('aria-pressed',String(open));$('bridge-guide').textContent=open?'Close component guide':'Exploded component guide';$('bridge-callout-tabs').hidden=!open;$('bridge-callouts').hidden=!open;$('bridge-callout-lines').toggleAttribute('hidden',!open);
+      set('bridge-guide-hint',open?'Select a numbered box to highlight its part. Geometry is enlarged for explanation.':'Separate the assembly and see what each part does.');
+      if(open){$('bridge-exploded').checked=true;$('bridge-cutaway').checked=true;$('bridge-spin').checked=false;scene3d.setExploded(true);scene3d.setCutaway(true);scene3d.setAutoRotate(false);setGuideGroup('motor');}
+      else if(guideBefore){$('bridge-exploded').checked=assembled?false:guideBefore.exploded;$('bridge-cutaway').checked=guideBefore.cutaway;$('bridge-view').value=guideBefore.view;$('bridge-spin').checked=guideBefore.spin&&!reduceMotion;scene3d.setExploded($('bridge-exploded').checked);scene3d.setCutaway(guideBefore.cutaway);scene3d.setView(guideBefore.view);scene3d.setAutoRotate($('bridge-spin').checked);}
+      announce(open?'Exploded component guide. Choose Motor, Sensor, or Electronics.':'Component guide closed.');
+      requestAnimationFrame(drawGuideLinks);
+    }
     function partGroup(id,x,y,w,h,title,subtitle,fill='#172a3c'){
       const g=svg('g',{'data-part':id,transform:`translate(${x} ${y})`});
       g.append(svg('rect',{class:'part-shape',width:w,height:h,rx:7,fill}));
@@ -188,23 +275,25 @@
       if(reduceMotion){$('bridge-spin').checked=false;if(scene3d)scene3d.setAutoRotate(false);}
     }
     motionQuery.addEventListener('change',syncSceneMotion);
-    window.thermalBridge={getState:()=>({caseId:current.id,index,playing,selected,complete:atEnd(),sample:{...current.samples[index]}}),caseIds:DATA.cases.map(c=>c.id),get scene(){return scene3d;}};
+    window.thermalBridge={getState:()=>({caseId:current.id,index,playing,selected,complete:atEnd(),sample:{...current.samples[index]}}),caseIds:DATA.cases.map(c=>c.id),getGuideState:()=>({open:guideOpen,group:guideGroup}),get scene(){return scene3d;}};
     try{
-      scene3d=window.createThermalBridgeScene($('bridge-scene'),{onSelect:id=>selectPart(id),reducedMotion:reduceMotion});
+      scene3d=window.createThermalBridgeScene($('bridge-scene'),{onSelect:id=>selectPart(id),onRender:()=>drawGuideLinks(),reducedMotion:reduceMotion});
       $('bridge-scene-loading').hidden=true;
-      $('bridge-exploded').addEventListener('change',e=>{scene3d.setExploded(e.target.checked);announce(e.target.checked?'Exploded assembly view.':'Assembled view.');});
+      $('bridge-guide').addEventListener('click',()=>setGuide(!guideOpen));
+      $('bridge-callout-tabs').addEventListener('click',e=>{const button=e.target.closest('[data-callout-group]');if(button)setGuideGroup(button.dataset.calloutGroup);});
+      $('bridge-exploded').addEventListener('change',e=>{if(guideOpen&&!e.target.checked){setGuide(false,true);return;}scene3d.setExploded(e.target.checked);announce(e.target.checked?'Exploded assembly view.':'Assembled view.');});
       $('bridge-cutaway').addEventListener('change',e=>{scene3d.setCutaway(e.target.checked);announce(e.target.checked?'Cutaway housing.':'Closed housing.');});
       syncSceneMotion();
       $('bridge-spin').addEventListener('change',e=>scene3d.setAutoRotate(e.target.checked));
-      $('bridge-view').addEventListener('change',e=>{scene3d.setView(e.target.value);$('bridge-spin').checked=false;announce(e.target.selectedOptions[0].textContent);});
+      $('bridge-view').addEventListener('change',e=>{if(guideOpen){setGuideGroup(e.target.value==='assembly'?'motor':e.target.value);return;}scene3d.setView(e.target.value);$('bridge-spin').checked=false;announce(e.target.selectedOptions[0].textContent);});
       $('bridge-scene').addEventListener('pointerdown',()=>{$('bridge-spin').checked=false;});
-      $('bridge-reset-view').addEventListener('click',()=>{scene3d.resetView();$('bridge-view').value='assembly';$('bridge-spin').checked=false;scene3d.setAutoRotate(false);announce('Camera reset to complete assembly.');});
+      $('bridge-reset-view').addEventListener('click',()=>{if(guideOpen){setGuideGroup(guideGroup);return;}scene3d.resetView();$('bridge-view').value='assembly';$('bridge-spin').checked=false;scene3d.setAutoRotate(false);announce('Camera reset to complete assembly.');});
     }catch(error){
       document.body.classList.add('assembly-failed');$('bridge-scene-loading').textContent='The 3D view is unavailable here. Use the component picker and thermal-path schematic below.';$('schematic-details').open=true;
     }
     $('schematic-details').addEventListener('toggle',()=>{if($('schematic-details').open)drawHardware();});
 
-    chooseCase(current.id);frame=requestAnimationFrame(loop);window.addEventListener('pagehide',event=>{if(event.persisted)return;cancelAnimationFrame(frame);observer.disconnect();motionQuery.removeEventListener('change',syncSceneMotion);if(scene3d)scene3d.dispose();});
+    chooseCase(current.id);if(new URLSearchParams(location.search).get('guide')==='1')setGuide(true);frame=requestAnimationFrame(loop);window.addEventListener('pagehide',event=>{if(event.persisted)return;cancelAnimationFrame(frame);observer.disconnect();motionQuery.removeEventListener('change',syncSceneMotion);if(scene3d)scene3d.dispose();});
   })();
   </script>
 </body>

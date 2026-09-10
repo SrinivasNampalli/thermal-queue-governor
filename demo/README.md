@@ -82,3 +82,10 @@ npm run record:bridge
 Recording requires Playwright/Chromium and FFmpeg. The script accepts `PLAYWRIGHT_MODULE_PATH`, `CHROMIUM_EXECUTABLE`, and `FFMPEG_PATH` for existing runtimes. It records real offline browser interactions and writes new `media/bridge-*` files. Its receipt includes source and output hashes. The original TQG walkthrough remains available separately.
 
 The offline root HTML links to the hosted walkthrough for video playback. In a local clone, `demo/bridge-watch.html` also uses the recorded media under `demo/media/` and links back to the root prototype. Browsers may require an HTTP server to load native caption tracks from local files.
+
+
+## Exploded component guide
+
+Open the **Exploded component guide** above the model, or use [the direct guide link](https://srinivasnampalli.github.io/thermal-queue-governor/thermal-bridge.html?guide=1#experiment). Motor, Sensor and Electronics each have six concise callouts covering all 18 selectable parts. Numbered leader lines follow the component positions as the camera or exploded geometry moves. The lines are explanatory projected anchors, not a depth or visibility measurement. Select a box using the mouse, Enter or Space to highlight its component and read the full inspector description.
+
+Desktop callouts flank the model; smaller screens place the descriptions below it and retain matching numbered pins. Closing the guide restores the previous view controls. The unintended bypass is clearly marked as a fault example and appears as a faint illustration when selected outside its dedicated experiment. The test:callouts npm script exercises this interface. The earlier walkthrough remains a recording of commit 35248bca71428c7ae0585bdcc044276c42bd9b5e; its source hashes refer to that captured revision.

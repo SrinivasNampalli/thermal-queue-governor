@@ -259,6 +259,34 @@
     wire('bypass', [[-0.67, 1.24, 0.86], [-0.34, 1.11, 1.10], [-0.22, 0.51, 1.00], [-0.79, 0.22, 0.70]], 0.036, 'red', bypass, { transparent: true, opacity: 0.92 });
     bypass.visible = false;
 
+    // Stable annotation anchors sit on recognizable parts, in that component's
+    // local coordinates. They follow exploded offsets without searching meshes or
+    // raycasting every rendered frame. In particular the driver points to its PCB
+    // heat sink, rather than the center of a larger assembly bounding box.
+    var annotationAnchors = new Map();
+    function annotationAnchor(id, point, object) {
+      annotationAnchors.set(id, { object: object || components.get(id), point: new THREE.Vector3().fromArray(point) });
+    }
+    var windingAngle = Math.PI / 6 + 0.20;
+    annotationAnchor('winding', [0, Math.cos(windingAngle) * 0.791, Math.sin(windingAngle) * 0.791]);
+    annotationAnchor('bond', [0, 0.05, 0.20]);
+    annotationAnchor('pad', [0, 0.063, 0]);
+    annotationAnchor('guard', [0, 0.07, 0.36]);
+    annotationAnchor('shunt', [0, 0.0185, 0], shuntArm);
+    annotationAnchor('case', [-0.9, Math.sin(5.8) * 1.05, Math.cos(5.8) * 1.05]);
+    annotationAnchor('reference', [0, 0.031, 0]);
+    annotationAnchor('adc', [0, 0.185, 0]);
+    annotationAnchor('estimator', [0, 0.185, 0]);
+    annotationAnchor('rotor', [0, Math.cos(0.90) * 0.48, Math.sin(0.90) * 0.48]);
+    annotationAnchor('shaft', [1.9, 0.169, 0]);
+    annotationAnchor('stator', [0.7, Math.sin(5.8) * 0.958, Math.cos(5.8) * 0.958]);
+    annotationAnchor('guard_driver', [-0.18, 0.355, 0]);
+    annotationAnchor('guard_sensor', [0, 0.033, 0]);
+    annotationAnchor('leads', [-0.108, 0.26, 1.55]);
+    annotationAnchor('connector', [0, 0.253, 0]);
+    annotationAnchor('power', [0.14, 0.418, 0]);
+    annotationAnchor('bypass', [-0.34, 1.11, 1.10]);
+
     var floor = mesh(null, new THREE.PlaneGeometry(200, 200), 'dark', scene, { color: 0x0b1720, roughness: 0.97, metalness: 0.03 });
     floor.rotation.x = -Math.PI / 2; floor.position.y = -1.38; floor.castShadow = false;
     var grid = new THREE.GridHelper(16, 40, 0x274451, 0x1b2b36); grid.position.y = -1.373;
@@ -389,8 +417,30 @@
         var chosen = components.get(selected); outline.visible = !!chosen && chosen.visible;
         if (outline.visible) outline.setFromObject(chosen);
         renderer.render(scene, camera); dirty = false;
+        // Annotation DOM can update here and remain entirely idle between draws.
+        if (typeof options.onRender === 'function') options.onRender();
       }
       previousFlow = flowing; raf = requestAnimationFrame(render);
+    }
+    function getAnnotationPoints(ids) {
+      var points = {}, requested = ids || componentIds;
+      if (disposed) return points;
+      camera.updateMatrixWorld(true);
+      requested.forEach(function (id) {
+        var anchor = annotationAnchors.get(id);
+        if (!anchor) { points[id] = { x: 0, y: 0, visible: false }; return; }
+        anchor.object.updateWorldMatrix(true, false);
+        var ndc = anchor.point.clone().applyMatrix4(anchor.object.matrixWorld).project(camera);
+        var finite = Number.isFinite(ndc.x) && Number.isFinite(ndc.y) && Number.isFinite(ndc.z);
+        points[id] = {
+          x: finite ? (ndc.x + 1) * size.width / 2 : 0,
+          y: finite ? (1 - ndc.y) * size.height / 2 : 0,
+          // Visibility means enabled and in the camera frustum. Callouts may
+          // explain partly occluded components; this is not an occlusion test.
+          visible: finite && isVisible(anchor.object) && ndc.z >= -1 && ndc.z <= 1 && Math.abs(ndc.x) <= 1 && Math.abs(ndc.y) <= 1
+        };
+      });
+      return points;
     }
     function getComponentScreenPoint(id) {
       var g = components.get(id); if (!g || !isVisible(g)) return null;
@@ -422,7 +472,7 @@
       setAutoRotate: function (value) { autoRotate = !!value && !reduced; },
       setReducedMotion: function (value) { reduced = !!value; if (reduced) autoRotate = false; },
       resetView: function () { setView('assembly'); }, setView: setView,
-      getComponentScreenPoint: getComponentScreenPoint,
+      getComponentScreenPoint: getComponentScreenPoint, getAnnotationPoints: getAnnotationPoints,
       getState: function () { return { selected: selected, exploded: exploded, cutaway: cutaway, autoRotate: autoRotate, ready: !disposed, componentIds: componentIds.slice(), caseId: caseId, replayCaseId: caseId, renderedSample: sample ? Object.assign({}, sample) : null, camera: { position: camera.position.toArray(), target: target.toArray(), distance: distance, yaw: yaw, pitch: pitch }, reducedMotion: reduced, thermalSource: 'supplied synthetic plant temperatures' }; },
       dispose: function () {
         if (disposed) return; disposed = true; cancelAnimationFrame(raf);

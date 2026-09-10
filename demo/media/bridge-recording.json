@@ -178,5 +178,7 @@
   ],
   "consoleErrors": [],
   "externalRequests": [],
-  "encodedVideoDecodePassed": true
+  "encodedVideoDecodePassed": true,
+  "sourceCommit": "35248bca71428c7ae0585bdcc044276c42bd9b5e",
+  "sourceRevisionNote": "This recording captures the first 3D edition before the exploded callout guide. sourceHashes identify files in sourceCommit; the live page may evolve."
 }

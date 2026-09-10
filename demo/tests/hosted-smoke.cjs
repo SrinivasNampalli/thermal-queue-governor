@@ -115,12 +115,19 @@ async function localServer(){
     await page.waitForFunction(()=>document.querySelector('video').currentTime>47.2);
     const duration=await page.locator('video').evaluate(video=>{video.pause();return video.duration;});
     assert.ok(duration>51&&duration<53,'The recorded walkthrough is about 52 seconds');
-    const bridgeResponse=await page.goto(new URL('thermal-bridge.html',baseUrl).href);
+    const bridgeResponse=await page.goto(new URL('thermal-bridge.html?guide=1#experiment',baseUrl).href);
     assert.equal(bridgeResponse.status(),200);
     await page.waitForFunction(()=>window.thermalBridge?.scene?.getState().ready);
     assert.equal(await page.locator('#part-select option').count(),18);
+    assert.equal(await page.evaluate(()=>window.thermalBridge.getGuideState().open),true,'The public deep link opens the exploded guide');
+    assert.equal(await page.locator('[data-callout-id]').count(),6);
     await page.locator('#part-select').selectOption('guard');
     assert.equal(await page.evaluate(()=>window.thermalBridge.scene.getState().selected),'guard');
+    assert.equal(await page.evaluate(()=>window.thermalBridge.getGuideState().group),'sensor');
+    await page.locator('[data-callout-id="pad"]').click();
+    assert.equal(await page.locator('#part-select').inputValue(),'pad');
+    await page.locator('#bridge-guide').click();
+    assert.equal(await page.evaluate(()=>window.thermalBridge.getGuideState().open),false);
     const bridgeWatch=await page.goto(new URL('bridge-watch.html',baseUrl).href);
     assert.equal(bridgeWatch.status(),200);
     await page.waitForFunction(()=>document.querySelector('track[kind="captions"]').readyState===2);
@@ -151,7 +158,7 @@ async function localServer(){
     const result={passed:true,target:process.env.HOSTED_BASE_URL?baseUrl.href:'local docs/ HTTP server',htmlBytes,
       assets,simulationControls:true,stackedAt768:true,liveRegions:3,
       watch:{defaultCaptions:true,captionCues:captions.cues.length,captionPositionVerified:true,playbackVerified:true,durationSeconds:duration},
-      bridge:{components:18,defaultCaptions:true,captionCues:bridgeCaptions.cues.length,playbackVerified:true,durationSeconds:bridgeDuration},
+      bridge:{components:18,explodedCallouts:true,defaultCaptions:true,captionCues:bridgeCaptions.cues.length,playbackVerified:true,durationSeconds:bridgeDuration},
       externalRequests:offsite,consoleErrors:errors,failedRequests:failures};
     if(process.env.HOSTED_TEST_REPORT)fs.writeFileSync(process.env.HOSTED_TEST_REPORT,JSON.stringify(result,null,2)+'\n');
     console.log(JSON.stringify(result));await context.close();

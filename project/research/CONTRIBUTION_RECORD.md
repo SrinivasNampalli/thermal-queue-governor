@@ -120,3 +120,6 @@ Following the user request for a materially different invention, this AI-assiste
 ## 3D visualization follow-up - September 10, 2026
 
 At the user's request, AI-assisted work added a procedural three-dimensional guarded bridge assembly, explanatory component descriptions, camera and cutaway controls, browser checks and a recorded demonstration. This work presents the existing concept and computed traces; it does not add a physical device, new experimental motor data or a new attribution of claim conception. The named document authors remain Srinivas Nampalli and Saathvik Gampa.
+
+
+September 10, 2026: At the owner's request, AI-assisted presentation work added an exploded component guide with 18 concise descriptions, projected numbered callouts, keyboard interaction and responsive layouts. This extends the explanatory website and adds browser checks; it changes no mechanism equations, synthetic case results, human conception attribution or hardware-validation status.

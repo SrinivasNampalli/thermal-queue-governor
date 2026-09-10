@@ -11,7 +11,8 @@
     "test:hosted": "node tests/hosted-smoke.cjs",
     "record": "node tools/record-demo.cjs",
     "test:bridge3d": "node tools/test-bridge-3d.cjs",
-    "record:bridge": "node tools/record-bridge-demo.cjs"
+    "record:bridge": "node tools/record-bridge-demo.cjs",
+    "test:callouts": "node tools/test-bridge-callouts.cjs"
   },
   "devDependencies": {
     "playwright": "1.62.1"

@@ -39,6 +39,8 @@ jobs:
         run: node tools/test-thermal-bridge.cjs
       - name: Guarded thermal bridge 3D component and camera acceptance
         run: node tools/test-bridge-3d.cjs
+      - name: Exploded component guide and responsive callouts
+        run: npm run test:callouts
       - name: Verify hosted Pages assets and video captions over HTTP
         run: npm run test:hosted
       - run: python ../project/tools/analyze_primary_evidence.py --check
